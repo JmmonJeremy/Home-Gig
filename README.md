@@ -1,4 +1,20 @@
-# HomeFarm
+# HomeGig
+Home Gig is a small business management application for managing:
+
+- Products
+- Inventory
+- Customers
+- Orders
+- Payments
+- Spreadsheet Exports
+
+Technology Stack
+
+- Angular
+- Node.js
+- Express
+- MongoDB
+- Go
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
 
