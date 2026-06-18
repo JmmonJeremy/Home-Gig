@@ -1,7 +1,9 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, HTTP_INTERCEPTORS, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { App } from './app';
 import { Login } from './views/login/login';
@@ -31,12 +33,18 @@ import { routes } from './app-routes';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     RouterModule.forRoot(routes),
     FormsModule   
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })

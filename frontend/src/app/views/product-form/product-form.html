@@ -1,1 +1,46 @@
-<p>product-form works!</p>
+<h1>{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h1>
+
+@if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+}
+
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Product Name</label>
+    <input id="name" name="name" [(ngModel)]="product.name" required />
+  </div>
+
+  <div>
+    <label for="description">Description</label>
+    <input id="description" name="description" [(ngModel)]="product.description" />
+  </div>
+
+  <div>
+    <label for="price">Price</label>
+    <input id="price" name="price" type="number" [(ngModel)]="product.price" required />
+  </div>
+
+  <div>
+    <label for="inventoryQuantity">Inventory Quantity</label>
+    <input
+      id="inventoryQuantity"
+      name="inventoryQuantity"
+      type="number"
+      [(ngModel)]="product.inventoryQuantity"
+      required
+    />
+  </div>
+
+  <div>
+    <label for="inventoryStatus">Inventory Status</label>
+    <select id="inventoryStatus" name="inventoryStatus" [(ngModel)]="product.inventoryStatus">
+      <option>In Stock</option>
+      <option>Low Stock</option>
+      <option>Critical Level</option>
+      <option>Out of Stock</option>
+    </select>
+  </div>
+
+  <button type="submit">{{ isEditMode ? 'Update Product' : 'Create Product' }}</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
