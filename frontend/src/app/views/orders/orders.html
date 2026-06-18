@@ -1,1 +1,48 @@
-<p>orders works!</p>
+<h1>Orders</h1>
+
+<button routerLink="/orders/new">Add Order</button>
+
+@if (isLoading) {
+  <p>Loading orders...</p>
+}
+
+@if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+}
+
+@if (!isLoading && orders.length === 0) {
+  <p>No orders found.</p>
+}
+
+@if (orders.length > 0) {
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Order Date</th>
+        <th>Total</th>
+        <th>Payment Status</th>
+        <th>Source</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (order of orders; track order._id) {
+        <tr>
+          <td>{{ order.customerId?.name }}</td>
+          <td>{{ order.orderDate }}</td>
+          <td>{{ order.orderTotal }}</td>
+          <td>{{ order.paymentStatus }}</td>
+          <td>{{ order.orderSource }}</td>
+          <td>{{ order.notes }}</td>
+          <td>
+            <button [routerLink]="['/orders', order._id, 'edit']">Edit</button>
+            <button (click)="deleteOrder(order._id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

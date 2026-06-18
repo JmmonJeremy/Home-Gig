@@ -8,6 +8,7 @@ import { ProductForm } from './views/product-form/product-form';
 import { Customers } from './views/customers/customers';
 import { CustomerForm } from './views/customer-form/customer-form';
 import { Orders } from './views/orders/orders';
+import { OrderForm } from './views/order-form/order-form';
 import { Reports } from './views/reports/reports';
 
 export const routes: Routes = [
@@ -22,6 +23,8 @@ export const routes: Routes = [
   { path: 'customers/new', component: CustomerForm, canActivate: [AuthGuard] },
   { path: 'customers/:id/edit', component: CustomerForm, canActivate: [AuthGuard] },
   { path: 'orders', component: Orders, canActivate: [AuthGuard] },
+  { path: 'orders/new', component: OrderForm, canActivate: [AuthGuard] },
+  { path: 'orders/:id/edit', component: OrderForm, canActivate: [AuthGuard] },
   { path: 'reports', component: Reports, canActivate: [AuthGuard] },
 
   { path: '**', redirectTo: 'login' }
