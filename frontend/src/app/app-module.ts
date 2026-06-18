@@ -1,5 +1,7 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { App } from './app';
 import { Login } from './views/login/login';
@@ -29,10 +31,12 @@ import { routes } from './app-routes';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule   
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient()
   ],
   bootstrap: [App]
 })
