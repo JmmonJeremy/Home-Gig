@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-customer-form',
@@ -6,6 +8,62 @@ import { Component } from '@angular/core';
   templateUrl: './customer-form.html',
   styleUrl: './customer-form.css',
 })
-export class CustomerForm {
+export class CustomerForm implements OnInit {
+  customerId: string | null = null;
+  isEditMode = false;
+  errorMessage = '';
 
+  customer = {
+    name: '',
+    phone: '',
+    email: '',
+    notes: ''
+  };
+
+  constructor(
+    private customerService: CustomerService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.customerId = this.route.snapshot.paramMap.get('id');
+    this.isEditMode = !!this.customerId;
+
+    if (this.isEditMode && this.customerId) {
+      this.customerService.getCustomerById(this.customerId).subscribe({
+        next: (customer) => {
+          this.customer = {
+            name: customer.name,
+            phone: customer.phone,
+            email: customer.email,
+            notes: customer.notes
+          };
+        },
+        error: () => {
+          this.errorMessage = 'Failed to load customer.';
+        }
+      });
+    }
+  }
+
+  onSubmit(): void {
+    this.errorMessage = '';
+
+    if (this.isEditMode && this.customerId) {
+      this.customerService.updateCustomer(this.customerId, this.customer).subscribe({
+        next: () => this.router.navigate(['/customers']),
+        error: () => this.errorMessage = 'Failed to update customer.'
+      });
+    } else {
+      this.customerService.createCustomer(this.customer).subscribe({
+        next: () => this.router.navigate(['/customers']),
+        error: () => this.errorMessage = 'Failed to create customer.'
+      });
+    }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/customers']);
+  }
 }

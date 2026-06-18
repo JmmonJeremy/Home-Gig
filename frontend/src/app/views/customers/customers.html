@@ -1,1 +1,44 @@
-<p>customers works!</p>
+<h1>Customers</h1>
+
+<button routerLink="/customers/new">Add Customer</button>
+
+@if (isLoading) {
+  <p>Loading customers...</p>
+}
+
+@if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+}
+
+@if (!isLoading && customers.length === 0) {
+  <p>No customers found.</p>
+}
+
+@if (customers.length > 0) {
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (customer of customers; track customer._id) {
+        <tr>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.notes }}</td>
+          <td>
+            <button [routerLink]="['/customers', customer._id, 'edit']">Edit</button>
+            <button (click)="deleteCustomer(customer._id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
