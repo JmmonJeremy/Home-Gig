@@ -10,7 +10,10 @@ const getOrders = async (req, res) => {
 
     res.json(orders);
   } catch (error) {
-    res.status(500).json({ message: "Failed to get orders", error: error.message });
+    res.status(500).json({
+      message: "Failed to get orders",
+      error: error.message
+    });
   }
 };
 
@@ -27,39 +30,69 @@ const getOrderById = async (req, res) => {
 
     res.json(order);
   } catch (error) {
-    res.status(500).json({ message: "Failed to get order", error: error.message });
+    res.status(500).json({
+      message: "Failed to get order",
+      error: error.message
+    });
   }
 };
 
 const createOrder = async (req, res) => {
   try {
+    const paymentStatus = req.body.paymentStatus || "Unpaid";
+
     const order = await Order.create({
       ownerId: req.user._id,
+      orderNumber: req.body.orderNumber,
       customerId: req.body.customerId,
       orderDate: req.body.orderDate,
       items: req.body.items,
       orderTotal: req.body.orderTotal,
-      paymentStatus: req.body.paymentStatus,
-      orderSource: req.body.orderSource,
-      notes: req.body.notes
+      paymentStatus,
+      paymentDate: paymentStatus === "Paid" ? new Date() : null
     });
 
-    res.status(201).json(order);
+    const populatedOrder = await Order.findById(order._id).populate(
+      "customerId",
+      "name email phone"
+    );
+
+    res.status(201).json(populatedOrder);
   } catch (error) {
-    res.status(400).json({ message: "Failed to create order", error: error.message });
+    res.status(400).json({
+      message: "Failed to create order",
+      error: error.message
+    });
   }
 };
 
 const updateOrder = async (req, res) => {
   try {
+    const updateData = {
+      orderNumber: req.body.orderNumber,
+      customerId: req.body.customerId,
+      orderDate: req.body.orderDate,
+      items: req.body.items,
+      orderTotal: req.body.orderTotal,
+      paymentStatus: req.body.paymentStatus
+    };
+
+    if (req.body.paymentStatus === "Paid") {
+      updateData.paymentDate = req.body.paymentDate || new Date();
+    }
+
+    if (req.body.paymentStatus === "Unpaid") {
+      updateData.paymentDate = null;
+    }
+
     const order = await Order.findOneAndUpdate(
       {
         _id: req.params.id,
         ownerId: req.user._id
       },
-      req.body,
+      updateData,
       { new: true, runValidators: true }
-    );
+    ).populate("customerId", "name email phone");
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
@@ -67,7 +100,10 @@ const updateOrder = async (req, res) => {
 
     res.json(order);
   } catch (error) {
-    res.status(400).json({ message: "Failed to update order", error: error.message });
+    res.status(400).json({
+      message: "Failed to update order",
+      error: error.message
+    });
   }
 };
 
@@ -84,7 +120,10 @@ const deleteOrder = async (req, res) => {
 
     res.json({ message: "Order deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to delete order", error: error.message });
+    res.status(500).json({
+      message: "Failed to delete order",
+      error: error.message
+    });
   }
 };
 

@@ -1,60 +1,65 @@
 <h1>{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h1>
 
 @if (errorMessage) {
-  <p>{{ errorMessage }}</p>
+  <p class="text-danger">{{ errorMessage }}</p>
 }
 
 <form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Product Name</label>
-    <input id="name" name="name" [(ngModel)]="product.name" required />
+  <div class="card">
+    <div class="card-body">
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Product Name</label>
+        <input
+          id="name"
+          name="name"
+          class="form-control"
+          [(ngModel)]="product.name"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="inventoryQuantity" class="form-label">Inventory</label>
+        <input
+          id="inventoryQuantity"
+          name="inventoryQuantity"
+          type="number"
+          class="form-control"
+          [(ngModel)]="product.inventoryQuantity"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input
+          id="price"
+          name="price"
+          type="number"
+          step="0.01"
+          class="form-control"
+          [(ngModel)]="product.price"
+          required
+        />
+      </div>
+
+    </div>
   </div>
 
-  <div>
-    <label for="description">Description</label>
-    <input id="description" name="description" [(ngModel)]="product.description" />
-  </div>
-
-  <div>
-    <label for="inventoryQuantity">Inventory</label>
-    <input
-      id="inventoryQuantity"
-      name="inventoryQuantity"
-      type="number"
-      [(ngModel)]="product.inventoryQuantity"
-      required
-    />
-  </div>
-
-  <div>
-    <label for="price">Price</label>
-    <input
-      id="price"
-      name="price"
-      type="number"
-      step="0.01"
-      [(ngModel)]="product.price"
-      required
-    />
-  </div>
-
-  <div>
-    <label for="inventoryStatus">Inventory Status</label>
-    <select id="inventoryStatus" name="inventoryStatus" [(ngModel)]="product.inventoryStatus">
-      <option>In Stock</option>
-      <option>Low Stock</option>
-      <option>Critical Level</option>
-      <option>Out of Stock</option>
-    </select>
-  </div>
-
-  <button type="submit">Save Product</button>
-
-  @if (isEditMode && productId) {
-    <button type="button" (click)="deleteProduct()">
-      Delete Product
+  <div class="mt-4 d-grid gap-2">
+    <button type="submit" class="btn hg-save">
+      Save Product
     </button>
-  }
 
-  <button type="button" (click)="cancel()">Cancel</button>
+    @if (isEditMode && productId) {
+      <button type="button" class="btn hg-delete" (click)="deleteProduct()">
+        Delete Product
+      </button>
+    }
+
+    <button type="button" class="btn hg-cancel" (click)="cancel()">
+      Cancel
+    </button>
+  </div>
 </form>

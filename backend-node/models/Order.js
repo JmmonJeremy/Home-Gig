@@ -38,15 +38,24 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true
     },
+
+    orderNumber: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
     customerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: true
     },
+
     orderDate: {
       type: Date,
       default: Date.now
     },
+
     items: {
       type: [orderItemSchema],
       required: true,
@@ -57,24 +66,22 @@ const orderSchema = new mongoose.Schema(
         message: "An order must contain at least one item."
       }
     },
+
     orderTotal: {
       type: Number,
       required: true,
       min: 0
     },
+
     paymentStatus: {
       type: String,
       enum: ["Unpaid", "Paid"],
       default: "Unpaid"
     },
-    orderSource: {
-      type: String,
-      enum: ["Phone", "Text", "In Person", "Online", "Other"],
-      default: "Other"
-    },
-    notes: {
-      type: String,
-      trim: true
+
+    paymentDate: {
+      type: Date,
+      default: null
     }
   },
   { timestamps: true }

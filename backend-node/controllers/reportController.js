@@ -1,5 +1,4 @@
 const Order = require("../models/Order");
-const Payment = require("../models/Payment");
 
 const escapeCsvValue = (value) => {
   if (value === null || value === undefined) {
@@ -19,6 +18,12 @@ const escapeCsvValue = (value) => {
   return stringValue;
 };
 
+const getOrderSummary = (items = []) => {
+  return items
+    .map((item) => `${item.productName} x${item.quantity}`)
+    .join(", ");
+};
+
 const generateOrdersPaymentsCsv = async (req, res) => {
   try {
     const generatedAt = new Date().toISOString();
@@ -30,13 +35,6 @@ const generateOrdersPaymentsCsv = async (req, res) => {
       .populate("customerId", "name email phone")
       .sort({ orderDate: -1 });
 
-    const payments = await Payment.find({
-      ownerId: req.user._id
-    })
-      .populate("customerId", "name email phone")
-      .populate("orderId", "orderDate orderTotal paymentStatus")
-      .sort({ paymentDate: -1 });
-
     const rows = [];
 
     rows.push(["Home Gig Orders and Payments Export"]);
@@ -44,56 +42,27 @@ const generateOrdersPaymentsCsv = async (req, res) => {
     rows.push(["Generated At", generatedAt]);
     rows.push([]);
 
-    rows.push(["ORDERS"]);
     rows.push([
-      "Order ID",
+      "Order #",
       "Customer",
       "Customer Email",
       "Order Date",
-      "Order Total",
+      "Order Summary",
+      "Total",
       "Payment Status",
-      "Order Source",
-      "Notes"
+      "Payment Date"
     ]);
 
     orders.forEach((order) => {
       rows.push([
-        order._id,
+        order.orderNumber,
         order.customerId?.name || "",
         order.customerId?.email || "",
         order.orderDate ? order.orderDate.toISOString() : "",
+        getOrderSummary(order.items),
         order.orderTotal,
         order.paymentStatus,
-        order.orderSource,
-        order.notes || ""
-      ]);
-    });
-
-    rows.push([]);
-    rows.push(["PAYMENTS"]);
-    rows.push([
-      "Payment ID",
-      "Order ID",
-      "Customer",
-      "Customer Email",
-      "Payment Date",
-      "Amount Paid",
-      "Payment Method",
-      "Payment Status",
-      "Notes"
-    ]);
-
-    payments.forEach((payment) => {
-      rows.push([
-        payment._id,
-        payment.orderId?._id || payment.orderId || "",
-        payment.customerId?.name || "",
-        payment.customerId?.email || "",
-        payment.paymentDate ? payment.paymentDate.toISOString() : "",
-        payment.amountPaid,
-        payment.paymentMethod,
-        payment.paymentStatus,
-        payment.notes || ""
+        order.paymentDate ? order.paymentDate.toISOString() : ""
       ]);
     });
 

@@ -19,7 +19,6 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app-routes';
 import { Header } from './components/header/header';
 import { Sidebar } from './components/sidebar/sidebar';
-import { Payments } from './views/payments/payments';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import { Payments } from './views/payments/payments';
     Reports,
     Header,
     Sidebar,
-    Payments
   ],
   imports: [
     BrowserModule,

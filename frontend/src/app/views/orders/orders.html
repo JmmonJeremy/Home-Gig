@@ -1,48 +1,216 @@
-<h1>Orders</h1>
+<div class="order-page">
+  <h1 class="page-title">Order & Payment Management</h1>
 
-<button routerLink="/orders/new">Add Order</button>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button
+      type="button"
+      class="btn hg-add-order d-none d-md-inline-block"
+      (click)="addOrderInline()"
+    >
+      Add Order
+    </button>
 
-@if (isLoading) {
-  <p>Loading orders...</p>
-}
+    <button
+      type="button"
+      class="btn hg-add-order d-inline-block d-md-none"
+      routerLink="/orders/new"
+    >
+      Add Order
+    </button>
 
-@if (errorMessage) {
-  <p>{{ errorMessage }}</p>
-}
+    <button type="button" class="btn hg-export">
+      Export Spreadsheet
+    </button>
+  </div>
 
-@if (!isLoading && orders.length === 0) {
-  <p>No orders found.</p>
-}
+  @if (isLoading) {
+    <p>Loading orders...</p>
+  }
 
-@if (orders.length > 0) {
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Customer</th>
-        <th>Order Date</th>
-        <th>Total</th>
-        <th>Payment Status</th>
-        <th>Source</th>
-        <th>Notes</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+  @if (errorMessage) {
+    <p class="text-danger">{{ errorMessage }}</p>
+  }
 
-    <tbody>
-      @for (order of orders; track order._id) {
-        <tr>
-          <td>{{ order.customerId?.name }}</td>
-          <td>{{ order.orderDate }}</td>
-          <td>{{ order.orderTotal }}</td>
-          <td>{{ order.paymentStatus }}</td>
-          <td>{{ order.orderSource }}</td>
-          <td>{{ order.notes }}</td>
-          <td>
-            <button [routerLink]="['/orders', order._id, 'edit']">Edit</button>
-            <button (click)="deleteOrder(order._id)">Delete</button>
-          </td>
-        </tr>
+  <div class="card mb-4">
+    <div class="card-body p-0">
+      @if (!isLoading && orders.length === 0) {
+        <p class="p-3">No orders found.</p>
       }
-    </tbody>
-  </table>
-}
+
+      @if (orders.length > 0) {
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Customer</th>
+              <th>Order Date</th>
+              <th>Order Summary</th>
+              <th>Total</th>
+              <th>Payment Status</th>
+              <th>Payment Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (order of orders; track order._id) {
+              <tr>
+                <td>{{ order.orderNumber }}</td>
+                <td>{{ order.customerId?.name }}</td>
+                <td>{{ order.orderDate | date:'shortDate' }}</td>
+                <td>{{ getOrderSummary(order) }}</td>
+                <td>{{ order.orderTotal | currency }}</td>
+                <td>
+                  <span
+                    class="fw-bold"
+                    [class.text-success]="order.paymentStatus === 'Paid'"
+                    [class.text-danger]="order.paymentStatus === 'Unpaid'"
+                  >
+                    {{ order.paymentStatus | uppercase }}
+                  </span>
+                </td>
+                <td>
+                  @if (order.paymentDate) {
+                    {{ order.paymentDate | date:'shortDate' }}
+                  } @else {
+                    —
+                  }
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-link p-0 d-none d-md-inline-block"
+                    (click)="selectOrder(order)"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-link p-0 d-inline-block d-md-none"
+                    [routerLink]="['/orders', order._id, 'edit']"
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </div>
+
+  @if (selectedOrder) {
+    <h2 class="details-title">Order Details</h2>
+
+    <div class="card order-details-card d-none d-md-block">
+      <div class="card-body">
+        <form (ngSubmit)="saveOrder()">
+          <div class="mb-3">
+            <label class="form-label">Order #:</label>
+            <input
+              class="form-control"
+              name="orderNumber"
+              [(ngModel)]="selectedOrder.orderNumber"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Customer ID:</label>
+            <input
+              class="form-control"
+              name="customerId"
+              [(ngModel)]="selectedOrder.customerId"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Order Date:</label>
+            <input
+              class="form-control"
+              type="date"
+              name="orderDate"
+              [(ngModel)]="selectedOrder.orderDateInput"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Order Items:</label>
+
+            <table class="table table-bordered mb-2">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Line Total</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (item of selectedOrder.items; track $index) {
+                  <tr>
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.unitPrice | currency }}</td>
+                    <td>{{ item.lineTotal | currency }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Total:</label>
+            <input
+              class="form-control"
+              type="number"
+              name="orderTotal"
+              [(ngModel)]="selectedOrder.orderTotal"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Payment Status:</label>
+            <select
+              class="form-select"
+              name="paymentStatus"
+              [(ngModel)]="selectedOrder.paymentStatus"
+            >
+              <option>Unpaid</option>
+              <option>Paid</option>
+            </select>
+          </div>
+
+          <div class="mt-4">
+            <button type="submit" class="btn hg-save me-2">
+              Save Order
+            </button>
+
+            @if (selectedOrder._id) {
+              <button
+                type="button"
+                class="btn hg-delete me-2"
+                (click)="deleteOrder(selectedOrder._id)"
+              >
+                Delete Order
+              </button>
+            }
+
+            <button
+              type="button"
+              class="btn hg-cancel"
+              (click)="clearSelectedOrder()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

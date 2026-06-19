@@ -7,6 +7,24 @@ button {
   margin-bottom: 0.5rem;
 }
 
+/* Use only for the main Add button */
+.hg-product-add {
+  background-color: #f4c542;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #161616;
+  text-shadow:
+    -1px -1px 0 #161616,
+     1px -1px 0 #161616,
+    -1px  1px 0 #161616,
+     1px  1px 0 #161616;
+}
+
+.hg-product-add:hover {
+  background-color: #f2bd2c;
+  color: white;
+}
+
 table {
   width: 100%;
   margin-top: 1rem;
@@ -32,6 +50,22 @@ td {
 
 .critical-stock {
   background-color: #f8d7da;
+}
+
+.product-page .table,
+.product-page .table th,
+.product-page .table td {
+  border: none;
+}
+
+.product-page .card {  
+  border-radius: 12px;  
+  padding: 1rem;
+}
+
+.product-page .table th,
+.product-page .table td {
+  padding: 1rem;
 }
 
 @media (max-width: 767.98px) {

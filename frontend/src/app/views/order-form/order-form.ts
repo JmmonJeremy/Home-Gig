@@ -27,15 +27,14 @@ export class OrderForm implements OnInit {
   customers: any[] = [];
   products: any[] = [];
   paymentStatuses = ['Unpaid', 'Paid'];
-  orderSources = ['Phone', 'Text', 'In Person', 'Online', 'Other'];
+  paymentDateDisplay: string | null = null;
 
   order = {
+    orderNumber: '',
     customerId: '',
     orderDate: '',
     items: [] as OrderItemForm[],
-    paymentStatus: 'Unpaid',
-    orderSource: 'Other',
-    notes: ''
+    paymentStatus: 'Unpaid'
   };
 
   constructor(
@@ -81,6 +80,7 @@ export class OrderForm implements OnInit {
     this.orderService.getOrderById(id).subscribe({
       next: (order) => {
         this.order = {
+          orderNumber: order.orderNumber,
           customerId: this.getEntityId(order.customerId),
           orderDate: this.toDateInputValue(order.orderDate),
           items: order.items.map((item: any) => ({
@@ -90,10 +90,10 @@ export class OrderForm implements OnInit {
             unitPrice: item.unitPrice,
             lineTotal: item.lineTotal
           })),
-          paymentStatus: order.paymentStatus,
-          orderSource: order.orderSource,
-          notes: order.notes || ''
+          paymentStatus: order.paymentStatus
         };
+
+        this.paymentDateDisplay = order.paymentDate || null;
         this.isLoading = false;
       },
       error: () => {
@@ -144,6 +144,11 @@ export class OrderForm implements OnInit {
   onSubmit(): void {
     this.errorMessage = '';
 
+    if (!this.order.orderNumber.trim()) {
+      this.errorMessage = 'Please enter an order number.';
+      return;
+    }
+
     if (!this.order.customerId) {
       this.errorMessage = 'Please select a customer.';
       return;
@@ -155,13 +160,12 @@ export class OrderForm implements OnInit {
     }
 
     const orderPayload = {
+      orderNumber: this.order.orderNumber,
       customerId: this.order.customerId,
       orderDate: this.order.orderDate,
       items: this.order.items,
       orderTotal: this.orderTotal,
-      paymentStatus: this.order.paymentStatus,
-      orderSource: this.order.orderSource,
-      notes: this.order.notes
+      paymentStatus: this.order.paymentStatus
     };
 
     this.isSubmitting = true;
@@ -183,6 +187,21 @@ export class OrderForm implements OnInit {
         }
       });
     }
+  }
+
+  deleteOrder(): void {
+    if (!this.orderId) {
+      return;
+    }
+
+    if (!confirm('Are you sure you want to delete this order?')) {
+      return;
+    }
+
+    this.orderService.deleteOrder(this.orderId).subscribe({
+      next: () => this.router.navigate(['/orders']),
+      error: () => this.errorMessage = 'Failed to delete order.'
+    });
   }
 
   cancel(): void {

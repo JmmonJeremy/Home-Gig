@@ -15,10 +15,8 @@ export class ProductForm implements OnInit {
 
   product = {
     name: '',
-    description: '',
-    price: 0,
     inventoryQuantity: 0,
-    inventoryStatus: 'In Stock'
+    price: 0
   };
 
   constructor(
@@ -36,13 +34,13 @@ export class ProductForm implements OnInit {
         next: (product) => {
           this.product = {
             name: product.name,
-            description: product.description,
-            price: product.price,
             inventoryQuantity: product.inventoryQuantity,
-            inventoryStatus: product.inventoryStatus
+            price: product.price
           };
         },
-        error: () => this.errorMessage = 'Failed to load product.'
+        error: () => {
+          this.errorMessage = 'Failed to load product.';
+        }
       });
     }
   }
@@ -50,13 +48,21 @@ export class ProductForm implements OnInit {
   onSubmit(): void {
     this.errorMessage = '';
 
+    const productPayload = {
+      name: this.product.name,
+      description: '',
+      inventoryQuantity: this.product.inventoryQuantity,
+      price: this.product.price,
+      inventoryStatus: this.getInventoryStatus(this.product.inventoryQuantity)
+    };
+
     if (this.isEditMode && this.productId) {
-      this.productService.updateProduct(this.productId, this.product).subscribe({
+      this.productService.updateProduct(this.productId, productPayload).subscribe({
         next: () => this.router.navigate(['/products']),
         error: () => this.errorMessage = 'Failed to update product.'
       });
     } else {
-      this.productService.createProduct(this.product).subscribe({
+      this.productService.createProduct(productPayload).subscribe({
         next: () => this.router.navigate(['/products']),
         error: () => this.errorMessage = 'Failed to create product.'
       });
@@ -80,5 +86,21 @@ export class ProductForm implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/products']);
+  }
+
+  private getInventoryStatus(quantity: number): string {
+    if (quantity <= 0) {
+      return 'Out of Stock';
+    }
+
+    if (quantity <= 3) {
+      return 'Critical Level';
+    }
+
+    if (quantity <= 10) {
+      return 'Low Stock';
+    }
+
+    return 'In Stock';
   }
 }

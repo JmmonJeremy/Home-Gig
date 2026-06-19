@@ -6,7 +6,6 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 
 dotenv.config();
@@ -18,7 +17,6 @@ require("./models/User");
 require("./models/Product");
 require("./models/Customer");
 require("./models/Order");
-require("./models/Payment");
 
 const app = express();
 
@@ -28,7 +26,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/payments", paymentRoutes);
 app.use("/api/reports", reportRoutes);
 
 app.get("/", (req, res) => {
