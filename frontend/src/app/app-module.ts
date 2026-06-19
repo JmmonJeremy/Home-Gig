@@ -17,6 +17,9 @@ import { OrderForm } from './views/order-form/order-form';
 import { Reports } from './views/reports/reports';
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routes';
+import { Header } from './components/header/header';
+import { Sidebar } from './components/sidebar/sidebar';
+import { Payments } from './views/payments/payments';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { routes } from './app-routes';
     CustomerForm,
     Orders,
     OrderForm,
-    Reports
+    Reports,
+    Header,
+    Sidebar,
+    Payments
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { ProductService } from '../../services/product.service';
 })
 export class Products implements OnInit {
   products: any[] = [];
+  selectedProduct: any = null;
   errorMessage = '';
   isLoading = false;
 
@@ -34,15 +35,57 @@ export class Products implements OnInit {
     });
   }
 
+  addProductInline(): void {
+    this.selectedProduct = {
+      name: '',
+      description: '',
+      price: 0,
+      inventoryQuantity: 0,
+      inventoryStatus: 'In Stock'
+    };
+  }
+
+  selectProduct(product: any): void {
+    this.selectedProduct = { ...product };
+  }
+
+  clearSelectedProduct(): void {
+    this.selectedProduct = null;
+  }
+
+  saveProduct(): void {
+    this.errorMessage = '';
+
+    if (this.selectedProduct._id) {
+      this.productService.updateProduct(this.selectedProduct._id, this.selectedProduct).subscribe({
+        next: () => {
+          this.clearSelectedProduct();
+          this.loadProducts();
+        },
+        error: () => this.errorMessage = 'Failed to update product.'
+      });
+    } else {
+      this.productService.createProduct(this.selectedProduct).subscribe({
+        next: () => {
+          this.clearSelectedProduct();
+          this.loadProducts();
+        },
+        error: () => this.errorMessage = 'Failed to create product.'
+      });
+    }
+  }
+
   deleteProduct(id: string): void {
     if (!confirm('Are you sure you want to delete this product?')) {
       return;
     }
 
     this.productService.deleteProduct(id).subscribe({
-      next: () => this.loadProducts(),
+      next: () => {
+        this.clearSelectedProduct();
+        this.loadProducts();
+      },
       error: () => this.errorMessage = 'Failed to delete product.'
     });
   }
-  
 }

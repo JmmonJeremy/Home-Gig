@@ -10,6 +10,7 @@ import { CustomerForm } from './views/customer-form/customer-form';
 import { Orders } from './views/orders/orders';
 import { OrderForm } from './views/order-form/order-form';
 import { Reports } from './views/reports/reports';
+import { Payments } from './views/payments/payments';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'orders', component: Orders, canActivate: [AuthGuard] },
   { path: 'orders/new', component: OrderForm, canActivate: [AuthGuard] },
   { path: 'orders/:id/edit', component: OrderForm, canActivate: [AuthGuard] },
+  { path: 'payments', component: Payments, canActivate: [AuthGuard] },
   { path: 'reports', component: Reports, canActivate: [AuthGuard] },
 
   { path: '**', redirectTo: 'login' }

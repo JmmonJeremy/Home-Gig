@@ -16,17 +16,24 @@
   </div>
 
   <div>
-    <label for="price">Price</label>
-    <input id="price" name="price" type="number" [(ngModel)]="product.price" required />
-  </div>
-
-  <div>
-    <label for="inventoryQuantity">Inventory Quantity</label>
+    <label for="inventoryQuantity">Inventory</label>
     <input
       id="inventoryQuantity"
       name="inventoryQuantity"
       type="number"
       [(ngModel)]="product.inventoryQuantity"
+      required
+    />
+  </div>
+
+  <div>
+    <label for="price">Price</label>
+    <input
+      id="price"
+      name="price"
+      type="number"
+      step="0.01"
+      [(ngModel)]="product.price"
       required
     />
   </div>
@@ -41,6 +48,13 @@
     </select>
   </div>
 
-  <button type="submit">{{ isEditMode ? 'Update Product' : 'Create Product' }}</button>
+  <button type="submit">Save Product</button>
+
+  @if (isEditMode && productId) {
+    <button type="button" (click)="deleteProduct()">
+      Delete Product
+    </button>
+  }
+
   <button type="button" (click)="cancel()">Cancel</button>
 </form>

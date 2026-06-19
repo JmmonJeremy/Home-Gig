@@ -42,9 +42,7 @@ export class ProductForm implements OnInit {
             inventoryStatus: product.inventoryStatus
           };
         },
-        error: () => {
-          this.errorMessage = 'Failed to load product.';
-        }
+        error: () => this.errorMessage = 'Failed to load product.'
       });
     }
   }
@@ -63,6 +61,21 @@ export class ProductForm implements OnInit {
         error: () => this.errorMessage = 'Failed to create product.'
       });
     }
+  }
+
+  deleteProduct(): void {
+    if (!this.productId) {
+      return;
+    }
+
+    if (!confirm('Are you sure you want to delete this product?')) {
+      return;
+    }
+
+    this.productService.deleteProduct(this.productId).subscribe({
+      next: () => this.router.navigate(['/products']),
+      error: () => this.errorMessage = 'Failed to delete product.'
+    });
   }
 
   cancel(): void {

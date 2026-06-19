@@ -1,9 +1,23 @@
-<header>
-  Home Gig
-</header>
+@if (!isLoginPage()) {
 
-<router-outlet></router-outlet>
+  <div class="app-layout">
 
-<footer>
-  Copyright 2026
-</footer>
+    <app-sidebar></app-sidebar>
+
+    <main class="main-content">
+
+      <app-header></app-header>
+
+      <section class="page-content">
+        <router-outlet></router-outlet>
+      </section>
+
+    </main>
+
+  </div>
+
+} @else {
+
+  <router-outlet></router-outlet>
+
+}
