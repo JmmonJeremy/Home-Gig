@@ -31,3 +31,40 @@
 .order-page .table td {
   padding: 1rem;
 }
+
+.item-action-link {
+  text-decoration: none !important;
+}
+
+.item-action-text {
+  text-decoration: underline;
+}
+
+.item-symbol {
+  text-decoration: none !important;
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.order-page .card .order-items-card {
+  padding: 0 0 2rem 0;  
+}
+
+.order-page .order-items-card .table tr {
+  border-bottom: .1rem solid #dee2e6;
+}
+
+.order-items-card th {
+  background-color: #f8f9fa;
+  font-weight: normal; 
+}
+
+.right-corner {
+  border-radius: 0 12px 0 0;
+}
+
+.left-corner {
+  border-radius: 12px 0 0 0;
+}

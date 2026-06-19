@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-orders',
@@ -9,14 +10,19 @@ import { OrderService } from '../../services/order.service';
 })
 export class Orders implements OnInit {
   orders: any[] = [];
+  products: any[] = [];
   selectedOrder: any = null;
   errorMessage = '';
   isLoading = false;
 
-  constructor(private orderService: OrderService) {}
+  constructor(
+    private orderService: OrderService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.loadOrders();
+    this.loadProducts();
   }
 
   loadOrders(): void {
@@ -31,6 +37,17 @@ export class Orders implements OnInit {
       error: () => {
         this.errorMessage = 'Failed to load orders.';
         this.isLoading = false;
+      }
+    });
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products = products;
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load products.';
       }
     });
   }
@@ -50,7 +67,16 @@ export class Orders implements OnInit {
       orderNumber: '',
       customerId: '',
       orderDateInput: new Date().toISOString().split('T')[0],
-      items: [],
+      items: [
+        {
+          productId: '',
+          productName: '',
+          quantity: 1,
+          unitPrice: 0,
+          lineTotal: 0,
+          selected: false
+        }
+      ],
       orderTotal: 0,
       paymentStatus: 'Unpaid'
     };
@@ -62,7 +88,11 @@ export class Orders implements OnInit {
       customerId: order.customerId?._id || order.customerId,
       orderDateInput: order.orderDate
         ? new Date(order.orderDate).toISOString().split('T')[0]
-        : ''
+        : '',
+      items: order.items.map((item: any) => ({
+        ...item,
+        selected: false
+      }))
     };
   }
 
@@ -70,15 +100,96 @@ export class Orders implements OnInit {
     this.selectedOrder = null;
   }
 
+  addItemToSelectedOrder(): void {
+    this.selectedOrder.items.push({
+      productId: '',
+      productName: '',
+      quantity: 1,
+      unitPrice: 0,
+      lineTotal: 0,
+      selected: false
+    });
+  }
+
+  removeSelectedItemsFromSelectedOrder(): void {
+    const remainingItems = this.selectedOrder.items.filter((item: any) => !item.selected);
+
+    if (remainingItems.length === 0) {
+      this.errorMessage = 'An order must contain at least one item.';
+      return;
+    }
+
+    this.selectedOrder.items = remainingItems;
+    this.errorMessage = '';
+  }
+
+  onSelectedOrderProductChange(index: number): void {
+    const item = this.selectedOrder.items[index];
+    const product = this.products.find((product) => product._id === item.productId);
+
+    if (!product) {
+      item.productName = '';
+      item.unitPrice = 0;
+      item.lineTotal = 0;
+      this.updateSelectedOrderTotal();
+      return;
+    }
+
+    item.productName = product.name;
+    item.unitPrice = product.price;
+    item.lineTotal = item.quantity * item.unitPrice;
+    this.updateSelectedOrderTotal();
+  }
+
+  onSelectedOrderQuantityChange(item: any): void {
+    item.lineTotal = item.quantity * item.unitPrice;
+    this.updateSelectedOrderTotal();
+  }
+
+  updateSelectedOrderTotal(): void {
+    this.selectedOrder.orderTotal = this.selectedOrder.items.reduce(
+      (total: number, item: any) => total + item.lineTotal,
+      0
+    );
+  }
+
   saveOrder(): void {
     this.errorMessage = '';
+
+    if (!this.selectedOrder.orderNumber.trim()) {
+      this.errorMessage = 'Please enter an order number.';
+      return;
+    }
+
+    if (!this.selectedOrder.customerId) {
+      this.errorMessage = 'Please enter a customer ID.';
+      return;
+    }
+
+    if (
+      !this.selectedOrder.items ||
+      this.selectedOrder.items.length === 0 ||
+      this.selectedOrder.items.some((item: any) => !item.productId || item.quantity < 1)
+    ) {
+      this.errorMessage = 'Please select a product and quantity for each item.';
+      return;
+    }
 
     const orderToSave = {
       orderNumber: this.selectedOrder.orderNumber,
       customerId: this.selectedOrder.customerId,
       orderDate: this.selectedOrder.orderDateInput,
-      items: this.selectedOrder.items,
-      orderTotal: this.selectedOrder.orderTotal,
+      items: this.selectedOrder.items.map((item: any) => ({
+        productId: item.productId,
+        productName: item.productName,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        lineTotal: item.quantity * item.unitPrice
+      })),
+      orderTotal: this.selectedOrder.items.reduce(
+        (total: number, item: any) => total + item.quantity * item.unitPrice,
+        0
+      ),
       paymentStatus: this.selectedOrder.paymentStatus
     };
 

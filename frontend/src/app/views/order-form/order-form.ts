@@ -189,6 +189,14 @@ export class OrderForm implements OnInit {
     }
   }
 
+  removeLastItem(): void {
+    if (this.order.items.length === 1) {
+      return;
+    }
+
+    this.order.items.pop();
+  }
+
   deleteOrder(): void {
     if (!this.orderId) {
       return;

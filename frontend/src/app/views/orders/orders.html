@@ -140,27 +140,80 @@
           <div class="mb-3">
             <label class="form-label">Order Items:</label>
 
-            <table class="table table-bordered mb-2">
+            <div class="card order-items-card">
+            <table class="table mb-2">
               <thead>
                 <tr>
+                  <th class="left-corner">Selected</th>
                   <th>Product</th>
-                  <th>Quantity</th>
                   <th>Unit Price</th>
-                  <th>Line Total</th>
+                  <th class="right-corner">Quantity</th>
                 </tr>
               </thead>
 
               <tbody>
-                @for (item of selectedOrder.items; track $index) {
+                @for (item of selectedOrder.items; track $index; let itemIndex = $index) {
                   <tr>
-                    <td>{{ item.productName }}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="item.selected"
+                        [name]="'selected-' + itemIndex"
+                      />
+                    </td>
+
+                    <td>
+                      <select
+                        class="form-select"
+                        [(ngModel)]="item.productId"
+                        [name]="'productId-' + itemIndex"
+                        (change)="onSelectedOrderProductChange(itemIndex)"
+                        required
+                      >
+                        <option value="">Select a product</option>
+                        @for (product of products; track product._id) {
+                          <option [value]="product._id">
+                            {{ product.name }}
+                          </option>
+                        }
+                      </select>
+                    </td>
+
                     <td>{{ item.unitPrice | currency }}</td>
-                    <td>{{ item.lineTotal | currency }}</td>
+
+                    <td>
+                      <input
+                        class="form-control"
+                        type="number"
+                        min="1"
+                        [(ngModel)]="item.quantity"
+                        [name]="'quantity-' + itemIndex"
+                        (ngModelChange)="onSelectedOrderQuantityChange(item)"
+                        required
+                      />
+                    </td>
                   </tr>
                 }
               </tbody>
             </table>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <button type="button" class="btn btn-link p-0 item-action-link" (click)="addItemToSelectedOrder()">
+                <span class="item-symbol">+</span>
+                <span class="item-action-text">Add Item</span>
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-link text-danger p-0 item-action-link"
+                (click)="removeSelectedItemsFromSelectedOrder()"
+                [disabled]="selectedOrder.items.length === 1"
+              >
+                <span class="item-symbol">−</span>
+                <span class="item-action-text">Remove Item</span>
+              </button>
+            </div>
           </div>
 
           <div class="mb-3">

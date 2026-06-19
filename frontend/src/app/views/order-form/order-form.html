@@ -104,9 +104,22 @@
         </div>
       }
 
-      <button type="button" class="btn btn-link p-0 mb-3" (click)="addItem()">
-        + Add Item
-      </button>
+      <div class="d-flex justify-content-between mb-3">
+        <button type="button" class="btn btn-link p-0" (click)="addItem()">
+          <span class="fs-4 fw-bold text-dark">+</span>
+          Add Item
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-link text-danger p-0"
+          (click)="removeLastItem()"
+          [disabled]="order.items.length === 1"
+        >
+          <span class="fs-4 fw-bold text-dark">−</span>
+          Remove Item
+        </button>
+      </div>
 
       <div class="mb-3">
         <label for="paymentStatus" class="form-label">Payment Status</label>
