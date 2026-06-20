@@ -1,0 +1,106 @@
+.customer-page .page-title,
+.details-title {
+  color: #1f2937;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.customer-page .page-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.details-title {
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem;
+}
+
+.customer-page .card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.customer-page .table,
+.customer-page .table th,
+.customer-page .table td {
+  border: none;
+}
+
+.customer-page .table th,
+.customer-page .table td {
+  padding: 0.85rem 1.5rem;
+  vertical-align: middle;
+}
+
+.customer-page .table th {
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.customer-page .table td {
+  color: #1f2937;
+}
+
+.customer-page .table tbody tr:last-child td {
+  padding-bottom: 1.25rem;
+}
+
+.notes-cell {
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.customer-details-card .form-label {
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.customer-details-card textarea {
+  resize: vertical;
+}
+
+.customer-mobile-list {
+  margin-top: 1.5rem;
+}
+
+.customer-mobile-item {
+  border-top: 1px solid #dee2e6;
+  padding: 1.35rem 0 1rem;
+}
+
+.customer-mobile-item:first-child {
+  border-top: none;
+}
+
+.customer-mobile-item h2 {
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.65rem;
+}
+
+.customer-mobile-item p {
+  color: #1f2937;
+  margin: 0 0 0.5rem;
+}
+
+.customer-mobile-item a {
+  display: inline-block;
+  margin-top: 0.25rem;
+  text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+  .customer-page .page-title {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .customer-page .btn {
+    font-size: 0.85rem;
+  }
+}

@@ -1,44 +1,176 @@
-<h1>Customers</h1>
+<div class="customer-page">
+  <h1 class="page-title">Customer Management</h1>
 
-<button routerLink="/customers/new">Add Customer</button>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button
+      type="button"
+      class="btn hg-add-customer d-none d-md-inline-block"
+      (click)="addCustomerInline()"
+    >
+      Add Customer
+    </button>
 
-@if (isLoading) {
-  <p>Loading customers...</p>
-}
+    <button
+      type="button"
+      class="btn hg-add-customer d-inline-block d-md-none"
+      routerLink="/customers/new"
+    >
+      Add Customer
+    </button>
 
-@if (errorMessage) {
-  <p>{{ errorMessage }}</p>
-}
+    <button type="button" class="btn hg-export d-none d-md-inline-block">
+      Export Spreadsheet
+    </button>
+  </div>
 
-@if (!isLoading && customers.length === 0) {
-  <p>No customers found.</p>
-}
+  @if (isLoading) {
+    <p>Loading customers...</p>
+  }
 
-@if (customers.length > 0) {
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Notes</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+  @if (errorMessage) {
+    <p class="text-danger">{{ errorMessage }}</p>
+  }
 
-    <tbody>
-      @for (customer of customers; track customer._id) {
-        <tr>
-          <td>{{ customer.name }}</td>
-          <td>{{ customer.phone }}</td>
-          <td>{{ customer.email }}</td>
-          <td>{{ customer.notes }}</td>
-          <td>
-            <button [routerLink]="['/customers', customer._id, 'edit']">Edit</button>
-            <button (click)="deleteCustomer(customer._id)">Delete</button>
-          </td>
-        </tr>
+  <div class="card customer-list-card mb-4 d-none d-md-block">
+    <div class="card-body p-0">
+      @if (!isLoading && customers.length === 0) {
+        <p class="p-3">No customers found.</p>
       }
-    </tbody>
-  </table>
-}
+
+      @if (customers.length > 0) {
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (customer of customers; track customer._id) {
+              <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.email }}</td>
+                <td class="notes-cell">
+                  @if (customer.notes) {
+                    {{ customer.notes }}
+                  } @else {
+                    &mdash;
+                  }
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-link p-0"
+                    (click)="selectCustomer(customer)"
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </div>
+
+  <div class="customer-mobile-list d-md-none">
+    @if (!isLoading && customers.length === 0) {
+      <p>No customers found.</p>
+    }
+
+    @if (customers.length > 0) {
+      @for (customer of customers; track customer._id) {
+        <article class="customer-mobile-item">
+          <h2>{{ customer.name }}</h2>
+          <p>Phone: {{ customer.phone }}</p>
+          <p>Email: {{ customer.email }}</p>
+
+          @if (customer.notes) {
+            <p>Notes: {{ customer.notes }}</p>
+          }
+
+          <a [routerLink]="['/customers', customer._id, 'edit']">Edit</a>
+        </article>
+      }
+    }
+  </div>
+
+  @if (selectedCustomer) {
+    <section class="d-none d-md-block">
+      <h2 class="details-title">Customer Details</h2>
+
+      <div class="card customer-details-card">
+        <div class="card-body">
+          <form (ngSubmit)="saveCustomer()">
+            <div class="mb-3">
+              <label for="customerName" class="form-label">Customer Name:</label>
+              <input
+                id="customerName"
+                name="customerName"
+                class="form-control"
+                [(ngModel)]="selectedCustomer.name"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="customerPhone" class="form-label">Phone Number:</label>
+              <input
+                id="customerPhone"
+                name="customerPhone"
+                class="form-control"
+                [(ngModel)]="selectedCustomer.phone"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="customerEmail" class="form-label">Email Address:</label>
+              <input
+                id="customerEmail"
+                name="customerEmail"
+                type="email"
+                class="form-control"
+                [(ngModel)]="selectedCustomer.email"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="customerNotes" class="form-label">Notes:</label>
+              <textarea
+                id="customerNotes"
+                name="customerNotes"
+                class="form-control"
+                rows="3"
+                [(ngModel)]="selectedCustomer.notes"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn hg-save me-2">
+              Save Customer
+            </button>
+
+            @if (selectedCustomer._id) {
+              <button
+                type="button"
+                class="btn hg-delete me-2"
+                (click)="deleteCustomer(selectedCustomer._id)"
+              >
+                Delete Customer
+              </button>
+            }
+
+            <button type="button" class="btn hg-cancel" (click)="clearSelectedCustomer()">
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  }
+</div>

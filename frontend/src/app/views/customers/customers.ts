@@ -9,6 +9,7 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class Customers implements OnInit {
   customers: any[] = [];
+  selectedCustomer: any = null;
   errorMessage = '';
   isLoading = false;
 
@@ -34,13 +35,60 @@ export class Customers implements OnInit {
     });
   }
 
+  addCustomerInline(): void {
+    this.selectedCustomer = {
+      name: '',
+      phone: '',
+      email: '',
+      notes: ''
+    };
+  }
+
+  selectCustomer(customer: any): void {
+    this.selectedCustomer = { ...customer };
+  }
+
+  clearSelectedCustomer(): void {
+    this.selectedCustomer = null;
+  }
+
+  saveCustomer(): void {
+    this.errorMessage = '';
+
+    if (!this.selectedCustomer.name.trim()) {
+      this.errorMessage = 'Please enter a customer name.';
+      return;
+    }
+
+    if (this.selectedCustomer._id) {
+      this.customerService.updateCustomer(this.selectedCustomer._id, this.selectedCustomer).subscribe({
+        next: () => {
+          this.clearSelectedCustomer();
+          this.loadCustomers();
+        },
+        error: () => this.errorMessage = 'Failed to update customer.'
+      });
+    } else {
+      this.customerService.createCustomer(this.selectedCustomer).subscribe({
+        next: () => {
+          this.clearSelectedCustomer();
+          this.loadCustomers();
+        },
+        error: () => this.errorMessage = 'Failed to create customer.'
+      });
+    }
+  }
+
   deleteCustomer(id: string): void {
     if (!confirm('Are you sure you want to delete this customer?')) {
       return;
     }
 
     this.customerService.deleteCustomer(id).subscribe({
-      next: () => this.loadCustomers(),
+      next: () => {
+        this.clearSelectedCustomer();
+        this.loadCustomers();
+      },
       error: () => this.errorMessage = 'Failed to delete customer.'
     });
   }
