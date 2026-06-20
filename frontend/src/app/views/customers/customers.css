@@ -1,23 +1,11 @@
-.customer-page .page-title,
-.details-title {
-  color: #1f2937;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
 .customer-page .page-title {
-  font-size: 1.5rem;
   margin-bottom: 1rem;
-}
-
-.details-title {
-  font-size: 1.25rem;
-  margin: 0 0 0.75rem;
 }
 
 .customer-page .card {
   border: 1px solid #e5e7eb;
-  border-radius: 0;
+  border-radius: 12px;  
+  padding: 1rem;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
