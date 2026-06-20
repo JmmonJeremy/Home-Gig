@@ -1,29 +1,79 @@
-<h1>Home Gig Login</h1>
+<div class="login-page d-flex align-items-center justify-content-center min-vh-100">
+  <div class="card shadow-sm login-card">
+    <div class="card-body p-4 p-md-5">
+      <div class="text-center mb-4">
+        <h1 class="h3 fw-bold mb-1 login-title">
+          HOME GIG
+          <i class="bi bi-house-fill login-home-icon" aria-hidden="true"></i>
+        </h1>
+        <p class="text-muted mb-0">Small Business Management</p>
+      </div>
 
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="email">Email Address</label>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      [(ngModel)]="email"
-      required
-    />
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="form-control"
+            [(ngModel)]="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="form-control"
+            [(ngModel)]="password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div class="form-check mb-3">
+          <input
+            id="rememberMe"
+            name="rememberMe"
+            type="checkbox"
+            class="form-check-input"
+            [(ngModel)]="rememberMe"
+          />
+          <label for="rememberMe" class="form-check-label">Remember Me</label>
+        </div>
+
+        @if (errorMessage) {
+          <p class="text-danger mb-3">{{ errorMessage }}</p>
+        }
+
+        @if (infoMessage) {
+          <p class="text-info mb-3">{{ infoMessage }}</p>
+        }
+
+        <button type="submit" class="btn btn-success w-100 mb-3">Login</button>
+
+        <div class="text-center mb-3">
+          <a href="#" class="login-link" (click)="onForgotPassword($event)">Forgot Password?</a>
+        </div>
+
+        <div class="d-md-none">
+          <hr class="login-divider" />
+          <p class="text-muted mb-3">Need an account?</p>
+          <button type="button" class="btn btn-light w-100 login-create-btn" (click)="onCreateAccount()">
+            Create Account
+          </button>
+        </div>
+
+        <p class="text-center mb-0 d-none d-md-block">
+          <span class="text-muted">Need an account?</span>
+          <a href="#" class="login-link ms-1" (click)="onCreateAccount($event)">Create Account</a>
+        </p>
+      </form>
+    </div>
   </div>
-
-  <div>
-    <label for="password">Password</label>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      [(ngModel)]="password"
-      required
-    />
-  </div>
-
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
-
-  <button type="submit">Login</button>
-</form>
+</div>

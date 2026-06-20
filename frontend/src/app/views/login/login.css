@@ -1,0 +1,47 @@
+.login-page {
+  background-color: #f5f6f8;
+  padding: 1rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  border: none;
+}
+
+.login-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.login-home-icon {
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.login-link {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.login-divider {
+  margin: 1.5rem 0;
+  color: #dee2e6;
+}
+
+.login-create-btn {
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+  color: #212529;
+}
+
+.login-create-btn:hover {
+  background-color: #dee2e6;
+  border-color: #ced4da;
+  color: #212529;
+}
