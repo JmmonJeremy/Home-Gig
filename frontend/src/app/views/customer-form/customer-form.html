@@ -1,30 +1,72 @@
-<h1>{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h1>
+<div class="customer-form-page">
+  <h1>{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h1>
 
-@if (errorMessage) {
-  <p>{{ errorMessage }}</p>
-}
+  @if (errorMessage) {
+    <p class="text-danger">{{ errorMessage }}</p>
+  }
 
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Customer Name</label>
-    <input id="name" name="name" [(ngModel)]="customer.name" required />
-  </div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="card customer-form-card">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="name" class="form-label">Customer Name</label>
+          <input
+            id="name"
+            name="name"
+            class="form-control"
+            [(ngModel)]="customer.name"
+            required
+          />
+        </div>
 
-  <div>
-    <label for="phone">Phone</label>
-    <input id="phone" name="phone" [(ngModel)]="customer.phone" />
-  </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input
+            id="phone"
+            name="phone"
+            class="form-control"
+            [(ngModel)]="customer.phone"
+          />
+        </div>
 
-  <div>
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" [(ngModel)]="customer.email" />
-  </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="form-control"
+            [(ngModel)]="customer.email"
+          />
+        </div>
 
-  <div>
-    <label for="notes">Notes</label>
-    <textarea id="notes" name="notes" [(ngModel)]="customer.notes"></textarea>
-  </div>
+        <div class="mb-0">
+          <label for="notes" class="form-label">Notes</label>
+          <textarea
+            id="notes"
+            name="notes"
+            class="form-control"
+            rows="4"
+            [(ngModel)]="customer.notes"
+          ></textarea>
+        </div>
+      </div>
+    </div>
 
-  <button type="submit">{{ isEditMode ? 'Update Customer' : 'Create Customer' }}</button>
-  <button type="button" (click)="cancel()">Cancel</button>
-</form>
+    <div class="mt-4 d-grid gap-2">
+      <button type="submit" class="btn hg-save">
+        {{ isEditMode ? 'Save Customer' : 'Create Customer' }}
+      </button>
+
+      @if (isEditMode && customerId) {
+        <button type="button" class="btn hg-delete" (click)="deleteCustomer()">
+          Delete Customer
+        </button>
+      }
+
+      <button type="button" class="btn hg-cancel" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

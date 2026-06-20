@@ -1,0 +1,50 @@
+.customer-form-page h1 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.customer-form-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+}
+
+.customer-form-card .card-body {
+  padding: 1.5rem;
+}
+
+.customer-form-card .form-label {
+  color: #1f2937;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.customer-form-card .form-control {
+  border-color: #ced4da;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.customer-form-card textarea.form-control {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.customer-form-page .btn {
+  min-height: 40px;
+}
+
+@media (max-width: 767.98px) {
+  .customer-form-page h1 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .customer-form-page .btn {
+    min-height: 48px;
+  }
+}

@@ -37,7 +37,7 @@ export class CustomerForm implements OnInit {
             name: customer.name,
             phone: customer.phone,
             email: customer.email,
-            notes: customer.notes
+            notes: customer.notes || ''
           };
         },
         error: () => {
@@ -50,6 +50,11 @@ export class CustomerForm implements OnInit {
   onSubmit(): void {
     this.errorMessage = '';
 
+    if (!this.customer.name.trim()) {
+      this.errorMessage = 'Please enter a customer name.';
+      return;
+    }
+
     if (this.isEditMode && this.customerId) {
       this.customerService.updateCustomer(this.customerId, this.customer).subscribe({
         next: () => this.router.navigate(['/customers']),
@@ -61,6 +66,21 @@ export class CustomerForm implements OnInit {
         error: () => this.errorMessage = 'Failed to create customer.'
       });
     }
+  }
+
+  deleteCustomer(): void {
+    if (!this.customerId) {
+      return;
+    }
+
+    if (!confirm('Are you sure you want to delete this customer?')) {
+      return;
+    }
+
+    this.customerService.deleteCustomer(this.customerId).subscribe({
+      next: () => this.router.navigate(['/customers']),
+      error: () => this.errorMessage = 'Failed to delete customer.'
+    });
   }
 
   cancel(): void {
