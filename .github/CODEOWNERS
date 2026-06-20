@@ -1,0 +1,5 @@
+# Jeremy must review changes before they are merged into master.
+* @JmmonJeremy
+
+# Only Jeremy can approve a change to this ownership policy.
+/.github/CODEOWNERS @JmmonJeremy
