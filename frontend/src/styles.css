@@ -19,3 +19,54 @@
   background-color: #6c757d !important;
   color: white !important;
 }
+/* Repeating colored buttons: with text outline */
+.hg-add-order {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 600;
+  border: none;  border: 1px solid #161616;
+  text-shadow:
+    -1px -1px 0 #161616,
+     1px -1px 0 #161616,
+    -1px  1px 0 #161616,
+     1px  1px 0 #161616;
+}
+
+.hg-add-order:hover {
+  background-color: #0b5ed7;
+  color: white;
+}
+
+.hg-add-customer {
+  background-color: #7d3c98;
+  color: white;
+  font-weight: 600;
+  border: none;  border: 1px solid #161616;
+  text-shadow:
+    -1px -1px 0 #161616,
+     1px -1px 0 #161616,
+    -1px  1px 0 #161616,
+     1px  1px 0 #161616;
+}
+
+.hg-add-customer:hover {
+  background-color: #6c3483;
+  color: white;
+}
+
+.hg-export-spreadsheet {
+  background-color: #6d4c41;
+  color: white;
+  font-weight: 600;
+  border: none;  border: 1px solid #161616;
+  text-shadow:
+    -1px -1px 0 #161616,
+     1px -1px 0 #161616,
+    -1px  1px 0 #161616,
+     1px  1px 0 #161616;
+}
+
+.hg-export-spreadsheet:hover {
+  background-color: #5d4037;
+  color: white;
+}

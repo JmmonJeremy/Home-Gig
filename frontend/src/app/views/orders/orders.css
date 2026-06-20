@@ -1,21 +1,3 @@
-.hg-add-order {
-  background-color: #0d6efd;
-  color: white;
-  font-weight: 600;
-  border: none;
-  border: 1px solid #161616;
-  text-shadow:
-    -1px -1px 0 #161616,
-     1px -1px 0 #161616,
-    -1px  1px 0 #161616,
-     1px  1px 0 #161616;
-}
-
-.hg-add-order:hover {
-  background-color: #0b5ed7;
-  color: white;
-}
-
 .order-page .table,
 .order-page .table th,
 .order-page .table td {

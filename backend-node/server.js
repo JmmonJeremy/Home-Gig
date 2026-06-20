@@ -7,6 +7,7 @@ const productRoutes = require("./routes/productRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const reportRoutes = require("./routes/reportRoutes");
+const systemRoutes = require("./routes/systemRoutes");
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reports", reportRoutes);
+app.use("/api/system", systemRoutes);
 
 app.get("/", (req, res) => {
   res.json({

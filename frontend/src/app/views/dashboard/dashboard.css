@@ -1,0 +1,41 @@
+.dashboard-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.card-header {
+  border-radius: 12px 12px 0 0;
+  padding: 1rem;
+}
+
+.rounded-corners,
+.card {
+  border-radius: 12px;
+}
+
+.table th,
+.table td {
+  border: none;
+  padding: 1rem;
+}
+
+@media (max-width: 767px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tr {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.5rem;
+  }
+
+  .table td {
+    border: none;
+    padding: 0.75rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

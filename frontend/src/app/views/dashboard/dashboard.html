@@ -1,1 +1,107 @@
-<p>dashboard works!</p>
+<div class="dashboard-page">
+  <div class="container-fluid py-4">
+
+    <h1 class="h3 fw-bold mb-4">DASHBOARD</h1>
+
+    @if (isLoading) {
+      <p>Loading dashboard...</p>
+    }
+
+    @if (errorMessage) {
+      <p class="text-danger">{{ errorMessage }}</p>
+    }
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3" *ngFor="let stat of stats">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <div class="text-muted">{{ stat.label }}</div>
+            <div class="fs-3 fw-bold">{{ stat.value }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-white">
+        <h2 class="h5 fw-bold mb-0">RECENT ORDERS</h2>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th class="text-muted fw-normal">Customer</th>
+                <th class="text-muted fw-normal">Total</th>
+                <th class="text-muted fw-normal">Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let order of recentOrders">
+                <td class="rounded-corners">{{ order.customer }}</td>
+                <td>{{ order.total | currency }}</td>
+                <td class="rounded-corners">
+                  <span
+                    class="badge rounded-pill"
+                    [ngClass]="order.status === 'Paid' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'"
+                  >
+                    {{ order.status }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-white">
+        <h2 class="h5 fw-bold mb-0">QUICK ACTIONS</h2>
+      </div>
+
+      <div class="card-body">
+        <div class="d-grid d-md-flex gap-3">
+          <button class="btn hg-add-order" (click)="goToAddOrder()">Add Order</button>
+          <button class="btn hg-add-customer" (click)="goToAddCustomer()">Add Customer</button>
+          <button class="btn hg-export-spreadsheet" (click)="goToReports()">Export Spreadsheet</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Services -->
+    <div class="card shadow-sm">
+      <button
+        class="card-header rounded-corners bg-white border-0 text-start w-100 d-flex align-items-center gap-2"
+        type="button"
+        (click)="toggleSystemServices()"
+      >
+        <i
+          class="bi fs-3"
+          [ngClass]="showSystemServices ? 'bi-caret-down-fill' : 'bi-caret-right-fill'">
+        </i>
+        <h2 class="h5 fw-bold mb-0">SYSTEM SERVICES</h2>
+      </button>
+
+      <div class="card-body border-top" *ngIf="showSystemServices">
+        <div class="row">
+          <div class="col-8 col-md-10">
+            <div>Go Service:</div>
+            <div>Spreadsheet Generator:</div>
+          </div>
+
+          <div class="col-4 col-md-2 text-end">
+            <div>{{ goServiceStatus }}</div>
+            <div>{{ spreadsheetGenerator }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
