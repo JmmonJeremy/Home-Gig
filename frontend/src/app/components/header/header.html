@@ -1,34 +1,29 @@
-<main class="main-content">
-  <header class="top-header">
-    <div class="search-box">
-      <i class="bi bi-search search-icon"></i>
-      <input type="text" placeholder="Search" />
-    </div>
+<header class="top-header">
+  <div class="search-box">
+    <i class="bi bi-search search-icon"></i>
+    <input type="text" placeholder="Search" />
+  </div>
 
-    <div class="profile-menu dropdown">
-      <button
-        class="profile-button dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <img
-          src="/assets/images/profile-icon.png"
-          alt="Profile"
-          class="profile-icon"
-        />
-        <span>Profile</span>
-      </button>
+  <div class="profile-menu dropdown">
+    <button
+      class="profile-button dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        src="/assets/images/profile-icon.png"
+        alt="Profile"
+        class="profile-icon"
+      />
+      <span>Profile</span>
+    </button>
 
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
-        <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
-        <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
-      </ul>
-    </div>
-  </header>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+      <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
+      <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
+    </ul>
+  </div>
+</header>
 
-  <section class="page-content">
-    <router-outlet></router-outlet>
-  </section>
-</main>

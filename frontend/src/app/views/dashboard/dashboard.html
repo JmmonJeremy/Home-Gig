@@ -13,7 +13,8 @@
 
     <!-- Summary Cards -->
     <div class="row g-3 mb-4">
-      <div class="col-6 col-lg-3" *ngFor="let stat of stats">
+    @for (stat of stats; track stat.label) {
+      <div class="col-6 col-lg-3">
         <div class="card shadow-sm h-100">
           <div class="card-body">
             <div class="text-muted">{{ stat.label }}</div>
@@ -21,6 +22,7 @@
           </div>
         </div>
       </div>
+    }
     </div>
 
     <!-- Recent Orders -->
@@ -41,7 +43,8 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let order of recentOrders">
+            @for (order of recentOrders; track order.customer) {
+              <tr>
                 <td class="rounded-corners">{{ order.customer }}</td>
                 <td>{{ order.total | currency }}</td>
                 <td class="rounded-corners">
@@ -53,6 +56,7 @@
                   </span>
                 </td>
               </tr>
+            }
             </tbody>
           </table>
         </div>
@@ -87,8 +91,8 @@
         </i>
         <h2 class="h5 fw-bold mb-0">SYSTEM SERVICES</h2>
       </button>
-
-      <div class="card-body border-top" *ngIf="showSystemServices">
+    @if (showSystemServices) {
+      <div class="card-body border-top">
         <div class="row">
           <div class="col-8 col-md-10">
             <div>Go Service:</div>
@@ -101,6 +105,7 @@
           </div>
         </div>
       </div>
+    }
     </div>
 
   </div>
