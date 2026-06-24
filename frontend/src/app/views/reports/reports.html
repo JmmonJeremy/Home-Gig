@@ -1,97 +1,110 @@
 <div class="reports-page">
-  <h1 class="page-title">Spreadsheet Export &amp; Reporting</h1>
+  <div class="container-fluid py-4">
+    <h1 class="h3 fw-bold mb-3 d-none d-md-block">SPREADSHEET EXPORT &amp; REPORTING</h1>
+    <h1 class="h3 fw-bold mb-3 d-md-none">Spreadsheet Export &amp; Reporting</h1>
 
-  <div class="mb-3">
-    <button
-      type="button"
-      class="btn hg-export-spreadsheet w-100 w-md-auto"
-      (click)="generateSpreadsheet()"
-      [disabled]="isGenerating"
-    >
-      {{ isGenerating ? 'Generating...' : 'Generate Spreadsheet' }}
-    </button>
-  </div>
+    <div class="reports-content">
+      <button
+        type="button"
+        class="btn hg-export-spreadsheet mb-4"
+        (click)="generateSpreadsheet()"
+        [disabled]="isGenerating"
+      >
+        {{ isGenerating ? 'Generating...' : 'Generate Spreadsheet' }}
+      </button>
 
-  @if (errorMessage) {
-    <p class="text-danger">{{ errorMessage }}</p>
-  }
+      @if (errorMessage) {
+        <p class="text-danger mb-3">{{ errorMessage }}</p>
+      }
 
-  <div class="card report-options-card mb-4">
-    <div class="card-body">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label for="reportType" class="form-label">Report Type:</label>
-          <select
-            id="reportType"
-            name="reportType"
-            class="form-select"
-            [(ngModel)]="reportType"
-          >
-            <option>Orders &amp; Payments</option>
-          </select>
-        </div>
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="reportType" class="form-label">Report Type:</label>
+            <select
+              id="reportType"
+              name="reportType"
+              class="form-select"
+              [(ngModel)]="reportType"
+            >
+              <option>Orders &amp; Payments</option>
+            </select>
+          </div>
 
-        <div class="col-md-6">
-          <label for="format" class="form-label">Spreadsheet Format:</label>
-          <select
-            id="format"
-            name="format"
-            class="form-select"
-            [(ngModel)]="format"
-          >
-            <option>CSV</option>
-          </select>
-        </div>
+          <div class="mb-3">
+            <label for="format" class="form-label">Spreadsheet Format:</label>
+            <select
+              id="format"
+              name="format"
+              class="form-select"
+              [(ngModel)]="format"
+            >
+              <option>CSV</option>
+            </select>
+          </div>
 
-        <div class="col-md-6">
-          <label for="startDate" class="form-label">Start Date:</label>
-          <input
-            id="startDate"
-            name="startDate"
-            type="date"
-            class="form-control"
-            [(ngModel)]="startDate"
-          />
-        </div>
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date:</label>
+            <input
+              id="startDate"
+              name="startDate"
+              type="date"
+              class="form-control"
+              [(ngModel)]="startDate"
+            />
+          </div>
 
-        <div class="col-md-6">
-          <label for="endDate" class="form-label">End Date:</label>
-          <input
-            id="endDate"
-            name="endDate"
-            type="date"
-            class="form-control"
-            [(ngModel)]="endDate"
-          />
+          <div class="mb-0">
+            <label for="endDate" class="form-label">End Date:</label>
+            <input
+              id="endDate"
+              name="endDate"
+              type="date"
+              class="form-control"
+              [(ngModel)]="endDate"
+            />
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <h2 class="details-title">Generated Spreadsheet</h2>
+      <h2 class="h5 fw-bold mb-3">GENERATED SPREADSHEET</h2>
 
-  <div class="card generated-report-card">
-    <div class="card-body">
-      <p class="form-label mb-2">Results:</p>
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <p class="mb-2">Results:</p>
+
+          @if (spreadsheetReady) {
+            <div class="report-result-box d-none d-md-block">
+              <div class="report-result-status">Spreadsheet Ready</div>
+              <div class="report-result-filename">{{ generatedFileName }}</div>
+            </div>
+
+            <div class="report-result-mobile d-md-none">
+              <hr class="report-divider" />
+              <p class="report-result-mobile-status mb-0">Spreadsheet Ready</p>
+              <hr class="report-divider" />
+              <p class="report-result-mobile-filename mb-0">{{ generatedFileName }}</p>
+              <hr class="report-divider" />
+            </div>
+          } @else {
+            <div class="report-result-box report-result-empty">
+              <div class="report-result-status">Awaiting Generation</div>
+              <div class="report-result-filename text-muted">
+                Generate a spreadsheet to see results here.
+              </div>
+            </div>
+          }
+        </div>
+      </div>
 
       @if (spreadsheetReady) {
-        <div class="report-status mb-3">Spreadsheet Ready</div>
-        <input
-          class="form-control mb-3"
-          [value]="generatedFileName"
-          readonly
-        />
         <button
           type="button"
-          class="btn hg-save w-100"
+          class="btn hg-save reports-download-btn"
           (click)="downloadSpreadsheet()"
         >
           Download Spreadsheet
         </button>
-      } @else {
-        <div class="report-status report-status-empty">
-          Generate a spreadsheet to see results here.
-        </div>
       }
     </div>
   </div>

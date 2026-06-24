@@ -1,33 +1,75 @@
-.reports-page .page-title {
-  margin-bottom: 1rem;
+.reports-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.reports-content {
+  max-width: 520px;
 }
 
 .reports-page .card {
-  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
-.reports-page .details-title {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+.reports-page .form-label {
+  margin-bottom: 0.35rem;
+  color: #212529;
 }
 
-.report-status {
-  background-color: #f8f9fa;
+.reports-page .form-control,
+.reports-page .form-select {
+  border-color: #ced4da;
+  border-radius: 0.375rem;
+}
+
+.report-result-box {
   border: 1px solid #dee2e6;
   border-radius: 0.375rem;
-  padding: 0.75rem 1rem;
-  color: #1f2937;
+  overflow: hidden;
 }
 
-.report-status-empty {
-  color: #6b7280;
+.report-result-status {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.75rem 1rem;
+  color: #212529;
+}
+
+.report-result-filename {
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  color: #212529;
+}
+
+.report-result-empty .report-result-filename {
+  font-size: 0.95rem;
+}
+
+.report-divider {
+  margin: 0.75rem 0;
+  color: #dee2e6;
+  opacity: 1;
+}
+
+.report-result-mobile-status,
+.report-result-mobile-filename {
+  color: #212529;
+}
+
+.reports-download-btn {
+  min-width: 220px;
 }
 
 @media (max-width: 767.98px) {
-  .reports-page .page-title {
-    font-size: 1.5rem;
+  .reports-content {
+    max-width: none;
+  }
+
+  .reports-page .btn {
+    width: 100%;
+  }
+
+  .reports-download-btn {
+    min-width: 0;
   }
 }
