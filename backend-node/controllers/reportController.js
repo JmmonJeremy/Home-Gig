@@ -45,11 +45,19 @@ const buildDateRangeFilter = (startDate, endDate) => {
 };
 
 const buildExportFileName = (startDate, endDate) => {
-  const dateForName = startDate ? new Date(startDate) : new Date();
-  const month = dateForName.toLocaleString("en-US", { month: "short" });
-  const year = dateForName.getFullYear();
+  if (startDate && endDate) {
+    return `Orders_Payments_${startDate}_to_${endDate}.csv`;
+  }
 
-  return `Orders_Payments_${month}${year}.csv`;
+  if (startDate) {
+    return `Orders_Payments_from_${startDate}.csv`;
+  }
+
+  if (endDate) {
+    return `Orders_Payments_through_${endDate}.csv`;
+  }
+
+  return "Orders_Payments_All.csv";
 };
 
 const generateOrdersPaymentsCsv = async (req, res) => {

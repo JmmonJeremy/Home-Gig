@@ -32,12 +32,7 @@ export class Reports implements OnInit {
   }
 
   generateSpreadsheet(): void {
-    if (!this.startDate || !this.endDate) {
-      this.errorMessage = 'Please select a start date and end date.';
-      return;
-    }
-
-    if (this.startDate > this.endDate) {
+    if (this.startDate && this.endDate && this.startDate > this.endDate) {
       this.errorMessage = 'Start date must be on or before end date.';
       return;
     }
@@ -76,11 +71,19 @@ export class Reports implements OnInit {
   }
 
   private buildFileName(): string {
-    const start = new Date(`${this.startDate}T00:00:00`);
-    const month = start.toLocaleString('en-US', { month: 'short' });
-    const year = start.getFullYear();
+    if (this.startDate && this.endDate) {
+      return `Orders_Payments_${this.startDate}_to_${this.endDate}.csv`;
+    }
 
-    return `Orders_Payments_${month}${year}.csv`;
+    if (this.startDate) {
+      return `Orders_Payments_from_${this.startDate}.csv`;
+    }
+
+    if (this.endDate) {
+      return `Orders_Payments_through_${this.endDate}.csv`;
+    }
+
+    return 'Orders_Payments_All.csv';
   }
 
   private toInputDate(date: Date): string {

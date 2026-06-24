@@ -1,4 +1,4 @@
-<header class="top-header">
+<header class="top-header position-fixed top-0 bg-white me-2">
   <div class="search-box">
     <i class="bi bi-search search-icon"></i>
     <input type="text" placeholder="Search" />
@@ -20,10 +20,16 @@
     </button>
 
     <ul class="dropdown-menu dropdown-menu-end">
-      <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
-      <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
+      <li><a class="dropdown-item" href="#" (click)="onProfileOption($event, 'Profile')">Profile</a></li>
+      <li><a class="dropdown-item" href="#" (click)="onProfileOption($event, 'Settings')">Settings</a></li>
       <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
     </ul>
   </div>
+
+  @if (infoMessage) {
+    <div class="profile-info-message">
+      {{ infoMessage }}
+    </div>
+  }
 </header>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,15 +9,30 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.css',
 })
 export class Header {
-constructor(
-  private authService: AuthService,
-  private router: Router
-) {}
+  infoMessage = '';
 
-logout(event: MouseEvent): void {
-  event.preventDefault();
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  this.authService.logout();
-  this.router.navigate(['/login']);
-}
+  onProfileOption(event: MouseEvent, optionName: string): void {
+    event.preventDefault();
+    event.stopImmediatePropagation(); // ← Prevents the message from disappearing immediately
+    this.infoMessage = `${optionName} is not yet available.`;
+  }
+
+  logout(event: MouseEvent): void {
+    event.preventDefault();
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  // This will clear the message when user clicks anywhere else on the page
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    if (this.infoMessage) {
+      this.infoMessage = '';
+    }
+  }
 }

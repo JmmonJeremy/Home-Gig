@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class Products implements OnInit {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -87,5 +88,9 @@ export class Products implements OnInit {
       },
       error: () => this.errorMessage = 'Failed to delete product.'
     });
+  }
+
+  goToReports(): void {
+    this.router.navigate(['/reports']);
   }
 }

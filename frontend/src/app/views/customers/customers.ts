@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class Customers implements OnInit {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCustomers();
@@ -91,5 +92,9 @@ export class Customers implements OnInit {
       },
       error: () => this.errorMessage = 'Failed to delete customer.'
     });
+  }
+
+  goToReports(): void {
+    this.router.navigate(['/reports']);
   }
 }

@@ -1,5 +1,5 @@
-<div class="product-page">
-  <h1 class="page-title">Product & Inventory Management</h1>
+<div class="product-page container-fluid ps-5">
+  <h1 class="h3 fw-bold mb-3 d-none d-md-block">PRODUCT & INVENTORY MANAGEMENT</h1>
 
   <div class="d-flex justify-content-between mb-3">
     <button type="button" class="btn hg-product-add d-none d-md-inline-block" (click)="addProductInline()">
@@ -10,7 +10,9 @@
       Add Product
     </button>
 
-    <button type="button" class="btn hg-export">Export Spreadsheet</button>
+    <button type="button" class="btn hg-export" (click)="goToReports()">
+      Export Spreadsheet
+    </button>
   </div>
 
   <div class="card product-list-card mb-4">
@@ -66,7 +68,7 @@
 
   @if (selectedProduct) {
     <section class="d-none d-md-block">
-      <h2 class="details-title">Product Details</h2>
+      <h2 class="h4 fw-bold mb-3">PRODUCT DETAILS</h2>
 
       <div class="card product-details-card">
         <div class="card-body">

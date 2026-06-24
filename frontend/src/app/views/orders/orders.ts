@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { ProductService } from '../../services/product.service';
 
@@ -17,8 +18,9 @@ export class Orders implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    private router: Router
+  ) {}  
 
   ngOnInit(): void {
     this.loadOrders();
@@ -224,5 +226,9 @@ export class Orders implements OnInit {
       },
       error: () => this.errorMessage = 'Failed to delete order.'
     });
+  }
+
+  goToReports(): void {
+    this.router.navigate(['/reports']);
   }
 }

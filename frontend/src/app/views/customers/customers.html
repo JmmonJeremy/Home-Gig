@@ -1,5 +1,5 @@
-<div class="customer-page">
-  <h1 class="page-title">Customer Management</h1>
+<div class="customer-page container-fluid ps-5">
+  <h1 class="h3 fw-bold mb-3 d-none d-md-block">CUSTOMER MANAGEMENT</h1>
 
   <div class="d-flex justify-content-between align-items-center mb-3">
     <button
@@ -18,7 +18,7 @@
       Add Customer
     </button>
 
-    <button type="button" class="btn hg-export d-none d-md-inline-block">
+    <button type="button" class="btn hg-export d-none d-md-inline-block" (click)="goToReports()">
       Export Spreadsheet
     </button>
   </div>
@@ -103,7 +103,7 @@
 
   @if (selectedCustomer) {
     <section class="d-none d-md-block">
-      <h2 class="details-title">Customer Details</h2>
+      <h2 class="h4 fw-bold mb-3">CUSTOMER DETAILS</h2>
 
       <div class="card customer-details-card">
         <div class="card-body">
