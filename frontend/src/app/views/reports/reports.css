@@ -1,0 +1,67 @@
+.reports-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.reports-page .card {
+  border-radius: 12px;
+}
+
+.reports-page .form-label {
+  margin-bottom: 0.35rem;
+  color: #212529;
+}
+
+.reports-page .form-control,
+.reports-page .form-select {
+  border-color: #ced4da;
+  border-radius: 0.375rem;
+}
+
+.report-result-box {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.report-result-status {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.75rem 1rem;
+  color: #212529;
+}
+
+.report-result-filename {
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  color: #212529;
+}
+
+.report-result-empty .report-result-filename {
+  font-size: 0.95rem;
+}
+
+.report-divider {
+  margin: 0.75rem 0;
+  color: #dee2e6;
+  opacity: 1;
+}
+
+.report-result-mobile-status,
+.report-result-mobile-filename {
+  color: #212529;
+}
+
+.reports-download-btn {
+  min-width: 220px;
+}
+
+@media (max-width: 767.98px) {
+  .reports-page .btn {
+    width: 100%;
+  }
+
+  .reports-download-btn {
+    min-width: 0;
+  }
+}
