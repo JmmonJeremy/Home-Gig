@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReportService } from '../../services/report.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { ReportService } from '../../services/report.service';
   templateUrl: './reports.html',
   styleUrl: './reports.css',
 })
-export class Reports implements OnInit {
+export class Reports {
   reportType = 'Orders & Payments';
   format = 'CSV';
   startDate = '';
@@ -21,15 +21,6 @@ export class Reports implements OnInit {
   private csvBlob: Blob | null = null;
 
   constructor(private reportService: ReportService) {}
-
-  ngOnInit(): void {
-    const now = new Date();
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-    this.startDate = this.toInputDate(firstDay);
-    this.endDate = this.toInputDate(lastDay);
-  }
 
   generateSpreadsheet(): void {
     if (this.startDate && this.endDate && this.startDate > this.endDate) {
@@ -84,13 +75,5 @@ export class Reports implements OnInit {
     }
 
     return 'Orders_Payments_All.csv';
-  }
-
-  private toInputDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
   }
 }
