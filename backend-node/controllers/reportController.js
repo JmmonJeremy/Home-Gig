@@ -24,14 +24,51 @@ const getOrderSummary = (items = []) => {
     .join(", ");
 };
 
+const buildDateRangeFilter = (startDate, endDate) => {
+  if (!startDate && !endDate) {
+    return {};
+  }
+
+  const filter = {};
+
+  if (startDate) {
+    filter.$gte = new Date(startDate);
+  }
+
+  if (endDate) {
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+    filter.$lte = end;
+  }
+
+  return filter;
+};
+
+const buildExportFileName = (startDate, endDate) => {
+  const dateForName = startDate ? new Date(startDate) : new Date();
+  const month = dateForName.toLocaleString("en-US", { month: "short" });
+  const year = dateForName.getFullYear();
+
+  return `Orders_Payments_${month}${year}.csv`;
+};
+
 const generateOrdersPaymentsCsv = async (req, res) => {
   try {
+    const { startDate, endDate } = req.query;
     const generatedAt = new Date().toISOString();
     const generator = "Express";
 
-    const orders = await Order.find({
+    const query = {
       ownerId: req.user._id
-    })
+    };
+
+    const orderDateFilter = buildDateRangeFilter(startDate, endDate);
+
+    if (Object.keys(orderDateFilter).length > 0) {
+      query.orderDate = orderDateFilter;
+    }
+
+    const orders = await Order.find(query)
       .populate("customerId", "name email phone")
       .sort({ orderDate: -1 });
 
@@ -70,7 +107,7 @@ const generateOrdersPaymentsCsv = async (req, res) => {
       .map((row) => row.map(escapeCsvValue).join(","))
       .join("\n");
 
-    const fileName = `orders_payments_${Date.now()}.csv`;
+    const fileName = buildExportFileName(startDate, endDate);
 
     res.setHeader("Content-Type", "text/csv");
     res.setHeader(

@@ -1,1 +1,98 @@
-<p>reports works!</p>
+<div class="reports-page">
+  <h1 class="page-title">Spreadsheet Export &amp; Reporting</h1>
+
+  <div class="mb-3">
+    <button
+      type="button"
+      class="btn hg-export-spreadsheet w-100 w-md-auto"
+      (click)="generateSpreadsheet()"
+      [disabled]="isGenerating"
+    >
+      {{ isGenerating ? 'Generating...' : 'Generate Spreadsheet' }}
+    </button>
+  </div>
+
+  @if (errorMessage) {
+    <p class="text-danger">{{ errorMessage }}</p>
+  }
+
+  <div class="card report-options-card mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="reportType" class="form-label">Report Type:</label>
+          <select
+            id="reportType"
+            name="reportType"
+            class="form-select"
+            [(ngModel)]="reportType"
+          >
+            <option>Orders &amp; Payments</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="format" class="form-label">Spreadsheet Format:</label>
+          <select
+            id="format"
+            name="format"
+            class="form-select"
+            [(ngModel)]="format"
+          >
+            <option>CSV</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="startDate" class="form-label">Start Date:</label>
+          <input
+            id="startDate"
+            name="startDate"
+            type="date"
+            class="form-control"
+            [(ngModel)]="startDate"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="endDate" class="form-label">End Date:</label>
+          <input
+            id="endDate"
+            name="endDate"
+            type="date"
+            class="form-control"
+            [(ngModel)]="endDate"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="details-title">Generated Spreadsheet</h2>
+
+  <div class="card generated-report-card">
+    <div class="card-body">
+      <p class="form-label mb-2">Results:</p>
+
+      @if (spreadsheetReady) {
+        <div class="report-status mb-3">Spreadsheet Ready</div>
+        <input
+          class="form-control mb-3"
+          [value]="generatedFileName"
+          readonly
+        />
+        <button
+          type="button"
+          class="btn hg-save w-100"
+          (click)="downloadSpreadsheet()"
+        >
+          Download Spreadsheet
+        </button>
+      } @else {
+        <div class="report-status report-status-empty">
+          Generate a spreadsheet to see results here.
+        </div>
+      }
+    </div>
+  </div>
+</div>
