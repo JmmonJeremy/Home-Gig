@@ -154,8 +154,10 @@
 ## Giving Cursor Directions
 
 - Tell Cursor to do or follow the following:
-  - only to work on what you want it to change
+  - start from master and pull the latest changes from origin/master
+  - create and work on a new branch with the name you want 
   - confirm it is working on the Git feature branch you want
+  - only to work on what you want it to change on that branch
   - the clear goal for the assignment
   - commit with a clear commit message
   - push the changes to the Cursor feature branch
