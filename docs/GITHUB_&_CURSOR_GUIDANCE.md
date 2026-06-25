@@ -150,3 +150,14 @@
   - <span style="color: #cd70f2;">git rm cursor-auth-test.txt</span>  
   - <span style="color: #cd70f2;">git commit -m "Remove authentication test file"</span>
   - <span style="color: #cd70f2;">git push</span>
+
+## Giving Cursor Directions
+
+- Tell Cursor to do or follow the following:
+  - only to work on what you want it to change
+  - confirm it is working on the Git feature branch you want
+  - the clear goal for the assignment
+  - commit with a clear commit message
+  - push the changes to the Cursor feature branch
+  - create a pull request into the master branch 
+  - not merge the pull request or bypass repository rules
