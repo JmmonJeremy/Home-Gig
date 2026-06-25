@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CustomerService } from '../../services/customer.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-customers',
@@ -8,16 +10,34 @@ import { CustomerService } from '../../services/customer.service';
   templateUrl: './customers.html',
   styleUrl: './customers.css',
 })
-export class Customers implements OnInit {
+export class Customers implements OnInit, OnDestroy {
   customers: any[] = [];
+  filteredCustomers: any[] = [];
   selectedCustomer: any = null;
   errorMessage = '';
   isLoading = false;
+  searchQuery = '';
+  private readonly subscriptions = new Subscription();
 
-  constructor(private customerService: CustomerService, private router: Router) {}
+  constructor(
+    private customerService: CustomerService,
+    private router: Router,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.searchService.query$.subscribe((query) => {
+        this.searchQuery = query;
+        this.applySearch();
+      })
+    );
+
     this.loadCustomers();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   loadCustomers(): void {
@@ -27,6 +47,7 @@ export class Customers implements OnInit {
     this.customerService.getCustomers().subscribe({
       next: (customers) => {
         this.customers = customers;
+        this.applySearch();
         this.isLoading = false;
       },
       error: () => {
@@ -96,5 +117,42 @@ export class Customers implements OnInit {
 
   goToReports(): void {
     this.router.navigate(['/reports']);
+  }
+
+  private applySearch(): void {
+    const query = this.normalize(this.searchQuery);
+
+    if (!query) {
+      this.filteredCustomers = [...this.customers];
+      return;
+    }
+
+    this.filteredCustomers = this.customers.filter((customer) => {
+      const searchFields = [
+        customer.name,
+        customer.email,
+        customer.phone,
+        customer.address,
+        customer.street,
+        customer.city,
+        customer.state,
+        customer.postalCode,
+        customer.zipCode
+      ];
+
+      return this.matchesAnyField(searchFields, query);
+    });
+  }
+
+  private matchesAnyField(fields: unknown[], query: string): boolean {
+    return fields.some((field) => this.normalize(field).includes(query));
+  }
+
+  private normalize(value: unknown): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    return String(value).toLowerCase().trim();
   }
 }

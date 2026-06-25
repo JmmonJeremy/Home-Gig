@@ -61,6 +61,13 @@
   font-size: 1.3rem;
 }
 
+.search-category-menu {
+  width: 100%;
+  margin-top: 0.35rem;
+  border-radius: 6px;
+  border-color: #dee2e6;
+}
+
 .profile-button {
   background: none;
   border: none;

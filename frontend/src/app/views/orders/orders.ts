@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import { ProductService } from '../../services/product.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-orders',
@@ -9,22 +11,37 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './orders.html',
   styleUrl: './orders.css',
 })
-export class Orders implements OnInit {
+export class Orders implements OnInit, OnDestroy {
   orders: any[] = [];
+  filteredOrders: any[] = [];
   products: any[] = [];
   selectedOrder: any = null;
   errorMessage = '';
   isLoading = false;
+  searchQuery = '';
+  private readonly subscriptions = new Subscription();
 
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) {}  
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.searchService.query$.subscribe((query) => {
+        this.searchQuery = query;
+        this.applySearch();
+      })
+    );
+
     this.loadOrders();
     this.loadProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   loadOrders(): void {
@@ -34,6 +51,7 @@ export class Orders implements OnInit {
     this.orderService.getOrders().subscribe({
       next: (orders) => {
         this.orders = orders;
+        this.applySearch();
         this.isLoading = false;
       },
       error: () => {
@@ -230,5 +248,39 @@ export class Orders implements OnInit {
 
   goToReports(): void {
     this.router.navigate(['/reports']);
+  }
+
+  private applySearch(): void {
+    const query = this.normalize(this.searchQuery);
+
+    if (!query) {
+      this.filteredOrders = [...this.orders];
+      return;
+    }
+
+    this.filteredOrders = this.orders.filter((order) => {
+      const searchFields = [
+        order.orderNumber,
+        order.customerId?.name,
+        this.getOrderSummary(order),
+        order.paymentStatus,
+        order.orderDate,
+        order.paymentDate
+      ];
+
+      return this.matchesAnyField(searchFields, query);
+    });
+  }
+
+  private matchesAnyField(fields: unknown[], query: string): boolean {
+    return fields.some((field) => this.normalize(field).includes(query));
+  }
+
+  private normalize(value: unknown): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    return String(value).toLowerCase().trim();
   }
 }
