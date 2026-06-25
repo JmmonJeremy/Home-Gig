@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-products',
@@ -8,16 +10,34 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
-export class Products implements OnInit {
+export class Products implements OnInit, OnDestroy {
   products: any[] = [];
+  filteredProducts: any[] = [];
   selectedProduct: any = null;
   errorMessage = '';
   isLoading = false;
+  searchQuery = '';
+  private readonly subscriptions = new Subscription();
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.searchService.query$.subscribe((query) => {
+        this.searchQuery = query;
+        this.applySearch();
+      })
+    );
+
     this.loadProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   loadProducts(): void {
@@ -27,6 +47,7 @@ export class Products implements OnInit {
     this.productService.getProducts().subscribe({
       next: (products) => {
         this.products = products;
+        this.applySearch();
         this.isLoading = false;
       },
       error: () => {
@@ -92,5 +113,38 @@ export class Products implements OnInit {
 
   goToReports(): void {
     this.router.navigate(['/reports']);
+  }
+
+  private applySearch(): void {
+    const query = this.normalize(this.searchQuery);
+
+    if (!query) {
+      this.filteredProducts = [...this.products];
+      return;
+    }
+
+    this.filteredProducts = this.products.filter((product) => {
+      const searchFields = [
+        product.name,
+        product.category,
+        product.description,
+        product.inventoryQuantity,
+        product.inventoryStatus
+      ];
+
+      return this.matchesAnyField(searchFields, query);
+    });
+  }
+
+  private matchesAnyField(fields: unknown[], query: string): boolean {
+    return fields.some((field) => this.normalize(field).includes(query));
+  }
+
+  private normalize(value: unknown): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    return String(value).toLowerCase().trim();
   }
 }

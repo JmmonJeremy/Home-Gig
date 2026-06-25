@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ReportService } from '../../services/report.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-reports',
@@ -7,11 +9,13 @@ import { ReportService } from '../../services/report.service';
   templateUrl: './reports.html',
   styleUrl: './reports.css',
 })
-export class Reports {
+export class Reports implements OnInit, OnDestroy {
   reportType = 'Orders & Payments';
   format = 'CSV';
   startDate = '';
   endDate = '';
+  searchQuery = '';
+  reportMatches: string[] = [];
 
   generatedFileName = '';
   spreadsheetReady = false;
@@ -19,8 +23,25 @@ export class Reports {
   errorMessage = '';
 
   private csvBlob: Blob | null = null;
+  private readonly subscriptions = new Subscription();
 
-  constructor(private reportService: ReportService) {}
+  constructor(
+    private reportService: ReportService,
+    private searchService: SearchService
+  ) {}
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.searchService.query$.subscribe((query) => {
+        this.searchQuery = query;
+        this.updateReportMatches();
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   generateSpreadsheet(): void {
     if (this.startDate && this.endDate && this.startDate > this.endDate) {
@@ -40,6 +61,7 @@ export class Reports {
         this.generatedFileName = this.buildFileName();
         this.spreadsheetReady = true;
         this.isGenerating = false;
+        this.updateReportMatches();
       },
       error: () => {
         this.errorMessage = 'Failed to generate spreadsheet.';
@@ -75,5 +97,34 @@ export class Reports {
     }
 
     return 'Orders_Payments_All.csv';
+  }
+
+  private updateReportMatches(): void {
+    const query = this.normalize(this.searchQuery);
+    const searchableContent = [
+      `Report Type ${this.reportType}`,
+      `Spreadsheet Format ${this.format}`,
+      `Start Date ${this.startDate}`,
+      `End Date ${this.endDate}`,
+      this.spreadsheetReady ? 'Spreadsheet Ready' : 'Awaiting Generation',
+      this.generatedFileName
+    ].filter(Boolean);
+
+    if (!query) {
+      this.reportMatches = [];
+      return;
+    }
+
+    this.reportMatches = searchableContent.filter((item) =>
+      this.normalize(item).includes(query)
+    );
+  }
+
+  private normalize(value: unknown): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    return String(value).toLowerCase().trim();
   }
 }
