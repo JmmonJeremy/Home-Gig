@@ -103,8 +103,10 @@
   ![Generate image](GITHUB_&_CURSOR_GUIDANCE_IMAGES/Collaborator/image-22.png)
 - Give it a name like Cursor Home-Gig Git access, set the Expiration as desired, and under Select scopes, check repo  
   ![Token form image](GITHUB_&_CURSOR_GUIDANCE_IMAGES/Collaborator/image-23.png)  
-- Click the Generate token button & copy and record the token for use (keep the token private)  
-  ![Generate button image](GITHUB_&_CURSOR_GUIDANCE_IMAGES/Collaborator/image-24.png)
+- Click the Generate token button 
+  ![Generate button image](GITHUB_&_CURSOR_GUIDANCE_IMAGES/Collaborator/image-24.png)  
+- Immediately <span style="color: #70f293;">copy and record the token</span> for use (keep the token private <span style="color: #ff7070;">in</span> the backend's <span style="color: #ff7070;">.env file</span>)
+  - NOTE - after you leave the page you will not be shown the token again!!! 
 
 ## Have Cursor Desktop Use its Separate GitHub Account with a Clone of the Repository
 - Open the downloaded version of Cursor and Clone the repository by clicking on the clone button  
@@ -122,6 +124,7 @@
 - To have Git Credential Manager include the repository path when looking up credentials with the following command
   - <span style="color: #cd70f2;">git config --local credential.useHttpPath true</span> 
 - In the terminal configure git to be using Cursors GitHub account by running the following commands in the terminal
+  - <span style="color: #cd70f2;">git config --local credential.username jeremy-ai-work</span>
   - <span style="color: #cd70f2;">git config --local user.name "jeremy-ai-work"</span>
   - <span style="color: #cd70f2;">git config --local user.email "jeremy-ai-work email for GITHUB ACCOUNT"</span> 
 - Create a new branch and switch to that branch with the following command
@@ -150,6 +153,33 @@
   - <span style="color: #cd70f2;">git rm cursor-auth-test.txt</span>  
   - <span style="color: #cd70f2;">git commit -m "Remove authentication test file"</span>
   - <span style="color: #cd70f2;">git push</span>
+- Set Cursor up to have the cloned Home-Gig-Cursor repository file have its own GitHub CLI login for pull requests
+ - Open a terminal in the cloned repository folder - for example the terminal path ends with ...\Home-Gig-Cursor
+ - At the root of cloned repository folder, ie. Home-Gig-Cursor, create a file named <span style="color: #70f293;">start-cursor-gh.ps1</span>
+ - In the <span style="color: #70f293;">start-cursor-gh.ps1 file</span>, add the following content:  
+   - <span style="color: #fcfcc4;">$env:GH_CONFIG_DIR = "$PSScriptRoot\.gh-config"</span>
+   - <span style="color: #fcfcc4;">gh auth status</span> 
+ - In the Home-Gig-Cursor <span style="color: #70f293;">.gitignore file</span>, add the following content:
+   - <span style="color: red;">\# GitHub CLI configuration for the Cursor account</span>  
+   - <span style="color: #fcfcc4;">.gh-config/</span>
+   - <span style="color: #fcfcc4;">start-cursor-gh.ps1</span>
+- To setup a separate GitHub CLI config folder for Cursor's repository, in its terminal, ie. showing Home-Gig-Cursor run the following command
+  - <span style="color: #cd70f2;">.\start-cursor-gh.ps1</span>  
+    - The first time, it will say "You are not logged into any GitHub hosts"
+    - To do a one-time log in with approved GitHub CLI authorization enter the command
+      - <span style="color: #cd70f2;">gh auth login</span> 
+      - Choose:
+        - <span style="color: #7088f2;">GitHub.com</span>
+        - <span style="color: #7088f2;">HTTPS</span>
+        - <span style="color: #7088f2;">Authenticate with a web browser</span>
+      - When the browser opens, sign in as:
+        - GitHub username for Cursor, ie. <span style="color: #7088f2;">jeremy-ai-work
+      - <span style="color: #7088f2;">Approve</span> the GitHub CLI authorization
+- Verify the Cursor login with the following command
+  - <span style="color: #cd70f2;">gh auth status</span>    
+  - If done correctly the results should indicate:
+    - Logged in to github.com account jeremy-ai-work
+    - Active account: true    
 
 ## Giving Cursor Directions
 
@@ -161,6 +191,8 @@
   - the clear goal for the assignment
   - commit with a clear commit message
   - push the changes to the Cursor feature branch
+  - before using any gh command, run .\start-cursor-gh.ps1
+  - confirm that jeremy-ai-work is the active account before creating or updating a pull request
   - create a pull request into the master branch 
-  - not merge the pull request or bypass repository rules
+  - do not merge the pull request or bypass repository rules
 - Upload any images or PDFs that will help or reference them in the repository
