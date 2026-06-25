@@ -163,3 +163,4 @@
   - push the changes to the Cursor feature branch
   - create a pull request into the master branch 
   - not merge the pull request or bypass repository rules
+- Upload any images or PDFs that will help or reference them in the repository
