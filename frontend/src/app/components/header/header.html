@@ -5,10 +5,23 @@
       #appSearchInput
       type="text"
       placeholder="Search"
+      class="form-control"
+      [class.has-clear]="searchText.length > 0"
       [ngModel]="searchText"
       (ngModelChange)="onSearchInput($event)"
       (focus)="onSearchFocus()"
     />
+
+    @if (searchText.length > 0) {
+      <button
+        type="button"
+        class="search-clear-btn"
+        aria-label="Clear search"
+        (click)="clearSearch($event)"
+      >
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    }
 
     @if (showSearchCategories && isDashboardPage()) {
       <div class="dropdown-menu show search-category-menu">

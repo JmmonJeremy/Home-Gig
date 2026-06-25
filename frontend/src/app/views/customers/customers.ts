@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CustomerService } from '../../services/customer.service';
 import { SearchService } from '../../services/search.service';
+import { matchesSearchQuery } from '../../utils/search.util';
 
 @Component({
   selector: 'app-customers',
@@ -120,39 +121,19 @@ export class Customers implements OnInit, OnDestroy {
   }
 
   private applySearch(): void {
-    const query = this.normalize(this.searchQuery);
-
-    if (!query) {
+    if (!this.searchQuery.trim()) {
       this.filteredCustomers = [...this.customers];
       return;
     }
 
-    this.filteredCustomers = this.customers.filter((customer) => {
-      const searchFields = [
+    this.filteredCustomers = this.customers.filter((customer) =>
+      matchesSearchQuery(
+        this.searchQuery,
         customer.name,
-        customer.email,
         customer.phone,
-        customer.address,
-        customer.street,
-        customer.city,
-        customer.state,
-        customer.postalCode,
-        customer.zipCode
-      ];
-
-      return this.matchesAnyField(searchFields, query);
-    });
-  }
-
-  private matchesAnyField(fields: unknown[], query: string): boolean {
-    return fields.some((field) => this.normalize(field).includes(query));
-  }
-
-  private normalize(value: unknown): string {
-    if (value === null || value === undefined) {
-      return '';
-    }
-
-    return String(value).toLowerCase().trim();
+        customer.email,
+        customer.notes
+      )
+    );
   }
 }

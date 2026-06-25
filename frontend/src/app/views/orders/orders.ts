@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
+import { matchesSearchQuery } from '../../utils/search.util';
 
 @Component({
   selector: 'app-orders',
@@ -251,36 +252,21 @@ export class Orders implements OnInit, OnDestroy {
   }
 
   private applySearch(): void {
-    const query = this.normalize(this.searchQuery);
-
-    if (!query) {
+    if (!this.searchQuery.trim()) {
       this.filteredOrders = [...this.orders];
       return;
     }
 
-    this.filteredOrders = this.orders.filter((order) => {
-      const searchFields = [
+    this.filteredOrders = this.orders.filter((order) =>
+      matchesSearchQuery(
+        this.searchQuery,
         order.orderNumber,
         order.customerId?.name,
+        order.orderDate,
         this.getOrderSummary(order),
         order.paymentStatus,
-        order.orderDate,
         order.paymentDate
-      ];
-
-      return this.matchesAnyField(searchFields, query);
-    });
-  }
-
-  private matchesAnyField(fields: unknown[], query: string): boolean {
-    return fields.some((field) => this.normalize(field).includes(query));
-  }
-
-  private normalize(value: unknown): string {
-    if (value === null || value === undefined) {
-      return '';
-    }
-
-    return String(value).toLowerCase().trim();
+      )
+    );
   }
 }

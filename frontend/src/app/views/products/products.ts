@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
+import { matchesSearchQuery } from '../../utils/search.util';
 
 @Component({
   selector: 'app-products',
@@ -116,35 +117,18 @@ export class Products implements OnInit, OnDestroy {
   }
 
   private applySearch(): void {
-    const query = this.normalize(this.searchQuery);
-
-    if (!query) {
+    if (!this.searchQuery.trim()) {
       this.filteredProducts = [...this.products];
       return;
     }
 
-    this.filteredProducts = this.products.filter((product) => {
-      const searchFields = [
+    this.filteredProducts = this.products.filter((product) =>
+      matchesSearchQuery(
+        this.searchQuery,
         product.name,
-        product.category,
-        product.description,
         product.inventoryQuantity,
-        product.inventoryStatus
-      ];
-
-      return this.matchesAnyField(searchFields, query);
-    });
-  }
-
-  private matchesAnyField(fields: unknown[], query: string): boolean {
-    return fields.some((field) => this.normalize(field).includes(query));
-  }
-
-  private normalize(value: unknown): string {
-    if (value === null || value === undefined) {
-      return '';
-    }
-
-    return String(value).toLowerCase().trim();
+        product.price
+      )
+    );
   }
 }

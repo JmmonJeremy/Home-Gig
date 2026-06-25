@@ -57,6 +57,14 @@ export class Header implements OnInit, OnDestroy {
     this.searchService.setQuery(value);
   }
 
+  clearSearch(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.searchText = '';
+    this.searchService.clearQuery();
+    this.searchInput?.nativeElement.focus();
+  }
+
   onSearchFocus(): void {
     this.showSearchCategories = this.isDashboardPage();
   }
