@@ -66,7 +66,7 @@ export class Header implements OnInit, OnDestroy {
   }
 
   onSearchFocus(): void {
-    this.showSearchCategories = this.isDashboardPage();
+    this.showSearchCategories = this.showsSearchCategoryDropdown();
   }
 
   selectSearchCategory(path: string): void {
@@ -91,8 +91,9 @@ export class Header implements OnInit, OnDestroy {
     });
   }
 
-  isDashboardPage(): boolean {
-    return this.router.url.startsWith('/dashboard');
+  showsSearchCategoryDropdown(): boolean {
+    const url = this.router.url.split('?')[0];
+    return url.startsWith('/dashboard') || url.startsWith('/reports');
   }
 
   onProfileOption(event: MouseEvent, optionName: string): void {

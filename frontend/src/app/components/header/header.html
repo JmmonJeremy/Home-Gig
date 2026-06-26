@@ -23,7 +23,7 @@
       </button>
     }
 
-    @if (showSearchCategories && isDashboardPage()) {
+    @if (showSearchCategories && showsSearchCategoryDropdown()) {
       <div class="dropdown-menu show search-category-menu">
         <div class="dropdown-header">Go to page</div>
         @for (category of searchCategories; track category.path) {
