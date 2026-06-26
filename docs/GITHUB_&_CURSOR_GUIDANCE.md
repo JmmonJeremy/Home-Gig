@@ -160,14 +160,15 @@
   - <span style="color: #cd70f2;">git push</span>
 - Set Cursor up to have the cloned Home-Gig-Cursor repository file have its own GitHub CLI login for pull requests
  - Open a terminal in the cloned repository folder - for example the terminal path ends with ...\Home-Gig-Cursor
- - At the root of cloned repository folder, ie. Home-Gig-Cursor, create a file named <span style="color: #70f293;">start-cursor-gh.ps1</span>
+ - At the root of cloned repository folder, ie. Home-Gig-Cursor, create a file named while in the master branch <span style="color: #70f293;">start-cursor-gh.ps1</span>
  - In the <span style="color: #70f293;">start-cursor-gh.ps1 file</span>, add the following content:  
    - <span style="color: #fcfcc4;">$env:GH_CONFIG_DIR = "$PSScriptRoot\.gh-config"</span>
    - <span style="color: #fcfcc4;">gh auth status</span> 
- - In the Home-Gig-Cursor <span style="color: #70f293;">.gitignore file</span>, add the following content:
-   - <span style="color: red;">\# GitHub CLI configuration for the Cursor account</span>  
+ - In your original local repository, ie. the Home-Gig folder <span style="color: #70f293;">.gitignore file</span>, add the following content:
+   - <span style="color: red;">\# Local GitHub CLI configs for AI tool clones</span>  
    - <span style="color: #fcfcc4;">.gh-config/</span>
    - <span style="color: #fcfcc4;">start-cursor-gh.ps1</span>
+- In the cloned repository folder, ie. Home-Gig-Cursor, pull the change to the .gitignore file while in the master branch
 - To setup a separate GitHub CLI config folder for Cursor's repository, in its terminal, ie. showing Home-Gig-Cursor run the following command
   - <span style="color: #cd70f2;">.\start-cursor-gh.ps1</span>  
     - The first time, it will say "You are not logged into any GitHub hosts"
@@ -185,6 +186,7 @@
   - If done correctly the results should indicate:
     - Logged in to github.com account jeremy-ai-work
     - Active account: true    
+- In the cloned repository folder, ie. Home-Gig-Cursor, switch back to a feature branch, to ensure no other work is done on the master branch.
 
 ## Giving Cursor Directions
 
