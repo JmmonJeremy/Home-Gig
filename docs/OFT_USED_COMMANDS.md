@@ -21,9 +21,14 @@
 - To check out a branch locally & test the features using VS Code & its terminal
   - Show all local and remote branches: 
     - <span style="color: #cd70f2;">git branch -a</span>
-  - Switch to the remote branch for testing: 
-    - <span style="color: #cd70f2;">git switch name-of-new-branch</span>  
+      - Local branches appear without remotes/origin/.
+      - GitHub branches appear with remotes/origin/.
+  - If branch already exists locally, switch to the branch & get changes for testing with the following commands: 
+    - <span style="color: #cd70f2;">git switch</span> <span style="color: #70bcf2;">name-of-new-branch</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or 
+    - <span style="color: #cd70f2;">git checkout</span> <span style="color: #70bcf2;">name-of-new-branch</span>    
+    - <span style="color: #cd70f2;">git pull</span>  
+  - If branch is only in GitHub, switch to the remote branch for testing with the following commands:  
+    - <span style="color: #cd70f2;">git switch --track origin/</span><span style="color: #70bcf2;">name-of-new-branch</span>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or  
-    - <span style="color: #cd70f2;">git checkout name-of-new-branch</span>    
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with this tag after to <br>&nbsp;&nbsp;create a new local branch  
-    - <span style="color: #cd70f2;">--track origin/name-of-new-branch</span>
+    - <span style="color: #cd70f2;">git checkout --track origin/</span><span style="color: #70bcf2;">name-of-new-branch</span>    

@@ -43,12 +43,17 @@
 - Test the features locally using VS Code & its terminal
   - Show all local and remote branches: 
     - <span style="color: #cd70f2;">git branch -a</span>
-  - Switch to the remote branch for testing: 
-    - <span style="color: #cd70f2;">git switch name-of-new-branch</span>  
+      - Local branches appear without remotes/origin/.
+      - GitHub branches appear with remotes/origin/.
+  - If branch already exists locally, switch to the branch & get changes for testing with the following commands: 
+    - <span style="color: #cd70f2;">git switch</span> <span style="color: #70bcf2;">name-of-new-branch</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or 
+    - <span style="color: #cd70f2;">git checkout</span> <span style="color: #70bcf2;">name-of-new-branch</span>    
+    - <span style="color: #cd70f2;">git pull</span>  
+  - If branch is only in GitHub, switch to the remote branch for testing with the following commands:  
+    - <span style="color: #cd70f2;">git switch --track origin/</span><span style="color: #70bcf2;">name-of-new-branch</span>  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or  
-    - <span style="color: #cd70f2;">git checkout name-of-new-branch</span>    
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with this tag after to <br>&nbsp;&nbsp;create a new local branch  
-    - <span style="color: #cd70f2;">--track origin/name-of-new-branch</span>
+    - <span style="color: #cd70f2;">git checkout --track origin/</span><span style="color: #70bcf2;">name-of-new-branch</span>   
 - Click on the Submit review drop-down arrow  
   ![Submit review image](GITHUB_&_CURSOR_GUIDANCE_IMAGES/PR/image-20.png)  
 - Make a comment,select Approve, and Submit review if good  
@@ -183,16 +188,86 @@
 
 ## Giving Cursor Directions
 
-- Tell Cursor to do or follow the following:
-  - start from master and pull the latest changes from origin/master
-  - create and work on a new branch with the name you want 
-  - confirm it is working on the Git feature branch you want
-  - only to work on what you want it to change on that branch
-  - the clear goal for the assignment
-  - commit with a clear commit message
-  - push the changes to the Cursor feature branch
-  - before using any gh command, run .\start-cursor-gh.ps1
-  - confirm that jeremy-ai-work is the active account before creating or updating a pull request
-  - create a pull request into the master branch 
-  - do not merge the pull request or bypass repository rules
-- Upload any images or PDFs that will help or reference them in the repository
+- Tell Cursor to do or follow the following:  
+  - start from master and pull the latest changes from origin/master  
+  - create and work on a new branch with the name you want   
+  - confirm it is working on the Git feature branch you want  
+  - only to work on what you want it to change on that branch  
+  - the clear goal for the assignment  
+  - commit with a clear commit message  
+  - push the changes to the Cursor feature branch  
+  - before using any gh command, run .\start-cursor-gh.ps1  
+  - confirm that jeremy-ai-work is the active account before creating or updating a pull request  
+  - create a pull request into the master branch  
+  - do not merge the pull request or bypass repository rules  
+- Upload any images or PDFs that will help or reference them in the repository  
+
+### Cursor Directions Template
+
+Create and work on a new branch named <span style="color: #7088f2;">cursor/</span><span style="color: #fcfcc4;">ThingBeingDone</span><span style="color: #7088f2;">-feature</span>. Like: <span style="color: #70bcf2;">cursor/searchbar-feature</span>
+
+<p style="margin-bottom: 0;">Before changing anything:  </p>
+
+1. Start from master.</span>  
+2. Pull the latest changes from origin/master.  
+3. Create or switch to the branch <span style="color: #70bcf2;">cursor/searchbar-feature</span> from the updated master.  
+4. Confirm the current Git branch is <span style="color: #70bcf2;">cursor/searchbar-feature</span>.
+5. Inspect the <span style="color: #fcfcc4;">documents you specify to give guidance</span>. 
+6. Tell me which files you plan to change before editing & don't proceed until I tell you to continue. 
+
+Goal:  
+<span style="color: #fcfcc4;">Give the clear purpose of the work</span>. Like:  
+Make the existing top-header search bar functional across the app.
+
+<p style="margin-bottom: 0;">Functional requirements:  </p>
+<p style="margin-bottom: 0;"><span style="color: #fcfcc4;">List the functional requirements desired</span>. Like:  </p>
+   
+* Product & Inventory Management page: search/filter by Product, Inventory, or Price fields if available.  
+* Customer Management page: search/filter by Customer, Phone Number, Email, or Notes fields if available.  
+* Orders & Payment Management page: search/filter by Order #, Customer, Order Date, Order Summary, Payment Status, or Payment Date fields if available.  
+
+<p style="margin-bottom: 0;"><span style="color: #fcfcc4;">List for Special Behaviors</span>. Like:  </p>
+<p style="margin-bottom: 0;">Dashboard & Spreadsheet Export & Reporting pages search behavior:   </p>
+
+* When the user clicks inside the Dashboard search bar, show a dropdown list of searchable categories/pages, such as Products, Customers, Orders, and Reports.
+* When the user selects a category/page, navigate to that page.
+* After navigation, place the cursor/focus in the search bar.
+* Carry the search text to that destination page if text was already typed, and perform the search there.
+* If no text was typed yet, just navigate and focus the search bar on the selected page.
+
+<p style="margin-bottom: 0;">Design requirements: </p>
+<p style="margin-bottom: 0;"><span style="color: #fcfcc4;">List the design requirements desired</span>. Like:  </p>
+
+* Keep the existing header layout and visual style.
+* Do not redesign the header.
+* Use Bootstrap as much as possible.
+* Make the search behavior usable on desktop and mobile.
+
+<p style="margin-bottom: 0;">Code requirements:  </p>
+<p style="margin-bottom: 0;"><span style="color: #fcfcc4;">List the code requirements desired</span>. Like:  </p>
+
+* Use the existing Angular project conventions.
+* Do not change authentication logic.
+* Do not change backend code unless absolutely necessary.
+* Do not change unrelated files.
+* Avoid over-engineering; prefer simple frontend filtering if it fits the current app.
+
+<p style="margin-bottom: 0;">After implementation:  </p>
+
+1. Run the relevant build/test command.
+2. Summarize the changed files.
+3. Summarize how search works on each page.
+4. Commit the completed changes with a clear commit message.
+5. Push the changes to cursor/searchbar-feature.
+
+<p style="margin-bottom: 0;">Before using any gh command:  </p>
+
+1. Run: .\start-cursor-gh.ps1  
+2. Then run: gh auth status  
+3. Confirm that jeremy-ai-work is the active account before creating or updating a pull request.  
+
+<p style="margin-bottom: 0;">Then:  </p>
+
+1. Create a pull request from <span style="color: #70bcf2;">cursor/searchbar-feature</span> into master.
+2. Do not merge the pull request or bypass repository rules.
+3. Return the pull request URL when finished.
