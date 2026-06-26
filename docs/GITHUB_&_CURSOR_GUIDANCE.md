@@ -258,7 +258,7 @@ Make the existing top-header search bar functional across the app.
 2. Summarize the changed files.
 3. Summarize how search works on each page.
 4. Commit the completed changes with a clear commit message.
-5. Push the changes to cursor/searchbar-feature.
+5. Push the changes to <span style="color: #70bcf2;">cursor/searchbar-feature</span>.
 
 <p style="margin-bottom: 0;">Before using any gh command:  </p>
 
