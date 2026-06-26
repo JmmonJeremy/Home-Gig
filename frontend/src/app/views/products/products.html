@@ -25,11 +25,11 @@
         <p class="p-3 text-danger">{{ errorMessage }}</p>
       }
 
-      @if (!isLoading && products.length === 0) {
+      @if (!isLoading && filteredProducts.length === 0) {
         <p class="p-3">No products found.</p>
       }
 
-      @if (products.length > 0) {
+      @if (filteredProducts.length > 0) {
         <table class="table mb-0">
           <thead>
             <tr>
@@ -41,7 +41,7 @@
           </thead>
 
           <tbody>
-            @for (product of products; track product._id) {
+            @for (product of filteredProducts; track product._id) {
               <tr
                 [class.low-stock]="product.inventoryQuantity <= 10"
                 [class.critical-stock]="product.inventoryQuantity <= 3"

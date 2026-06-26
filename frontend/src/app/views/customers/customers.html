@@ -33,11 +33,11 @@
 
   <div class="card customer-list-card mb-4 d-none d-md-block">
     <div class="card-body p-0">
-      @if (!isLoading && customers.length === 0) {
+      @if (!isLoading && filteredCustomers.length === 0) {
         <p class="p-3">No customers found.</p>
       }
 
-      @if (customers.length > 0) {
+      @if (filteredCustomers.length > 0) {
         <table class="table mb-0">
           <thead>
             <tr>
@@ -50,7 +50,7 @@
           </thead>
 
           <tbody>
-            @for (customer of customers; track customer._id) {
+            @for (customer of filteredCustomers; track customer._id) {
               <tr>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.phone }}</td>
@@ -80,12 +80,12 @@
   </div>
 
   <div class="customer-mobile-list d-md-none">
-    @if (!isLoading && customers.length === 0) {
+    @if (!isLoading && filteredCustomers.length === 0) {
       <p>No customers found.</p>
     }
 
-    @if (customers.length > 0) {
-      @for (customer of customers; track customer._id) {
+    @if (filteredCustomers.length > 0) {
+      @for (customer of filteredCustomers; track customer._id) {
         <article class="customer-mobile-item">
           <h2>{{ customer.name }}</h2>
           <p>Phone: {{ customer.phone }}</p>

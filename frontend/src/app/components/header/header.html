@@ -1,7 +1,42 @@
 <header class="top-header position-fixed top-0 bg-white me-2">
   <div class="search-box">
     <i class="bi bi-search search-icon"></i>
-    <input type="text" placeholder="Search" />
+    <input
+      #appSearchInput
+      type="text"
+      placeholder="Search"
+      class="form-control"
+      [class.has-clear]="searchText.length > 0"
+      [ngModel]="searchText"
+      (ngModelChange)="onSearchInput($event)"
+      (focus)="onSearchFocus()"
+    />
+
+    @if (searchText.length > 0) {
+      <button
+        type="button"
+        class="search-clear-btn"
+        aria-label="Clear search"
+        (click)="clearSearch($event)"
+      >
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    }
+
+    @if (showSearchCategories && showsSearchCategoryDropdown()) {
+      <div class="dropdown-menu show search-category-menu">
+        <div class="dropdown-header">Go to page</div>
+        @for (category of searchCategories; track category.path) {
+          <button
+            type="button"
+            class="dropdown-item"
+            (click)="selectSearchCategory(category.path)"
+          >
+            {{ category.label }}
+          </button>
+        }
+      </div>
+    }
   </div>
 
   <div class="profile-menu dropdown">
