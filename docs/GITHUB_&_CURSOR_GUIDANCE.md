@@ -202,7 +202,7 @@
   - do not merge the pull request or bypass repository rules  
 - Upload any images or PDFs that will help or reference them in the repository  
 
-### Cursor Directions Template
+## <span style="color: #ffff00;">Cursor Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template Guide to Follow</span> :
 
 Create and work on a new branch named <span style="color: #7088f2;">cursor/</span><span style="color: #fcfcc4;">ThingBeingDone</span><span style="color: #7088f2;">-feature</span>. Like: <span style="color: #70bcf2;">cursor/searchbar-feature</span>
 
