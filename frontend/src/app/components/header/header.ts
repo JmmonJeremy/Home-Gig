@@ -43,7 +43,17 @@ export class Header implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          this.showSearchCategories = false;
+          // Wait until Angular has finished rendering
+          setTimeout(() => {
+            const searchInputIsFocused =
+              document.activeElement === this.searchInput?.nativeElement;
+
+            if (searchInputIsFocused) {
+              this.onSearchFocus();
+            } else {
+              this.showSearchCategories = false;
+            }
+          }, 0);
         }
       })
     );
