@@ -13,9 +13,22 @@
 
 .login-card {
   width: 100%;
-  max-width: 650px; 
+  max-width: 650px;
   min-height: 600px;
   border: none;
+}
+
+@media (max-width: 767.98px) {
+  .login-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .login-card {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-width: none;
+  }
 }
 
 .login-btn {
