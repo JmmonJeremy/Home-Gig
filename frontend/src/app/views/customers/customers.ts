@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CustomerService } from '../../services/customer.service';
+import { SearchService } from '../../services/search.service';
+import { matchesSearchQuery } from '../../utils/search.util';
 
 @Component({
   selector: 'app-customers',
@@ -8,16 +11,34 @@ import { CustomerService } from '../../services/customer.service';
   templateUrl: './customers.html',
   styleUrl: './customers.css',
 })
-export class Customers implements OnInit {
+export class Customers implements OnInit, OnDestroy {
   customers: any[] = [];
+  filteredCustomers: any[] = [];
   selectedCustomer: any = null;
   errorMessage = '';
   isLoading = false;
+  searchQuery = '';
+  private readonly subscriptions = new Subscription();
 
-  constructor(private customerService: CustomerService, private router: Router) {}
+  constructor(
+    private customerService: CustomerService,
+    private router: Router,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.searchService.query$.subscribe((query) => {
+        this.searchQuery = query;
+        this.applySearch();
+      })
+    );
+
     this.loadCustomers();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   loadCustomers(): void {
@@ -27,6 +48,7 @@ export class Customers implements OnInit {
     this.customerService.getCustomers().subscribe({
       next: (customers) => {
         this.customers = customers;
+        this.applySearch();
         this.isLoading = false;
       },
       error: () => {
@@ -96,5 +118,22 @@ export class Customers implements OnInit {
 
   goToReports(): void {
     this.router.navigate(['/reports']);
+  }
+
+  private applySearch(): void {
+    if (!this.searchQuery.trim()) {
+      this.filteredCustomers = [...this.customers];
+      return;
+    }
+
+    this.filteredCustomers = this.customers.filter((customer) =>
+      matchesSearchQuery(
+        this.searchQuery,
+        customer.name,
+        customer.phone,
+        customer.email,
+        customer.notes
+      )
+    );
   }
 }
