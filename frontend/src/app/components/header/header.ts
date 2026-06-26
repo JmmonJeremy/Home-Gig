@@ -16,9 +16,10 @@ export class Header implements OnInit, OnDestroy {
   showSearchCategories = false;
   readonly searchCategories = [
     { label: 'Products', path: '/products' },
+    { label: 'Inventory', path: '/products' },
     { label: 'Customers', path: '/customers' },
     { label: 'Orders', path: '/orders' },
-    { label: 'Reports', path: '/reports' }
+    { label: 'Payments', path: '/orders' }
   ];
   private readonly subscriptions = new Subscription();
 
