@@ -1,15 +1,19 @@
 <div class="login-page d-flex align-items-center justify-content-center min-vh-100">
   <div class="card shadow-sm login-card">
-    <div class="card-body p-4 p-md-5">
+    <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center">
       <div class="text-center mb-4">
-        <h1 class="h3 fw-bold mb-1 login-title">
-          HOME GIG
-          <i class="bi bi-house-fill login-home-icon" aria-hidden="true"></i>
-        </h1>
-        <p class="text-muted mb-0">Small Business Management</p>
+        <h1 class="h3 fw-bold mb-1 login-title">HOME GIG</h1>
+
+        <img
+          src="/assets/images/home-gig-icon1.png"
+          alt="Home"
+          class="sidebar-home-icon"
+        />          
+        
+        <p class="text-muted mb-0 fs-5">Small Business Management</p>
       </div>
 
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" class="w-75 mx-auto">
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
           <input
@@ -55,7 +59,7 @@
           <p class="text-info mb-3">{{ infoMessage }}</p>
         }
 
-        <button type="submit" class="btn btn-success w-100 mb-3">Login</button>
+        <button type="submit" class="login-btn btn w-100 mb-3">Login</button>
 
         <div class="text-center mb-3">
           <a href="#" class="login-link" (click)="onForgotPassword($event)">Forgot Password?</a>

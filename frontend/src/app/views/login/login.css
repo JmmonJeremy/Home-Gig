@@ -1,3 +1,11 @@
+.sidebar-home-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;  
+  margin-top: -1.2rem;
+  margin-right: -.5rem;
+}
+
 .login-page {
   background-color: #f5f6f8;
   padding: 1rem;
@@ -5,8 +13,14 @@
 
 .login-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 650px; 
+  min-height: 600px;
   border: none;
+}
+
+.login-btn {
+  background-color: #16A34A;
+  color: white;
 }
 
 .login-title {
