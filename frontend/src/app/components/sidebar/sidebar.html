@@ -1,4 +1,14 @@
 <aside class="sidebar position-fixed top-0 start-0 bottom-0 bg-white m-2 border-end" style="--bs-border-width: 2px; --bs-border-color: #dee2e6;">
+  <button
+    class="mobile-menu-button"
+    type="button"
+    aria-label="Open navigation menu"
+    [attr.aria-expanded]="isMobileMenuOpen"
+    (click)="toggleMobileMenu()"
+  >
+    <i class="bi bi-list" aria-hidden="true"></i>
+  </button>
+
   <a class="sidebar-header" routerLink="/dashboard" routerLinkActive="active-header">
     <span class="brand">Home Gig</span>
    
@@ -10,31 +20,31 @@
   </a>
 
   <nav class="sidebar-nav">
-    <a routerLink="/dashboard" routerLinkActive="active">
+    <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-speedometer2 sidebar-nav-icon" aria-hidden="true"></i>
       <span>Dashboard</span>
     </a>
-    <a routerLink="/products" routerLinkActive="active">
+    <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-box-seam sidebar-nav-icon" aria-hidden="true"></i>
       <span>Products</span>
     </a>
-    <a routerLink="/inventory" routerLinkActive="active">
+    <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-clipboard-data sidebar-nav-icon" aria-hidden="true"></i>
       <span>Inventory</span>
     </a>
-    <a routerLink="/customers" routerLinkActive="active">
+    <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-people sidebar-nav-icon" aria-hidden="true"></i>
       <span>Customers</span>
     </a>
-    <a routerLink="/orders" routerLinkActive="active">
+    <a routerLink="/orders" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-cart-fill sidebar-nav-icon" aria-hidden="true"></i>
       <span>Orders</span>
     </a>
-    <a routerLink="/payments" routerLinkActive="active">
+    <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-credit-card sidebar-nav-icon" aria-hidden="true"></i>
       <span>Payments</span>
     </a>
-    <a routerLink="/reports" routerLinkActive="active">
+    <a routerLink="/reports" routerLinkActive="active" (click)="closeMobileMenu()">
       <i class="bi bi-graph-up-arrow sidebar-nav-icon" aria-hidden="true"></i>
       <span>Reports</span>
     </a>
@@ -43,4 +53,25 @@
       <span>Logout</span>
     </a>
   </nav>
+
+  <button
+    class="mobile-footer-menu-button"
+    type="button"
+    aria-label="Open navigation menu"
+    [attr.aria-expanded]="isMobileMenuOpen"
+    (click)="toggleMobileMenu()"
+  >
+    <i class="bi bi-list sidebar-nav-icon" aria-hidden="true"></i>
+    <span>Menu</span>
+  </button>
+
+  @if (isMobileMenuOpen) {
+    <div class="mobile-menu-panel">
+      <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenu()">Products</a>
+      <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenu()">Inventory</a>
+      <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenu()">Customers</a>
+      <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenu()">Payments</a>
+      <a routerLink="/login" (click)="logout($event)">Logout</a>
+    </div>
+  }
 </aside>

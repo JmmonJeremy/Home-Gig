@@ -115,16 +115,17 @@
 @media (max-width: 767px) {
   .top-header {
     left: 0;
-    height: 104px;
+    height: 128px;
     top: 0;
     margin-right: 0 !important;
-    padding: 0.5rem 1rem;
+    padding: 0;
     border-top: 0;
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: 44px 1fr;
-    gap: 0.5rem;
+    grid-template-rows: 52px 76px;
+    gap: 0;
     align-items: center;
+    z-index: 1040;
   }
 
   .top-header::after {
@@ -134,7 +135,10 @@
   .search-box {
     grid-column: 1 / -1;
     grid-row: 2;
+    align-self: stretch;
     width: 100%;
+    padding: 1.15rem 1rem 0.85rem;
+    background-color: #f5f6f8;
   }
 
   .search-box input {
@@ -145,15 +149,30 @@
   .profile-menu {
     grid-column: 2;
     grid-row: 1;
+    padding-right: 1rem;
+    position: relative;
+    z-index: 1046;
   }
 
   .profile-button {
+    display: flex;
     font-size: 1rem;
+    color: #374151;
   }
 
   .profile-icon {
     width: 28px;
     height: 28px;
+  }
+
+  .search-icon {
+    left: 1.9rem;
+    top: calc(50% + 0.15rem);
+  }
+
+  .search-clear-btn {
+    right: 1.75rem;
+    top: calc(50% + 0.15rem);
   }
 
   .profile-info-message {

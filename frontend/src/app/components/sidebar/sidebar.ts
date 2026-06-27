@@ -9,15 +9,26 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+  isMobileMenuOpen = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-logout(event: MouseEvent): void {
-  event.preventDefault();
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 
-  this.authService.logout();
-  this.router.navigate(['/login']);
-}
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+
+  logout(event: MouseEvent): void {
+    event.preventDefault();
+    this.closeMobileMenu();
+
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
