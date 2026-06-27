@@ -179,7 +179,7 @@
     right: 0;
     height: 6px;
     background-color: #ffffff;
-    z-index: 0;
+    z-index: 3;
     pointer-events: none;
   }
 
@@ -231,11 +231,11 @@
   .profile-info-message {
     position: fixed;
     top: calc(3.8125rem + 1rem);
-    right: calc(var(--mobile-screen-edge-margin) + var(--mobile-nav-dropdown-width) + 0.35rem + 3rem);
-    left: 2rem;
+    left: 0.5rem;
+    right: auto;
     margin-right: 0;
     transform: none;
-    max-width: none;
+    max-width: 14rem;
     white-space: normal;
     z-index: 1065;
   }
