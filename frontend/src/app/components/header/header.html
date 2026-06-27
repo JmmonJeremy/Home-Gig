@@ -1,43 +1,5 @@
-<header class="top-header position-fixed top-0 bg-white me-2">
-  <div class="search-box">
-    <i class="bi bi-search search-icon"></i>
-    <input
-      #appSearchInput
-      type="text"
-      placeholder="Search"
-      class="form-control"
-      [class.has-clear]="searchText.length > 0"
-      [ngModel]="searchText"
-      (ngModelChange)="onSearchInput($event)"
-      (focus)="onSearchFocus()"
-    />
-
-    @if (searchText.length > 0) {
-      <button
-        type="button"
-        class="search-clear-btn"
-        aria-label="Clear search"
-        (click)="clearSearch($event)"
-      >
-        <i class="bi bi-x-lg" aria-hidden="true"></i>
-      </button>
-    }
-
-    @if (showSearchCategories && showsSearchCategoryDropdown()) {
-      <div class="dropdown-menu show search-category-menu">
-        <div class="dropdown-header">Go to page</div>
-        @for (category of searchCategories; track category.path) {
-          <button
-            type="button"
-            class="dropdown-item"
-            (click)="selectSearchCategory(category.path)"
-          >
-            {{ category.label }}
-          </button>
-        }
-      </div>
-    }
-  </div>
+<header class="top-header position-fixed top-0 me-2">
+  <div class="mobile-header-white-band d-md-none" aria-hidden="true"></div>
 
   <div class="profile-menu dropdown">
     <button
@@ -61,10 +23,51 @@
     </ul>
   </div>
 
+  <div class="header-search-section">
+    <div class="search-box">
+      <i class="bi bi-search search-icon"></i>
+      <input
+        #appSearchInput
+        type="text"
+        placeholder="Search"
+        class="form-control"
+        [class.has-clear]="searchText.length > 0"
+        [ngModel]="searchText"
+        (ngModelChange)="onSearchInput($event)"
+        (focus)="onSearchFocus()"
+      />
+
+      @if (searchText.length > 0) {
+        <button
+          type="button"
+          class="search-clear-btn"
+          aria-label="Clear search"
+          (click)="clearSearch($event)"
+        >
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      }
+
+      @if (showSearchCategories && showsSearchCategoryDropdown()) {
+        <div class="dropdown-menu show search-category-menu">
+          <div class="dropdown-header">Go to page</div>
+          @for (category of searchCategories; track category.path) {
+            <button
+              type="button"
+              class="dropdown-item"
+              (click)="selectSearchCategory(category.path)"
+            >
+              {{ category.label }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
   @if (infoMessage) {
     <div class="profile-info-message">
       {{ infoMessage }}
     </div>
   }
 </header>
-

@@ -1,15 +1,30 @@
 <aside class="sidebar position-fixed top-0 start-0 bottom-0 bg-white m-2 border-end" style="--bs-border-width: 2px; --bs-border-color: #dee2e6;">
   <div class="sidebar-mobile-top d-md-none">
-    <button
-      type="button"
-      class="sidebar-menu-toggle"
-      aria-label="Open navigation menu"
-      (click)="toggleMobileDrawer()"
-    >
-      <i class="bi bi-list" aria-hidden="true"></i>
-    </button>
+    <div class="dropdown sidebar-top-nav-dropdown">
+      <button
+        type="button"
+        class="sidebar-menu-toggle dropdown-toggle"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
 
-    <a class="sidebar-mobile-brand" routerLink="/dashboard" routerLinkActive="active-mobile-brand">
+      <ul class="dropdown-menu sidebar-mobile-dropdown-menu">
+        <li><a class="dropdown-item" routerLink="/dashboard">Dashboard</a></li>
+        <li><a class="dropdown-item" routerLink="/products">Products</a></li>
+        <li><a class="dropdown-item" routerLink="/inventory">Inventory</a></li>
+        <li><a class="dropdown-item" routerLink="/customers">Customers</a></li>
+        <li><a class="dropdown-item" routerLink="/orders">Orders</a></li>
+        <li><a class="dropdown-item" routerLink="/payments">Payments</a></li>
+        <li><a class="dropdown-item" routerLink="/reports">Reports</a></li>
+        <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
+      </ul>
+    </div>
+
+    <a class="sidebar-mobile-brand" routerLink="/dashboard" routerLinkActive="active-header">
       <span class="brand">Home Gig</span>
       <img
         src="/assets/images/home-gig-icon1.png"
@@ -53,42 +68,26 @@
       <i class="bi bi-bar-chart-fill sidebar-nav-icon" aria-hidden="true"></i>
       <span>Reports</span>
     </a>
-    <button
-      type="button"
-      class="sidebar-mobile-menu-btn"
-      [class.active]="mobileDrawerOpen"
-      (click)="toggleMobileDrawer()"
-    >
-      <i class="bi bi-list sidebar-nav-icon" aria-hidden="true"></i>
-      <span>Menu</span>
-    </button>
+    <div class="dropdown dropup sidebar-bottom-nav-dropdown">
+      <button
+        type="button"
+        class="sidebar-mobile-menu-btn dropdown-toggle"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-expanded="false"
+        aria-label="Open more navigation options"
+      >
+        <i class="bi bi-list sidebar-nav-icon" aria-hidden="true"></i>
+        <span>Menu</span>
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-end sidebar-mobile-dropdown-menu">
+        <li><a class="dropdown-item" routerLink="/products">Products</a></li>
+        <li><a class="dropdown-item" routerLink="/inventory">Inventory</a></li>
+        <li><a class="dropdown-item" routerLink="/customers">Customers</a></li>
+        <li><a class="dropdown-item" routerLink="/payments">Payments</a></li>
+        <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
+      </ul>
+    </div>
   </nav>
 </aside>
-
-@if (mobileDrawerOpen) {
-  <div class="mobile-nav-backdrop d-md-none" (click)="closeMobileDrawer()"></div>
-}
-
-<div
-  class="offcanvas offcanvas-start mobile-nav-drawer d-md-none"
-  [class.show]="mobileDrawerOpen"
-  tabindex="-1"
->
-  <div class="offcanvas-header border-bottom">
-    <h2 class="offcanvas-title h5 mb-0">Menu</h2>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close navigation menu"
-      (click)="closeMobileDrawer()"
-    ></button>
-  </div>
-
-  <nav class="offcanvas-body mobile-drawer-nav d-flex flex-column gap-3">
-    <a routerLink="/products" routerLinkActive="active" (click)="closeMobileDrawer()">Products</a>
-    <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileDrawer()">Inventory</a>
-    <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileDrawer()">Customers</a>
-    <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileDrawer()">Payments</a>
-    <a routerLink="/login" (click)="logout($event)">Logout</a>
-  </nav>
-</div>
