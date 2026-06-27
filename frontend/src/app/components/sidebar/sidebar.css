@@ -133,7 +133,7 @@
     border-right: 0;
     --mobile-nav-dropdown-width: 10.5rem;
     --mobile-screen-edge-margin: 0.5rem;
-    --mobile-nav-dropdown-offset: 3.4375rem;
+    --mobile-nav-dropdown-offset: 3.8125rem;
   }
 
   .sidebar {
@@ -199,7 +199,10 @@
   }
 
   .mobile-nav-dropdown-menu-bottom .dropdown-item {
-    text-align: right;
+    display: block;
+    width: 100%;
+    text-align: right !important;
+    padding: 0.5rem 1rem;
   }
 
   .sidebar-menu-toggle {

@@ -126,7 +126,8 @@
   padding: 2rem;
 }
 
-.mobile-header-white-band {
+.mobile-header-white-band,
+.mobile-header-white-underband {
   display: none;
 }
 
@@ -154,19 +155,35 @@
     display: none;
   }
 
-  .mobile-header-white-band {
+  .mobile-header-white-band,
+  .mobile-header-white-underband {
     display: block;
+  }
+
+  .mobile-header-white-band {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 58px;
+    height: 52px;
     background-color: #ffffff;
     z-index: 0;
     pointer-events: none;
   }
 
-  .mobile-header-white-band::after {
+  .mobile-header-white-underband {
+    display: block;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background-color: #ffffff;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .mobile-header-white-underband::after {
     content: "";
     position: absolute;
     left: 5%;
@@ -186,7 +203,7 @@
 
   .profile-menu .dropdown-menu {
     position: fixed;
-    top: 3.25rem;
+    top: 3.8125rem;
     right: var(--mobile-screen-edge-margin);
     left: auto;
     z-index: 1040;
@@ -199,7 +216,7 @@
 
   .profile-menu .dropdown-menu.show {
     position: fixed !important;
-    top: 3.25rem !important;
+    top: 3.8125rem !important;
     right: var(--mobile-screen-edge-margin) !important;
     left: auto !important;
     bottom: auto !important;
@@ -212,15 +229,15 @@
   }
 
   .profile-info-message {
-    position: absolute;
-    top: 50%;
-    right: calc(100% + 0.5rem);
-    left: auto;
+    position: fixed;
+    top: 3.8125rem;
+    right: calc(var(--mobile-screen-edge-margin) + var(--mobile-nav-dropdown-width) + 0.35rem);
+    left: 2rem;
     margin-right: 0;
-    transform: translateY(-50%);
-    max-width: 11rem;
+    transform: none;
+    max-width: none;
     white-space: normal;
-    z-index: 1060;
+    z-index: 1065;
   }
 
   .header-search-section {
@@ -238,8 +255,8 @@
   .search-category-menu {
     width: var(--mobile-nav-dropdown-width);
     min-width: var(--mobile-nav-dropdown-width);
-    left: auto;
-    right: 0;
+    left: 0;
+    right: auto;
     margin-top: 0.35rem;
   }
 

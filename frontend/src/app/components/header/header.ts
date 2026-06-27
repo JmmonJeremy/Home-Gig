@@ -109,6 +109,7 @@ export class Header implements OnInit, OnDestroy {
 
   onProfileOption(event: MouseEvent, optionName: string): void {
     event.preventDefault();
+    event.stopPropagation();
     this.infoMessage = `${optionName} is not yet available.`;
   }
 

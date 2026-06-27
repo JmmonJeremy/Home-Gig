@@ -1,5 +1,6 @@
 <header class="top-header position-fixed top-0 me-2">
   <div class="mobile-header-white-band d-md-none" aria-hidden="true"></div>
+  <div class="mobile-header-white-underband d-md-none" aria-hidden="true"></div>
 
   <div class="profile-menu dropdown">
     <button
@@ -16,7 +17,7 @@
       <span>Profile</span>
     </button>
 
-    <ul class="dropdown-menu dropdown-menu-end">
+    <ul class="dropdown-menu dropdown-menu-end" data-bs-auto-close="outside">
       <li><a class="dropdown-item" href="#" (click)="onProfileOption($event, 'Profile')">Profile</a></li>
       <li><a class="dropdown-item" href="#" (click)="onProfileOption($event, 'Settings')">Settings</a></li>
       <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
