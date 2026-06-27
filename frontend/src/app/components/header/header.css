@@ -186,9 +186,9 @@
   .mobile-header-white-underband::after {
     content: "";
     position: absolute;
-    left: 5%;
+    left: 0;
     bottom: 0;
-    width: 90%;
+    width: 100%;
     border-bottom: 1px solid #374151;
   }
 
@@ -230,8 +230,8 @@
 
   .profile-info-message {
     position: fixed;
-    top: 3.8125rem;
-    right: calc(var(--mobile-screen-edge-margin) + var(--mobile-nav-dropdown-width) + 0.35rem);
+    top: calc(3.8125rem + 1rem);
+    right: calc(var(--mobile-screen-edge-margin) + var(--mobile-nav-dropdown-width) + 0.35rem + 1rem);
     left: 2rem;
     margin-right: 0;
     transform: none;
