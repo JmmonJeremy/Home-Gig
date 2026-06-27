@@ -229,9 +229,9 @@
     font-weight: 900;
     text-shadow:
       -0.75px -0.75px 0 #ffffff,
-       1.25px -1.25px 0 #161616,
+       1.25px -1.25px 0 #ffffff,
       -0.75px -0.75px 0 #ffffff,
-       1.25px  1.25px 0 #161616;
+       1.25px  1.25px 0 #ffffff;
   }
 
   .active-header .sidebar-home-icon {
@@ -243,9 +243,9 @@
     font-weight: 900;
     text-shadow:
       -0.75px -0.75px 0 #ffffff,
-       1.25px -1.25px 0 #161616,
+       1.25px -1.25px 0 #ffffff,
       -0.75px -0.75px 0 #ffffff,
-       1.25px  1.25px 0 #161616;
+       1.25px  1.25px 0 #ffffff;
   }
 
   .active-header:hover .sidebar-home-icon {
@@ -270,6 +270,19 @@
     border-top: 1px solid #dee2e6;
     z-index: 1030;
     pointer-events: auto;
+  }
+
+  .sidebar-nav::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 68px;
+    height: 2rem;
+    background-color: #f5f6f8;
+    border-top: 1px solid #dee2e6;
+    z-index: 1029;
+    pointer-events: none;
   }
 
   .sidebar-nav a {
@@ -322,9 +335,6 @@
 
   .mobile-menu-panel {
     position: fixed;
-    left: 1rem;
-    right: 1rem;
-    bottom: 76px;
     display: grid;
     gap: 0.25rem;
     padding: 0.75rem;
@@ -333,6 +343,20 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     z-index: 1040;
     pointer-events: auto;
+  }
+
+  .mobile-menu-panel-top {
+    top: 52px;
+    left: 0.5rem;
+    width: 13rem;
+    bottom: auto;
+    z-index: 1060;
+  }
+
+  .mobile-menu-panel-footer {
+    left: 1rem;
+    right: 1rem;
+    bottom: 76px;
   }
 
   .mobile-menu-panel a {

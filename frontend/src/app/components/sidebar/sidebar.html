@@ -3,8 +3,8 @@
     class="mobile-menu-button"
     type="button"
     aria-label="Open navigation menu"
-    [attr.aria-expanded]="isMobileMenuOpen"
-    (click)="toggleMobileMenu()"
+    [attr.aria-expanded]="isTopMobileMenuOpen"
+    (click)="toggleTopMobileMenu()"
   >
     <i class="bi bi-list" aria-hidden="true"></i>
   </button>
@@ -20,31 +20,31 @@
   </a>
 
   <nav class="sidebar-nav">
-    <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-speedometer2 sidebar-nav-icon" aria-hidden="true"></i>
       <span>Dashboard</span>
     </a>
-    <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-box-seam sidebar-nav-icon" aria-hidden="true"></i>
       <span>Products</span>
     </a>
-    <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-clipboard-data sidebar-nav-icon" aria-hidden="true"></i>
       <span>Inventory</span>
     </a>
-    <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-people sidebar-nav-icon" aria-hidden="true"></i>
       <span>Customers</span>
     </a>
-    <a routerLink="/orders" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/orders" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-cart-fill sidebar-nav-icon" aria-hidden="true"></i>
       <span>Orders</span>
     </a>
-    <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-credit-card sidebar-nav-icon" aria-hidden="true"></i>
       <span>Payments</span>
     </a>
-    <a routerLink="/reports" routerLinkActive="active" (click)="closeMobileMenu()">
+    <a routerLink="/reports" routerLinkActive="active" (click)="closeMobileMenus()">
       <i class="bi bi-graph-up-arrow sidebar-nav-icon" aria-hidden="true"></i>
       <span>Reports</span>
     </a>
@@ -58,19 +58,32 @@
     class="mobile-footer-menu-button"
     type="button"
     aria-label="Open navigation menu"
-    [attr.aria-expanded]="isMobileMenuOpen"
-    (click)="toggleMobileMenu()"
+    [attr.aria-expanded]="isFooterMobileMenuOpen"
+    (click)="toggleFooterMobileMenu()"
   >
     <i class="bi bi-list sidebar-nav-icon" aria-hidden="true"></i>
     <span>Menu</span>
   </button>
 
-  @if (isMobileMenuOpen) {
-    <div class="mobile-menu-panel">
-      <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenu()">Products</a>
-      <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenu()">Inventory</a>
-      <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenu()">Customers</a>
-      <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenu()">Payments</a>
+  @if (isTopMobileMenuOpen) {
+    <div class="mobile-menu-panel mobile-menu-panel-top">
+      <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenus()">Dashboard</a>
+      <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenus()">Products</a>
+      <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenus()">Inventory</a>
+      <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenus()">Customers</a>
+      <a routerLink="/orders" routerLinkActive="active" (click)="closeMobileMenus()">Orders</a>
+      <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenus()">Payments</a>
+      <a routerLink="/reports" routerLinkActive="active" (click)="closeMobileMenus()">Reports</a>
+      <a routerLink="/login" (click)="logout($event)">Logout</a>
+    </div>
+  }
+
+  @if (isFooterMobileMenuOpen) {
+    <div class="mobile-menu-panel mobile-menu-panel-footer">
+      <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenus()">Products</a>
+      <a routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenus()">Inventory</a>
+      <a routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenus()">Customers</a>
+      <a routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenus()">Payments</a>
       <a routerLink="/login" (click)="logout($event)">Logout</a>
     </div>
   }

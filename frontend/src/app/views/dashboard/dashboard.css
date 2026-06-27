@@ -16,7 +16,9 @@
 
 @media (max-width: 767px) {
   .dashboard-page {
-    padding-bottom: 4.75rem;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-bottom: 6.75rem;
   }
 
   .mobile-dashboard-title {
