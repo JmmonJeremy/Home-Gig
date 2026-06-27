@@ -16,7 +16,7 @@
       </button>
 
       <ul class="dropdown-menu mobile-nav-dropdown-menu mobile-nav-dropdown-menu-top" [class.show]="mobileTopMenuOpen">
-        <li><a class="dropdown-item" routerLink="/dashboard" (click)="closeMobileMenus()">Dashboard</a></li>
+        <li><a class="dropdown-item" routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenus()">Dashboard</a></li>
         <li><a class="dropdown-item" routerLink="/products" (click)="closeMobileMenus()">Products</a></li>
         <li><a class="dropdown-item" routerLink="/inventory" (click)="closeMobileMenus()">Inventory</a></li>
         <li><a class="dropdown-item" routerLink="/customers" (click)="closeMobileMenus()">Customers</a></li>
@@ -85,10 +85,10 @@
       </button>
 
       <ul class="dropdown-menu dropdown-menu-end mobile-nav-dropdown-menu mobile-nav-dropdown-menu-bottom" [class.show]="mobileBottomMenuOpen">
-        <li><a class="dropdown-item" routerLink="/products" (click)="closeMobileMenus()">Products</a></li>
-        <li><a class="dropdown-item" routerLink="/inventory" (click)="closeMobileMenus()">Inventory</a></li>
-        <li><a class="dropdown-item" routerLink="/customers" (click)="closeMobileMenus()">Customers</a></li>
-        <li><a class="dropdown-item" routerLink="/payments" (click)="closeMobileMenus()">Payments</a></li>
+        <li><a class="dropdown-item" routerLink="/products" routerLinkActive="active" (click)="closeMobileMenus()">Products</a></li>
+        <li><a class="dropdown-item" routerLink="/inventory" routerLinkActive="active" (click)="closeMobileMenus()">Inventory</a></li>
+        <li><a class="dropdown-item" routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenus()">Customers</a></li>
+        <li><a class="dropdown-item" routerLink="/payments" routerLinkActive="active" (click)="closeMobileMenus()">Payments</a></li>
         <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
       </ul>
     </div>

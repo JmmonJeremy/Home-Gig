@@ -21,6 +21,12 @@
       <li><a class="dropdown-item" href="#" (click)="onProfileOption($event, 'Settings')">Settings</a></li>
       <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
     </ul>
+
+    @if (infoMessage) {
+      <div class="profile-info-message">
+        {{ infoMessage }}
+      </div>
+    }
   </div>
 
   <div class="header-search-section">
@@ -64,10 +70,4 @@
       }
     </div>
   </div>
-
-  @if (infoMessage) {
-    <div class="profile-info-message">
-      {{ infoMessage }}
-    </div>
-  }
 </header>

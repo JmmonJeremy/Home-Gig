@@ -146,6 +146,8 @@
     grid-template-rows: 52px auto;
     align-items: stretch;
     z-index: 1020;
+    --mobile-nav-dropdown-width: 10.5rem;
+    --mobile-screen-edge-margin: 0.5rem;
   }
 
   .top-header::after {
@@ -158,7 +160,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 52px;
+    height: 58px;
     background-color: #ffffff;
     z-index: 0;
     pointer-events: none;
@@ -178,18 +180,47 @@
     grid-row: 1;
     align-self: center;
     justify-self: end;
-    padding: 0.5rem 2rem 0.5rem 0;
+    padding: 0.5rem var(--mobile-screen-edge-margin) 0.5rem 0;
     z-index: 1035;
   }
 
   .profile-menu .dropdown-menu {
+    position: fixed;
+    top: 3.25rem;
+    right: var(--mobile-screen-edge-margin);
+    left: auto;
     z-index: 1040;
-    min-width: 10.5rem;
-    width: 10.5rem;
+    min-width: var(--mobile-nav-dropdown-width);
+    width: var(--mobile-nav-dropdown-width);
+    margin: 0;
+    transform: none !important;
+    inset: auto var(--mobile-screen-edge-margin) auto auto !important;
+  }
+
+  .profile-menu .dropdown-menu.show {
+    position: fixed !important;
+    top: 3.25rem !important;
+    right: var(--mobile-screen-edge-margin) !important;
+    left: auto !important;
+    bottom: auto !important;
+    transform: none !important;
   }
 
   .profile-menu .dropdown-item {
     font-size: 1rem;
+    padding: 0.25rem 1rem;
+  }
+
+  .profile-info-message {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.5rem);
+    left: auto;
+    margin-right: 0;
+    transform: translateY(-50%);
+    max-width: 11rem;
+    white-space: normal;
+    z-index: 1060;
   }
 
   .header-search-section {
@@ -204,6 +235,19 @@
     width: 100%;
   }
 
+  .search-category-menu {
+    width: var(--mobile-nav-dropdown-width);
+    min-width: var(--mobile-nav-dropdown-width);
+    left: auto;
+    right: 0;
+    margin-top: 0.35rem;
+  }
+
+  .search-category-menu .dropdown-item {
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+  }
+
   .search-box input {
     height: 42px;
     font-size: 0.85rem;
@@ -216,15 +260,5 @@
   .profile-icon {
     width: 28px;
     height: 28px;
-  }
-
-  .profile-info-message {
-    top: 50%;
-    right: 100%;
-    left: auto;
-    margin-right: 0.5rem;
-    transform: translateY(-50%);
-    max-width: 11rem;
-    white-space: normal;
   }
 }
