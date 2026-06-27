@@ -40,14 +40,12 @@ export class Sidebar implements OnInit, OnDestroy {
 
   toggleMobileTopMenu(event: MouseEvent): void {
     event.preventDefault();
-    event.stopPropagation();
     this.mobileBottomMenuOpen = false;
     this.mobileTopMenuOpen = !this.mobileTopMenuOpen;
   }
 
   toggleMobileBottomMenu(event: MouseEvent): void {
     event.preventDefault();
-    event.stopPropagation();
     this.mobileTopMenuOpen = false;
     this.mobileBottomMenuOpen = !this.mobileBottomMenuOpen;
   }
