@@ -149,7 +149,7 @@
     bottom: auto !important;
     margin: 0 !important;
     border-right: 0 !important;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 0 !important;
     background-color: transparent !important;
     pointer-events: none;
     z-index: 1050;
@@ -278,9 +278,8 @@
     left: 0;
     right: 0;
     bottom: 68px;
-    height: 2rem;
+    height: 1rem;
     background-color: #f5f6f8;
-    border-top: 1px solid #dee2e6;
     z-index: 1029;
     pointer-events: none;
   }
@@ -350,12 +349,13 @@
     left: 0.5rem;
     width: 13rem;
     bottom: auto;
-    z-index: 1060;
+    z-index: 1080;
   }
 
   .mobile-menu-panel-footer {
-    left: 1rem;
-    right: 1rem;
+    left: auto;
+    right: 0.5rem;
+    width: 13rem;
     bottom: 76px;
   }
 

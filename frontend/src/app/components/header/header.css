@@ -133,28 +133,23 @@
     display: block;
     left: 5%;
     right: 5%;
-    bottom: 0;
+    top: 52px;
+    bottom: auto;
     height: 1px;
-    background-color: #dee2e6;
+    background-color: #6b7280;
     z-index: 1061;
   }
 
   .top-header::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2rem;
-    height: 2rem;
-    background-color: #f5f6f8;
-    z-index: 1038;
+    display: none;
   }
 
   .search-box {
     grid-column: 1 / -1;
     grid-row: 2;
     align-self: stretch;
-    width: 100%;
+    width: calc(100% - 1.5rem);
+    justify-self: center;
     padding: 2.3rem 1rem 0;
     background-color: #f5f6f8;
   }
@@ -194,7 +189,11 @@
   }
 
   .search-category-menu {
-    width: min(18rem, calc(100vw - 2rem));
+    width: min(9rem, calc(100vw - 2rem));
+  }
+
+  .profile-menu .dropdown-menu {
+    z-index: 1080;
   }
 
   .profile-info-message {
