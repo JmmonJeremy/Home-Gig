@@ -133,7 +133,7 @@
     display: block;
     left: 5%;
     right: 5%;
-    top: 52px;
+    top: 54px;
     bottom: auto;
     height: 1px;
     background-color: #6b7280;
@@ -141,16 +141,23 @@
   }
 
   .top-header::before {
-    display: none;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 52px;
+    height: 2px;
+    background-color: #ffffff;
+    z-index: 1058;
   }
 
   .search-box {
     grid-column: 1 / -1;
     grid-row: 2;
     align-self: stretch;
-    width: calc(100% - 1.5rem);
+    width: 100%;
     justify-self: center;
-    padding: 2.3rem 1rem 0;
+    padding: 2.3rem 1.75rem 0;
     background-color: #f5f6f8;
   }
 
@@ -164,7 +171,7 @@
     grid-row: 1;
     padding-right: 1rem;
     position: relative;
-    z-index: 1046;
+    z-index: 1090;
   }
 
   .profile-button {
@@ -179,12 +186,12 @@
   }
 
   .search-icon {
-    left: 1.9rem;
+    left: 2.65rem;
     top: calc(50% + 0.15rem);
   }
 
   .search-clear-btn {
-    right: 1.75rem;
+    right: 2.5rem;
     top: calc(50% + 0.15rem);
   }
 
@@ -193,12 +200,13 @@
   }
 
   .profile-menu .dropdown-menu {
-    z-index: 1080;
+    z-index: 1100;
   }
 
   .profile-info-message {
     left: 1rem;
     right: 1rem;
-    top: 3.5rem;
+    top: 4rem;
+    z-index: 1100;
   }
 }

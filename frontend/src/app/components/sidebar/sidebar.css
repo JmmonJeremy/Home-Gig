@@ -372,4 +372,8 @@
     font-weight: 600;
     background-color: #f5f6f8;
   }
+
+  .mobile-menu-panel-top a.active {
+    background-color: transparent;
+  }
 }

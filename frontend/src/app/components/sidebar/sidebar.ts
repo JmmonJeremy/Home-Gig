@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -30,6 +30,25 @@ export class Sidebar {
   closeMobileMenus(): void {
     this.isTopMobileMenuOpen = false;
     this.isFooterMobileMenuOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.isTopMobileMenuOpen && !this.isFooterMobileMenuOpen) {
+      return;
+    }
+
+    const target = event.target as HTMLElement | null;
+
+    if (
+      target?.closest(
+        '.mobile-menu-button, .mobile-footer-menu-button, .mobile-menu-panel'
+      )
+    ) {
+      return;
+    }
+
+    this.closeMobileMenus();
   }
 
   logout(event: MouseEvent): void {
