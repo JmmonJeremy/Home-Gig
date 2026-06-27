@@ -281,9 +281,18 @@
     gap: 0;
     padding: 0.45rem 2rem 0.35rem;
     background-color: #ffffff;
-    border-top: 1px solid #374151;
+    border-top: 0;
     z-index: 1030;
     pointer-events: auto;
+  }
+
+  .sidebar-nav-mobile::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+    border-top: 1px solid #374151;
   }
 
   .sidebar-nav-mobile a,

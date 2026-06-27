@@ -231,7 +231,7 @@
   .profile-info-message {
     position: fixed;
     top: calc(3.8125rem + 1rem);
-    right: calc(var(--mobile-screen-edge-margin) + var(--mobile-nav-dropdown-width) + 0.35rem + 1rem);
+    right: calc(var(--mobile-screen-edge-margin) + var(--mobile-nav-dropdown-width) + 0.35rem + 3rem);
     left: 2rem;
     margin-right: 0;
     transform: none;
