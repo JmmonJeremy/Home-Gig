@@ -15,3 +15,19 @@
 .page-content {
   padding: 2rem;
 }
+
+@media (max-width: 767px) {
+  .app-layout {
+    display: block;
+    padding: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: 104px;
+  }
+
+  .page-content {
+    padding: 1.5rem 1rem 0;
+  }
+}

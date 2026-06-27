@@ -125,3 +125,120 @@
   color: #0d6efd;
   font-weight: 600;
 }
+
+.sidebar-nav-icon {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  :host {
+    min-height: 0;
+    background-color: transparent;
+    border-right: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 52px;
+    bottom: auto !important;
+    margin: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid #dee2e6;
+    pointer-events: none;
+  }
+
+  .sidebar-header {
+    width: max-content;
+    min-height: 52px;
+    gap: 0.65rem;
+    justify-content: flex-start;
+    margin-bottom: 0;
+    padding: 0.55rem 1rem;
+    border-bottom: 0;
+    pointer-events: auto;
+  }
+
+  .sidebar-header::before {
+    content: "\F479";
+    font-family: "bootstrap-icons";
+    font-size: 1.5rem;
+    color: #1f2937;
+    line-height: 1;
+  }
+
+  .brand {
+    font-size: 0.95rem;
+    margin-top: 0;
+  }
+
+  .sidebar-home-icon {
+    width: 28px;
+    height: 28px;
+    margin-top: 0;
+  }
+
+  .sidebar-header:hover {
+    margin-bottom: 0;
+  }
+
+  .active-header {
+    margin-bottom: 0;
+    background: transparent;
+    border-bottom: 0;
+    border-right: 0;
+  }
+
+  .active-header .brand {
+    color: #1f2937;
+    text-shadow: none;
+  }
+
+  .active-header .sidebar-home-icon {
+    margin-right: 0;
+  }
+
+  .sidebar-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 68px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 0.45rem 0.5rem 0.35rem;
+    background-color: #ffffff;
+    border-top: 1px solid #dee2e6;
+    z-index: 1030;
+    pointer-events: auto;
+  }
+
+  .sidebar-nav a {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.1rem;
+    color: #6b7280;
+    font-size: 0.65rem;
+    line-height: 1.1;
+  }
+
+  .sidebar-nav a:nth-child(1),
+  .sidebar-nav a:nth-child(5),
+  .sidebar-nav a:nth-child(7),
+  .sidebar-nav a:nth-child(8) {
+    display: flex;
+  }
+
+  .sidebar-nav-icon {
+    display: block;
+    font-size: 1.45rem;
+    line-height: 1;
+  }
+
+  .sidebar-nav a:hover,
+  .sidebar-nav a.active {
+    color: #0d6efd;
+  }
+}
