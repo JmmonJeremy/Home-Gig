@@ -295,6 +295,17 @@
     border-top: 1px solid #374151;
   }
 
+  .sidebar-nav-mobile::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+    background-color: #f5f6f8;
+    pointer-events: none;
+  }
+
   .sidebar-nav-mobile a,
   .sidebar-mobile-menu-btn {
     display: flex;
