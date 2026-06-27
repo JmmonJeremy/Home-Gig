@@ -1,30 +1,33 @@
 <aside class="sidebar position-fixed top-0 start-0 bottom-0 bg-white m-2 border-end" style="--bs-border-width: 2px; --bs-border-color: #dee2e6;">
-  <div class="sidebar-mobile-top d-md-none">
+  <div
+    class="sidebar-mobile-top d-md-none"
+    [class.active-header-mobile]="isDashboardPage"
+  >
     <div class="dropdown sidebar-top-nav-dropdown">
       <button
         type="button"
-        class="sidebar-menu-toggle dropdown-toggle"
-        data-bs-toggle="dropdown"
-        data-bs-display="static"
-        aria-expanded="false"
+        class="sidebar-menu-toggle"
+        [class.show]="mobileTopMenuOpen"
         aria-label="Open navigation menu"
+        [attr.aria-expanded]="mobileTopMenuOpen"
+        (click)="toggleMobileTopMenu($event)"
       >
         <i class="bi bi-list" aria-hidden="true"></i>
       </button>
 
-      <ul class="dropdown-menu sidebar-mobile-dropdown-menu">
-        <li><a class="dropdown-item" routerLink="/dashboard">Dashboard</a></li>
-        <li><a class="dropdown-item" routerLink="/products">Products</a></li>
-        <li><a class="dropdown-item" routerLink="/inventory">Inventory</a></li>
-        <li><a class="dropdown-item" routerLink="/customers">Customers</a></li>
-        <li><a class="dropdown-item" routerLink="/orders">Orders</a></li>
-        <li><a class="dropdown-item" routerLink="/payments">Payments</a></li>
-        <li><a class="dropdown-item" routerLink="/reports">Reports</a></li>
+      <ul class="dropdown-menu mobile-nav-dropdown-menu mobile-nav-dropdown-menu-top" [class.show]="mobileTopMenuOpen">
+        <li><a class="dropdown-item" routerLink="/dashboard" (click)="closeMobileMenus()">Dashboard</a></li>
+        <li><a class="dropdown-item" routerLink="/products" (click)="closeMobileMenus()">Products</a></li>
+        <li><a class="dropdown-item" routerLink="/inventory" (click)="closeMobileMenus()">Inventory</a></li>
+        <li><a class="dropdown-item" routerLink="/customers" (click)="closeMobileMenus()">Customers</a></li>
+        <li><a class="dropdown-item" routerLink="/orders" (click)="closeMobileMenus()">Orders</a></li>
+        <li><a class="dropdown-item" routerLink="/payments" (click)="closeMobileMenus()">Payments</a></li>
+        <li><a class="dropdown-item" routerLink="/reports" (click)="closeMobileMenus()">Reports</a></li>
         <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
       </ul>
     </div>
 
-    <a class="sidebar-mobile-brand" routerLink="/dashboard" routerLinkActive="active-header">
+    <a class="sidebar-mobile-brand" routerLink="/dashboard">
       <span class="brand">Home Gig</span>
       <img
         src="/assets/images/home-gig-icon1.png"
@@ -71,21 +74,21 @@
     <div class="dropdown dropup sidebar-bottom-nav-dropdown">
       <button
         type="button"
-        class="sidebar-mobile-menu-btn dropdown-toggle"
-        data-bs-toggle="dropdown"
-        data-bs-display="static"
-        aria-expanded="false"
+        class="sidebar-mobile-menu-btn"
+        [class.show]="mobileBottomMenuOpen"
         aria-label="Open more navigation options"
+        [attr.aria-expanded]="mobileBottomMenuOpen"
+        (click)="toggleMobileBottomMenu($event)"
       >
         <i class="bi bi-list sidebar-nav-icon" aria-hidden="true"></i>
         <span>Menu</span>
       </button>
 
-      <ul class="dropdown-menu dropdown-menu-end sidebar-mobile-dropdown-menu">
-        <li><a class="dropdown-item" routerLink="/products">Products</a></li>
-        <li><a class="dropdown-item" routerLink="/inventory">Inventory</a></li>
-        <li><a class="dropdown-item" routerLink="/customers">Customers</a></li>
-        <li><a class="dropdown-item" routerLink="/payments">Payments</a></li>
+      <ul class="dropdown-menu dropdown-menu-end mobile-nav-dropdown-menu mobile-nav-dropdown-menu-bottom" [class.show]="mobileBottomMenuOpen">
+        <li><a class="dropdown-item" routerLink="/products" (click)="closeMobileMenus()">Products</a></li>
+        <li><a class="dropdown-item" routerLink="/inventory" (click)="closeMobileMenus()">Inventory</a></li>
+        <li><a class="dropdown-item" routerLink="/customers" (click)="closeMobileMenus()">Customers</a></li>
+        <li><a class="dropdown-item" routerLink="/payments" (click)="closeMobileMenus()">Payments</a></li>
         <li><a class="dropdown-item" routerLink="/login" (click)="logout($event)">Logout</a></li>
       </ul>
     </div>
