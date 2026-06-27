@@ -221,6 +221,12 @@ Goal:
 <span style="color: #fcfcc4;">Give the clear purpose of the work</span>. Like:  
 Make the existing top-header search bar functional across the app.
 
+<p style="margin-bottom: 0;">Important Guidelines:  </p>
+
+- Do not perform refactoring, formatting-only changes, dependency updates, or cleanup outside the files required for this task. 
+- If the wireframe or requirements are ambiguous, stop and ask for clarification instead of making assumptions. 
+- Before committing, explain the reasoning behind each significant code change so I can understand what was modified and why.
+
 <p style="margin-bottom: 0;">Functional requirements:  </p>
 <p style="margin-bottom: 0;"><span style="color: #fcfcc4;">List the functional requirements desired</span>. Like:  </p>
    
