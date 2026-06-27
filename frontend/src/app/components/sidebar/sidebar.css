@@ -125,3 +125,137 @@
   color: #0d6efd;
   font-weight: 600;
 }
+
+.mobile-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+.mobile-nav-drawer {
+  z-index: 1045;
+}
+
+.mobile-drawer-nav a {
+  color: #374151;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.mobile-drawer-nav a:hover,
+.mobile-drawer-nav a.active {
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+@media (max-width: 767.98px) {
+  :host {
+    min-height: 0;
+    background-color: transparent;
+    border-right: 0;
+  }
+
+  .sidebar {
+    width: auto;
+    height: auto;
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: auto;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    z-index: 1031;
+    pointer-events: none;
+  }
+
+  .sidebar-mobile-top {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 52px;
+    padding: 0.55rem 0 0.55rem 1rem;
+    pointer-events: auto;
+  }
+
+  .sidebar-menu-toggle {
+    border: 0;
+    background: transparent;
+    color: #1f2937;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar-menu-toggle .bi {
+    font-size: 1.5rem;
+  }
+
+  .sidebar-mobile-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+  }
+
+  .sidebar-mobile-brand .brand {
+    font-size: 0.95rem;
+    margin-top: 0;
+  }
+
+  .sidebar-mobile-brand .sidebar-home-icon {
+    width: 28px;
+    height: 28px;
+    margin-top: 0;
+  }
+
+  .active-mobile-brand .brand {
+    color: #1f2937;
+  }
+
+  .sidebar-nav-mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 0.45rem 0.5rem 0.35rem;
+    background-color: #ffffff;
+    border-top: 1px solid #dee2e6;
+    z-index: 1030;
+    pointer-events: auto;
+  }
+
+  .sidebar-nav-mobile a,
+  .sidebar-mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.1rem;
+    color: #6b7280;
+    font-size: 0.65rem;
+    line-height: 1.1;
+    text-decoration: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+
+  .sidebar-nav-icon {
+    font-size: 1.45rem;
+    line-height: 1;
+  }
+
+  .sidebar-nav-mobile a:hover,
+  .sidebar-nav-mobile a.active,
+  .sidebar-mobile-menu-btn:hover,
+  .sidebar-mobile-menu-btn.active {
+    color: #0d6efd;
+  }
+}

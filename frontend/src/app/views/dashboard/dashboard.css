@@ -14,7 +14,59 @@
   padding: 1rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
+  .dashboard-page {
+    padding-bottom: 0.5rem;
+  }
+
+  .mobile-dashboard-title {
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+    color: #1f2937;
+  }
+
+  .card-header {
+    padding: 0 0 0.75rem;
+    border-bottom: 0;
+    background-color: transparent !important;
+  }
+
+  .dashboard-section-card {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none !important;
+  }
+
+  .dashboard-section-card > .card-body {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+
+  .dashboard-section-card .card-body:not(.p-0) {
+    padding: 1rem;
+  }
+
+  .row > .col-6 .card {
+    border-radius: 0;
+  }
+
+  .row > .col-6 .card-body {
+    min-height: 4.5rem;
+  }
+
+  .row > .col-6 .fs-3 {
+    font-size: 1.15rem !important;
+  }
+
+  .row > .col-6 .text-muted {
+    font-size: 0.85rem;
+  }
+
+  .dashboard-section-card h2 {
+    font-size: 0.9rem;
+  }
+
   .table thead {
     display: none;
   }
@@ -22,15 +74,31 @@
   .table tr {
     display: grid;
     grid-template-columns: 1fr auto auto;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    align-items: center;
   }
 
   .table td {
     border: none;
-    padding: 0.75rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
   }
 
   .btn {
     width: 100%;
+    min-height: 2.1rem;
+  }
+
+  .system-services-card .card-header {
+    padding-bottom: 0;
+  }
+
+  .system-services-card .card-header i {
+    font-size: 0.9rem !important;
+  }
+
+  .system-services-card .card-body {
+    margin-top: 0.75rem;
+    padding: 0.9rem 1rem;
   }
 }
