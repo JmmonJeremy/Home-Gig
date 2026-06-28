@@ -6,9 +6,11 @@
 .top-header {
   left: 270px;
   right: 0;
-  height: 88px;  
+  height: 88px;
+  background-color: #ffffff;
   border-bottom: 1px solid #dee2e6;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
@@ -26,16 +28,27 @@
   background-color: #f5f6f8;
 }
 
+.header-search-section {
+  flex: 0 1 auto;
+}
+
+.profile-menu {
+  position: relative;
+  flex: 0 0 auto;
+}
+
 .profile-info-message {
   position: absolute;
-  top: 15px; 
-  right: calc(1rem + 200px); 
+  top: 15px;
+  right: calc(1rem + 200px);
   padding: 0.5rem 0.75rem;
   background-color: #fff3cd;
   border: 1px solid #ffecb5;
   border-radius: 0.25rem;
   color: #664d03;
   z-index: 1030;
+  width: max-content;
+  max-width: 14rem;
 }
 
 .search-box {
@@ -51,6 +64,7 @@
   padding-left: 42px;
   padding-right: 12px;
   font-size: 1rem;
+  background-color: #ffffff;
 }
 
 .search-box input.has-clear {
@@ -110,4 +124,158 @@
 
 .page-content {
   padding: 2rem;
+}
+
+.mobile-header-white-band,
+.mobile-header-white-underband {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .top-header {
+    left: 0;
+    right: 0;
+    top: 0;
+    height: auto;
+    margin-right: 0 !important;
+    padding: 0;
+    border-top: 0;
+    border-bottom: 0;
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 52px auto;
+    align-items: stretch;
+    z-index: 1020;
+    --mobile-nav-dropdown-width: 10.5rem;
+    --mobile-screen-edge-margin: 0.5rem;
+  }
+
+  .top-header::after {
+    display: none;
+  }
+
+  .mobile-header-white-band,
+  .mobile-header-white-underband {
+    display: block;
+  }
+
+  .mobile-header-white-band {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 55px;
+    background-color: #ffffff;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .mobile-header-white-underband {
+    display: block;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ffffff;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .mobile-header-white-underband::after {
+    content: "";
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    width: 90%;
+    border-bottom: 1px solid #374151;
+  }
+
+  .profile-menu {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
+    padding: 0.5rem var(--mobile-screen-edge-margin) 0.5rem 0;
+    z-index: 1035;
+  }
+
+  .profile-menu .dropdown-menu {
+    position: fixed;
+    top: 3.8125rem;
+    right: var(--mobile-screen-edge-margin);
+    left: auto;
+    z-index: 1040;
+    min-width: var(--mobile-nav-dropdown-width);
+    width: var(--mobile-nav-dropdown-width);
+    margin: 0;
+    transform: none !important;
+    inset: auto var(--mobile-screen-edge-margin) auto auto !important;
+  }
+
+  .profile-menu .dropdown-menu.show {
+    position: fixed !important;
+    top: 3.8125rem !important;
+    right: var(--mobile-screen-edge-margin) !important;
+    left: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .profile-menu .dropdown-item {
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+  }
+
+  .profile-info-message {
+    position: fixed;
+    top: calc(3.8125rem + 1rem);
+    left: 0.5rem;
+    right: auto;
+    margin-right: 0;
+    transform: none;
+    max-width: 14rem;
+    white-space: normal;
+    z-index: 1065;
+  }
+
+  .header-search-section {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    background-color: #f5f6f8;
+    padding: 1.7rem 2rem 1rem;
+    z-index: 1;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-category-menu {
+    width: var(--mobile-nav-dropdown-width);
+    min-width: var(--mobile-nav-dropdown-width);
+    left: 0;
+    right: auto;
+    margin-top: 0.35rem;
+  }
+
+  .search-category-menu .dropdown-item {
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+  }
+
+  .search-box input {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+
+  .profile-button {
+    font-size: 1rem;
+  }
+
+  .profile-icon {
+    width: 28px;
+    height: 28px;
+  }
 }

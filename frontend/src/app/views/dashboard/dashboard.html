@@ -1,6 +1,7 @@
-<div class="dashboard-page container-fluid ps-5">
+<div class="dashboard-page container-fluid px-0 px-md-5">
 
     <h1 class="h3 fw-bold mb-3 d-none d-md-block">DASHBOARD</h1>
+    <h1 class="mobile-dashboard-title fw-bold d-md-none">DASHBOARD</h1>
 
     @if (isLoading) {
       <p>Loading dashboard...</p>
@@ -11,7 +12,7 @@
     }
 
     <!-- Summary Cards -->
-    <div class="row g-3 mb-4">
+    <div class="row g-2 g-md-3 mb-4">
     @for (stat of stats; track stat.label) {
       <div class="col-6 col-lg-3">
         <div class="card shadow-sm h-100">
@@ -25,7 +26,7 @@
     </div>
 
     <!-- Recent Orders -->
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4 dashboard-section-card">
       <div class="card-header bg-white">
         <h2 class="h5 fw-bold mb-0">RECENT ORDERS</h2>
       </div>
@@ -63,7 +64,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4 dashboard-section-card">
       <div class="card-header bg-white">
         <h2 class="h5 fw-bold mb-0">QUICK ACTIONS</h2>
       </div>
@@ -78,7 +79,7 @@
     </div>
 
     <!-- System Services -->
-    <div class="card shadow-sm">
+    <div class="card shadow-sm dashboard-section-card system-services-card">
       <button
         class="card-header rounded-corners bg-white border-0 text-start w-100 d-flex align-items-center gap-2"
         type="button"
