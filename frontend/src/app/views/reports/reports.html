@@ -1,12 +1,14 @@
 <div class="reports-page">
   <div class="container-fluid ps-5">
     <h1 class="h3 fw-bold mb-3 d-none d-md-block">SPREADSHEET EXPORT &amp; REPORTING</h1>
-    <h1 class="h3 fw-bold mb-3 d-md-none">Spreadsheet Export &amp; Reporting</h1>
+    <h1 class="mobile-reports-title fw-bold mb-3 d-md-none">
+      Spreadsheet Export &amp; Reporting
+    </h1>
 
     <div class="reports-content w-100">
       <button
         type="button"
-        class="btn hg-export-spreadsheet mb-4"
+        class="btn hg-export-spreadsheet reports-generate-btn mb-4"
         (click)="generateSpreadsheet()"
         [disabled]="isGenerating"
       >
@@ -17,10 +19,12 @@
         <p class="text-danger mb-3">{{ errorMessage }}</p>
       }
 
-      <div class="card shadow-sm mb-4">
+      <div class="card shadow-sm mb-4 reports-options-card">
         <div class="card-body">
           <div class="mb-3">
-            <label for="reportType" class="form-label">Report Type:</label>
+            <label for="reportType" class="form-label">
+              Report Type<span class="d-none d-md-inline">:</span>
+            </label>
             <select
               id="reportType"
               name="reportType"
@@ -32,7 +36,9 @@
           </div>
 
           <div class="mb-3">
-            <label for="format" class="form-label">Spreadsheet Format:</label>
+            <label for="format" class="form-label">
+              Spreadsheet Format<span class="d-none d-md-inline">:</span>
+            </label>
             <select
               id="format"
               name="format"
@@ -44,7 +50,9 @@
           </div>
 
           <div class="mb-3">
-            <label for="startDate" class="form-label">Start Date:</label>
+            <label for="startDate" class="form-label">
+              Start Date<span class="d-none d-md-inline">:</span>
+            </label>
             <input
               id="startDate"
               name="startDate"
@@ -55,7 +63,9 @@
           </div>
 
           <div class="mb-0">
-            <label for="endDate" class="form-label">End Date:</label>
+            <label for="endDate" class="form-label">
+              End Date<span class="d-none d-md-inline">:</span>
+            </label>
             <input
               id="endDate"
               name="endDate"
@@ -67,11 +77,11 @@
         </div>
       </div>
 
-      <h2 class="h4 fw-bold mb-3">GENERATED SPREADSHEET</h2>
+      <h2 class="h4 fw-bold mb-3 reports-generated-title">GENERATED SPREADSHEET</h2>
 
-      <div class="card shadow-sm mb-3">
+      <div class="card shadow-sm mb-3 reports-result-card">
         <div class="card-body">
-          <p class="mb-2">Results:</p>
+          <p class="mb-2 reports-result-label">Results:</p>
 
           @if (spreadsheetReady) {
             <div class="report-result-box d-none d-md-block">

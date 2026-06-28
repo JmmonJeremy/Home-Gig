@@ -52,11 +52,74 @@
 }
 
 @media (max-width: 767.98px) {
-  .reports-page .btn {
-    width: 100%;
+  .reports-page {
+    padding-bottom: 0.5rem;
+  }
+
+  .reports-page .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0;
+  }
+
+  .mobile-reports-title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: #1f2937;
+  }
+
+  .reports-generate-btn {
+    width: auto;
+    min-height: 2.5rem;
+    padding: 0.45rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .reports-options-card {
+    border-radius: 0;
+  }
+
+  .reports-options-card .card-body {
+    padding: 1rem;
+  }
+
+  .reports-page .form-label {
+    font-size: 0.9rem;
+  }
+
+  .reports-page .form-control,
+  .reports-page .form-select {
+    min-height: 2.65rem;
+    font-size: 0.9rem;
+  }
+
+  .reports-generated-title,
+  .reports-result-label {
+    display: none;
+  }
+
+  .reports-result-card {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none !important;
+  }
+
+  .reports-result-card .card-body {
+    padding: 0 0.25rem;
+  }
+
+  .report-divider {
+    margin: 0.5rem 0;
+  }
+
+  .report-result-mobile-status,
+  .report-result-mobile-filename {
+    font-size: 0.9rem;
   }
 
   .reports-download-btn {
+    width: 100%;
     min-width: 0;
+    min-height: 2.5rem;
+    font-weight: 600;
   }
 }
