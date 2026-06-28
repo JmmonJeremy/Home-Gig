@@ -177,8 +177,7 @@
     z-index: 1045;
   }
 
-  .mobile-nav-dropdown-menu {
-    min-width: var(--mobile-nav-dropdown-width);
+  .mobile-nav-dropdown-menu {   
     width: var(--mobile-nav-dropdown-width);
     padding: 0.5rem 0;
   }
