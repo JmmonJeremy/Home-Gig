@@ -52,11 +52,18 @@
 }
 
 @media (max-width: 767.98px) {
-  .reports-page .btn {
+  .reports-download-btn {
     width: 100%;
+    min-width: 0;
   }
 
-  .reports-download-btn {
-    min-width: 0;
+  .reports-results-card {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none !important;
+  }
+
+  .reports-results-card .card-body {
+    padding: 0;
   }
 }

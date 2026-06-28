@@ -1,5 +1,5 @@
 <div class="reports-page">
-  <div class="container-fluid ps-5">
+  <div class="container-fluid ps-0 ps-md-5">
     <h1 class="h3 fw-bold mb-3 d-none d-md-block">SPREADSHEET EXPORT &amp; REPORTING</h1>
     <h1 class="h3 fw-bold mb-3 d-md-none">Spreadsheet Export &amp; Reporting</h1>
 
@@ -67,11 +67,11 @@
         </div>
       </div>
 
-      <h2 class="h4 fw-bold mb-3">GENERATED SPREADSHEET</h2>
+      <h2 class="h4 fw-bold mb-3 d-none d-md-block">GENERATED SPREADSHEET</h2>
 
-      <div class="card shadow-sm mb-3">
+      <div class="card shadow-sm mb-3 reports-results-card">
         <div class="card-body">
-          <p class="mb-2">Results:</p>
+          <p class="mb-2 d-none d-md-block">Results:</p>
 
           @if (spreadsheetReady) {
             <div class="report-result-box d-none d-md-block">
@@ -80,18 +80,26 @@
             </div>
 
             <div class="report-result-mobile d-md-none">
-              <hr class="report-divider" />
               <p class="report-result-mobile-status mb-0">Spreadsheet Ready</p>
               <hr class="report-divider" />
               <p class="report-result-mobile-filename mb-0">{{ generatedFileName }}</p>
               <hr class="report-divider" />
             </div>
           } @else {
-            <div class="report-result-box report-result-empty">
+            <div class="report-result-box report-result-empty d-none d-md-block">
               <div class="report-result-status">Awaiting Generation</div>
               <div class="report-result-filename text-muted">
                 Generate a spreadsheet to see results here.
               </div>
+            </div>
+
+            <div class="report-result-mobile d-md-none">
+              <p class="report-result-mobile-status mb-0 text-muted">Awaiting Generation</p>
+              <hr class="report-divider" />
+              <p class="report-result-mobile-filename mb-0 text-muted">
+                Generate a spreadsheet to see results here.
+              </p>
+              <hr class="report-divider" />
             </div>
           }
         </div>
