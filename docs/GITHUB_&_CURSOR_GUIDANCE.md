@@ -279,3 +279,86 @@ Make the existing top-header search bar functional across the app.
 1. Create a pull request from <span style="color: #70bcf2;">cursor/searchbar-feature</span> into master.
 2. Do not merge the pull request or bypass repository rules.
 3. Return the pull request URL when finished.
+
+## <span style="color: #ffff00;">Copy & Paste Styling Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template</span> for <span style="color: #70bcf2;">Cursor or Codex</span> :
+Home Gig - Mobile Reports View
+Important Guidelines
+1. Do not perform refactoring, formatting-only changes, dependency updates, or cleanup outside the files required for this task.
+2. If the wireframe or requirements are ambiguous, stop and ask for clarification instead of making assumptions.
+3. Before committing, explain the reasoning behind each significant code change so I can understand what was modified and why. 
+
+Git Setup
+1. Start from the local master branch.
+2. Pull the latest changes from origin/master.
+3. Create and switch to a new branch named: codex/mobileReports-view
+4. Confirm the current Git branch is: codex/mobileReports-view
+
+Before Making Any Changes
+1. Inspect the following files before editing anything:
+docs/wireframes/6.1_Spreadsheet_Export_&_Reporting_Mobile_Wireframe.png
+docs/Home_Gig_Requirements_Specification.docx
+2. If docs/Home_Gig_Requirements_Specification.docx is too large or difficult to parse, use the wireframe as the primary visual source and report what parts of the requirements file could not be read.
+3. Then inspect the current Reports implementation and identify every file that would need to change.
+4. If any file other than reports.css and reports.html needs to be modified:
+    Stop.
+    1. List every file you believe needs to change.
+    2. Explain why each file needs to change.
+    3. Wait for my approval before making any edits.
+    4. Do not begin editing until I explicitly tell you to continue.
+
+Goal
+Update only the mobile view of the Reports page so that it matches the supplied mobile wireframe as closely as practical. The desktop Reports view must remain visually and functionally unchanged.
+
+Design Requirements
+1. Follow the supplied wireframe.
+2. Preserve the existing visual style.
+3. Do not redesign the application.
+4. Reuse the existing colors, typography, spacing, icons, and components whenever possible.
+5. Use Bootstrap utility classes and responsive classes whenever practical instead of custom CSS.
+6. Prefer responsive Bootstrap classes over media-query-heavy custom CSS.
+7. Only add custom CSS when Bootstrap cannot accomplish the layout.
+8. Do not introduce new UI libraries.
+
+Functional Requirements
+1. The page should function exactly as it currently does.
+2. Do not: change routing, change navigation behavior, change authentication, change business logic, change API calls, change backend code
+3. Only adjust the responsive presentation of the Reports page.
+
+Code Requirements
+1. Follow the existing Angular project conventions.
+2. Keep the code consistent with the rest of the project.
+3. Make the smallest changes necessary.
+4. Do not: rename files, move files, modify unrelated files.
+5. Do not create new components unless absolutely necessary.
+6. Remove any unused code you introduce.
+7. Do not leave commented-out code.
+
+Validation
+After implementation:
+1. Run the appropriate Angular build.
+2. Verify there are no build errors.
+3. Verify the desktop Reports page still appears unchanged.
+4. Verify the mobile Reports page matches the supplied wireframe as closely as practical.
+
+Deliverables
+Provide:
+1. a summary of every changed file
+2. a summary of the changes made
+3. any assumptions or compromises that were necessary
+4. confirmation that the desktop layout was preserved
+5. confirmation that the application builds successfully 
+
+Git
+1. Commit the completed work using a descriptive commit message.
+2. Push the branch: codex/mobileReports-view
+
+GitHub Authentication
+1. Before using any gh command, run: .\start-codex-gh.ps1
+2. Then verify that the active GitHub account is: jeremy-ai-work
+3. If it is not, stop and report the problem.
+
+Pull Request
+1. Create a pull request from: codex/mobileReports-view into: master
+2. Do not merge the pull request.
+3. Do not bypass any repository rules.
+4. Return the pull request URL when finished.
