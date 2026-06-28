@@ -270,15 +270,20 @@ Make the existing top-header search bar functional across the app.
 
 <p style="margin-bottom: 0;">Before using any gh command:  </p>
 
-1. Run: .\start-cursor-gh.ps1  
-2. Then run: gh auth status  
-3. Confirm that jeremy-ai-work is the active account before creating or updating a pull request.  
+1. Before creating the pull request, run the command, .\start-cursor-gh.ps1, in the same PowerShell session before using any gh command.
+2. Then verify that gh auth status shows the active GitHub account is: jeremy-ai-work
+3. If the active account is not jeremy-ai-work, stop immediately and report the problem.
+4. Do not open a new PowerShell session after running .\start-cursor-gh.ps1.
+4. Make sure you run any commands to create a PR in the same PowerShell session as where you ran .\start-codex-gh.ps1. Do not split them into separate terminal sessions!
+5. Only create the PR if gh auth status shows jeremy-ai-work in that same session.
 
 <p style="margin-bottom: 0;">Then:  </p>
 
-1. Create a pull request from <span style="color: #70bcf2;">cursor/searchbar-feature</span> into master.
-2. Do not merge the pull request or bypass repository rules.
-3. Return the pull request URL when finished.
+1. Do not run gh pr create unless the immediately previous command in the same terminal session was gh auth status showing jeremy-ai-work.
+2. Run gh pr create in the same PowerShell session where .\start-cursor-gh.ps1 and gh auth status were executed to create a pull request from <span style="color: #70bcf2;">cursor/searchbar-feature</span> into master
+3. Do not merge the pull request.
+4. Do not bypass any repository rules.
+5. Return the pull request URL when finished.
 
 ## <span style="color: #ffff00;">Copy & Paste Styling Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template</span> for <span style="color: #70bcf2;">Cursor or Codex</span> :
 Home Gig - Mobile Reports View
@@ -353,12 +358,16 @@ Git
 2. Push the branch: codex/mobileReports-view
 
 GitHub Authentication
-1. Before using any gh command, run: .\start-codex-gh.ps1
-2. Then verify that the active GitHub account is: jeremy-ai-work
-3. If it is not, stop and report the problem.
+1. Before creating the pull request, run the command, .\start-codex-gh.ps1, in the same PowerShell session before using any gh command.
+2. Then verify that gh auth status shows the active GitHub account is: jeremy-ai-work
+3. If the active account is not jeremy-ai-work, stop immediately and report the problem.
+4. Do not open a new PowerShell session after running .\start-codex-gh.ps1.
+4. Make sure you run any commands to create a PR in the same PowerShell session as where you ran .\start-codex-gh.ps1. Do not split them into separate terminal sessions!
+5. Only create the PR if gh auth status shows jeremy-ai-work in that same session.
 
 Pull Request
-1. Create a pull request from: codex/mobileReports-view into: master
-2. Do not merge the pull request.
-3. Do not bypass any repository rules.
-4. Return the pull request URL when finished.
+1. Do not run gh pr create unless the immediately previous command in the same terminal session was gh auth status showing jeremy-ai-work.
+2. Run gh pr create in the same PowerShell session where .\start-codex-gh.ps1 and gh auth status were executed to create a pull request from: codex/mobileReports-view into: master
+3. Do not merge the pull request.
+4. Do not bypass any repository rules.
+5. Return the pull request URL when finished.
