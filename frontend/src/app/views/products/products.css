@@ -89,21 +89,20 @@ td {
   background-color: #dc3545;
 }
 
-/* Sub-columns for the inventory number, warning symbol, and wording.
-   padding-left starts the number about where the "Inventory" header ends, then
-   even 2rem gaps separate the number, symbol, and wording columns. */
-.product-inv-cell {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  align-items: center;
-  column-gap: 2rem;
-  justify-content: start;
-  padding-left: 4.5rem;
-  font-size: 0.85rem;
+/* Dedicated (heading-less) columns for the warning symbol and wording.
+   They only render content on warning rows. */
+.product-stock-symbol-col {
+  width: 1.5rem;
+  text-align: center;
 }
 
-.product-inv-cell .bi {
+.product-stock-symbol-col .bi {
   font-size: 1.1rem;
+}
+
+.product-stock-word-col {
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .product-stock-low {

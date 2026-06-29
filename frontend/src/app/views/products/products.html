@@ -36,6 +36,8 @@
             <tr>
               <th>Product</th>
               <th>Inventory</th>
+              <th class="product-stock-symbol-col"></th>
+              <th class="product-stock-word-col"></th>
               <th>Price</th>
               <th>Actions</th>
             </tr>
@@ -49,19 +51,27 @@
               >
                 <td>{{ product.name }}</td>
                 <td>
-                  <div class="product-inv-cell">
-                    @if (product.inventoryQuantity >= 10) {
-                      <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
-                    } @else if (product.inventoryQuantity >= 4) {
-                      <span class="fw-bold product-stock-low">{{ product.inventoryQuantity }}</span>
-                      <i class="bi bi-exclamation-triangle-fill product-stock-low" aria-hidden="true"></i>
-                      <span class="fw-bold product-stock-low">LOW STOCK</span>
-                    } @else {
-                      <span class="fw-bold text-danger">{{ product.inventoryQuantity }}</span>
-                      <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"></i>
-                      <span class="fw-bold text-danger">CRITICAL LEVEL</span>
-                    }
-                  </div>
+                  @if (product.inventoryQuantity >= 10) {
+                    <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
+                  } @else if (product.inventoryQuantity >= 4) {
+                    <span class="fw-bold product-stock-low">{{ product.inventoryQuantity }}</span>
+                  } @else {
+                    <span class="fw-bold text-danger">{{ product.inventoryQuantity }}</span>
+                  }
+                </td>
+                <td class="product-stock-symbol-col">
+                  @if (product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
+                    <i class="bi bi-exclamation-triangle-fill product-stock-low" aria-hidden="true"></i>
+                  } @else if (product.inventoryQuantity <= 3) {
+                    <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"></i>
+                  }
+                </td>
+                <td class="product-stock-word-col">
+                  @if (product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
+                    <span class="fw-bold product-stock-low">LOW STOCK</span>
+                  } @else if (product.inventoryQuantity <= 3) {
+                    <span class="fw-bold text-danger">CRITICAL LEVEL</span>
+                  }
                 </td>
                 <td>{{ product.price | currency }}</td>
                 <td>
