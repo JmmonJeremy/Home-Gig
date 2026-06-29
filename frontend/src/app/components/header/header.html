@@ -30,7 +30,7 @@
     }
   </div>
 
-  <div class="header-search-section">
+  <div class="header-search-section" [class.d-none]="isProductFormPage" [class.d-md-block]="isProductFormPage">
     <div class="search-box">
       <i class="bi bi-search search-icon"></i>
       <input

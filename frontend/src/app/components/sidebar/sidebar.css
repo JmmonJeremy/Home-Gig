@@ -239,6 +239,25 @@
     margin-top: 0;
   }
 
+  .sidebar-mobile-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-left: var(--mobile-screen-edge-margin);
+    color: #1f2937;
+    text-decoration: none;
+    pointer-events: auto;
+  }
+
+  .sidebar-mobile-back .bi {
+    font-size: 1.25rem;
+  }
+
+  .sidebar-back-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
   .sidebar-mobile-top.active-header-mobile {
     background: linear-gradient(
       to bottom right,
