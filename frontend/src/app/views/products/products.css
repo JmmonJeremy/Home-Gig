@@ -44,24 +44,49 @@ td {
   background-color: #f8f9fa;
 }
 
-.low-stock {
-  background-color: #fff3cd;
+/* Warning row highlight: a 3/4-height, vertically centered band across the row.
+   Painted on the cells (not the <tr>) because Bootstrap sets the cell background. */
+.product-page .table tr.low-stock > td {
+  background: linear-gradient(
+    to bottom,
+    transparent 0 12.5%,
+    #fff3cd 12.5% 87.5%,
+    transparent 87.5% 100%
+  );
 }
 
-.critical-stock {
-  background-color: #f8d7da;
+.product-page .table tr.critical-stock > td {
+  background: linear-gradient(
+    to bottom,
+    transparent 0 12.5%,
+    #f8d7da 12.5% 87.5%,
+    transparent 87.5% 100%
+  );
 }
 
-.product-page .table tr.low-stock td:first-child {
-  border-left: 5px solid #b8860b;
+/* 3/4-height, vertically centered accent bar at the start of the row */
+.product-page .table tr.low-stock > td:first-child,
+.product-page .table tr.critical-stock > td:first-child {
+  position: relative;
 }
 
-.product-page .table tr.critical-stock td:first-child {
-  border-left: 5px solid #dc3545;
+.product-page .table tr.low-stock > td:first-child::before,
+.product-page .table tr.critical-stock > td:first-child::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12.5%;
+  height: 75%;
+  width: 5px;
+  border-radius: 2px;
 }
 
-.product-inv-cell {
-  gap: 0.5rem;
+.product-page .table tr.low-stock > td:first-child::before {
+  background-color: #b8860b;
+}
+
+.product-page .table tr.critical-stock > td:first-child::before {
+  background-color: #dc3545;
 }
 
 .product-stock-flag {
@@ -82,14 +107,14 @@ td {
 
 .product-inv-low {
   background-color: #fff3cd;
-  border-color: #ffe69c;
+  border-color: #b8860b;
   color: #b8860b;
   font-weight: 700;
 }
 
 .product-inv-critical {
   background-color: #f8d7da;
-  border-color: #f1aeb5;
+  border-color: #dc3545;
   color: #dc3545;
   font-weight: 700;
 }
