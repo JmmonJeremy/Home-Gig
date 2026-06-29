@@ -28,6 +28,10 @@
     padding-bottom: 92px;
   }
 
+  .main-content:has(app-product-form) {
+    padding-top: 64px;
+  }
+
   .page-content {
     padding: 0.5rem 2rem 0;
   }

@@ -1,4 +1,4 @@
-<h1>{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h1>
+<h1 class="product-form-title">{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h1>
 
 @if (errorMessage) {
   <p class="text-danger">{{ errorMessage }}</p>
@@ -26,6 +26,8 @@
           name="inventoryQuantity"
           type="number"
           class="form-control"
+          [class.product-inv-low]="product.inventoryQuantity != null && product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9"
+          [class.product-inv-critical]="product.inventoryQuantity != null && product.inventoryQuantity <= 3"
           [(ngModel)]="product.inventoryQuantity"
           required
         />
@@ -46,6 +48,18 @@
 
     </div>
   </div>
+
+  @if (product.inventoryQuantity != null && product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
+    <div class="product-stock-alert product-stock-alert-low d-md-none">
+      <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+      <span>LOW STOCK</span>
+    </div>
+  } @else if (product.inventoryQuantity != null && product.inventoryQuantity <= 3) {
+    <div class="product-stock-alert product-stock-alert-critical d-md-none">
+      <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+      <span>CRITICAL LEVEL</span>
+    </div>
+  }
 
   <div class="mt-4 d-grid gap-2">
     <button type="submit" class="btn hg-save">

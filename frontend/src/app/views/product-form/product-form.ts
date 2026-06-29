@@ -13,10 +13,10 @@ export class ProductForm implements OnInit {
   isEditMode = false;
   errorMessage = '';
 
-  product = {
+  product: { name: string; inventoryQuantity: number | null; price: number | null } = {
     name: '',
-    inventoryQuantity: 0,
-    price: 0
+    inventoryQuantity: null,
+    price: null
   };
 
   constructor(
@@ -48,12 +48,27 @@ export class ProductForm implements OnInit {
   onSubmit(): void {
     this.errorMessage = '';
 
+    if (!this.product.name.trim()) {
+      this.errorMessage = 'Please enter a product name.';
+      return;
+    }
+
+    if (this.product.inventoryQuantity == null || this.product.price == null) {
+      this.errorMessage = 'Please enter both an inventory quantity and a price.';
+      return;
+    }
+
+    if (this.product.inventoryQuantity < 0 || this.product.price < 0) {
+      this.errorMessage = 'Inventory and price cannot be negative.';
+      return;
+    }
+
     const productPayload = {
       name: this.product.name,
       description: '',
-      inventoryQuantity: this.product.inventoryQuantity,
-      price: this.product.price,
-      inventoryStatus: this.getInventoryStatus(this.product.inventoryQuantity)
+      inventoryQuantity: this.product.inventoryQuantity ?? 0,
+      price: this.product.price ?? 0,
+      inventoryStatus: this.getInventoryStatus(this.product.inventoryQuantity ?? 0)
     };
 
     if (this.isEditMode && this.productId) {
