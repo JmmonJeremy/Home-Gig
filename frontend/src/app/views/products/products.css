@@ -75,12 +75,6 @@ td {
     padding-bottom: 0.5rem;
   }
 
-  .mobile-product-title {
-    font-size: 1.15rem;
-    line-height: 1.25;
-    color: #1f2937;
-  }
-
   .product-page > .d-flex {
     justify-content: flex-start !important;
     margin-bottom: 1.6rem !important;
