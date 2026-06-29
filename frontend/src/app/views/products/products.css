@@ -130,6 +130,8 @@ td {
   }
 
   .product-page .table td {
+    --bs-table-bg: transparent;
+    background-color: transparent;
     padding: 0.18rem 0.25rem;
   }
 
