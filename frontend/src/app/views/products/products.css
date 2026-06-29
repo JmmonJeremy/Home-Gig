@@ -52,6 +52,10 @@ td {
   background-color: #f8d7da;
 }
 
+.product-stock-low {
+  color: #b8860b;
+}
+
 .product-page .table,
 .product-page .table th,
 .product-page .table td {
@@ -78,8 +82,16 @@ td {
     padding: 0.5rem;
   }
 
-  h1 {
-    font-size: 1.5rem;
+  .product-list-mobile {
+    border-bottom: 1px solid #dee2e6;
   }
-  
+
+  .product-mobile-item {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 0;
+  }
+
+  .product-mobile-item .btn.product-mobile-edit {
+    margin: 0;
+  }
 }

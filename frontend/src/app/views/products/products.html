@@ -1,5 +1,6 @@
-<div class="product-page container-fluid ps-5">
-  <h1 class="h3 fw-bold mb-3 d-none d-md-block">PRODUCT & INVENTORY MANAGEMENT</h1>
+<div class="product-page container-fluid ps-0 ps-md-5">
+  <h1 class="h3 fw-bold mb-3 d-none d-md-block">PRODUCT &amp; INVENTORY MANAGEMENT</h1>
+  <h1 class="h5 fw-bold mb-3 d-md-none">Product &amp; Inventory Management</h1>
 
   <div class="d-flex justify-content-between mb-3">
     <button type="button" class="btn hg-product-add d-none d-md-inline-block" (click)="addProductInline()">
@@ -10,12 +11,12 @@
       Add Product
     </button>
 
-    <button type="button" class="btn hg-export" (click)="goToReports()">
+    <button type="button" class="btn hg-export d-none d-md-inline-block" (click)="goToReports()">
       Export Spreadsheet
     </button>
   </div>
 
-  <div class="card product-list-card mb-4">
+  <div class="card product-list-card mb-4 d-none d-md-flex">
     <div class="card-body p-0">
       @if (isLoading) {
         <p class="p-3">Loading products...</p>
@@ -50,11 +51,7 @@
                 <td>{{ product.inventoryQuantity }}</td>
                 <td>{{ product.price | currency }}</td>
                 <td>
-                  <button type="button" class="btn btn-link p-0 d-none d-md-inline-block" (click)="selectProduct(product)">
-                    Edit
-                  </button>
-
-                  <button type="button" class="btn btn-link p-0 d-inline-block d-md-none" [routerLink]="['/products', product._id, 'edit']">
+                  <button type="button" class="btn btn-link p-0" (click)="selectProduct(product)">
                     Edit
                   </button>
                 </td>
@@ -64,6 +61,51 @@
         </table>
       }
     </div>
+  </div>
+
+  <div class="product-list-mobile d-md-none mb-4">
+    @if (isLoading) {
+      <p>Loading products...</p>
+    }
+
+    @if (errorMessage) {
+      <p class="text-danger">{{ errorMessage }}</p>
+    }
+
+    @if (!isLoading && filteredProducts.length === 0) {
+      <p>No products found.</p>
+    }
+
+    @for (product of filteredProducts; track product._id) {
+      <div class="product-mobile-item">
+        <h2 class="product-mobile-name h6 fw-bold mb-2">{{ product.name }}</h2>
+
+        <div class="product-mobile-row d-flex justify-content-between align-items-center mb-1">
+          <span>Inventory:</span>
+
+          @if (product.inventoryQuantity >= 10) {
+            <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
+          } @else if (product.inventoryQuantity >= 4) {
+            <span class="fw-bold product-stock-low">{{ product.inventoryQuantity }}</span>
+            <i class="bi bi-exclamation-triangle-fill product-stock-low" aria-hidden="true"></i>
+            <span class="fw-bold product-stock-low">LOW STOCK</span>
+          } @else {
+            <span class="fw-bold text-danger">{{ product.inventoryQuantity }}</span>
+            <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"></i>
+            <span class="fw-bold text-danger">CRITICAL LEVEL</span>
+          }
+        </div>
+
+        <div class="product-mobile-row d-flex justify-content-between align-items-center mb-2">
+          <span>Price:</span>
+          <span>{{ product.price | currency }}</span>
+        </div>
+
+        <button type="button" class="btn btn-link p-0 product-mobile-edit" [routerLink]="['/products', product._id, 'edit']">
+          Edit
+        </button>
+      </div>
+    }
   </div>
 
   @if (selectedProduct) {
