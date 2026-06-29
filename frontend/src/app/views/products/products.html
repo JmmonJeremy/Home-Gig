@@ -127,6 +127,8 @@
                 id="inventoryQuantity"
                 name="inventoryQuantity"
                 type="number"
+                [class.product-inv-low]="selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity >= 4 && selectedProduct.inventoryQuantity <= 9"
+                [class.product-inv-critical]="selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity <= 3"
                 [(ngModel)]="selectedProduct.inventoryQuantity"
                 required
               />
@@ -144,6 +146,18 @@
                 required
               />
             </div>
+
+            @if (selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity >= 4 && selectedProduct.inventoryQuantity <= 9) {
+              <div class="product-stock-alert product-stock-alert-low">
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                <span>LOW STOCK</span>
+              </div>
+            } @else if (selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity <= 3) {
+              <div class="product-stock-alert product-stock-alert-critical">
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                <span>CRITICAL LEVEL</span>
+              </div>
+            }
 
             <button type="submit" class="btn hg-save me-2">Save Product</button>
 

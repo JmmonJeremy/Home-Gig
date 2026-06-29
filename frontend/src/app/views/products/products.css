@@ -56,6 +56,46 @@ td {
   color: #b8860b;
 }
 
+.product-inv-low {
+  background-color: #fff3cd;
+  border-color: #ffe69c;
+  color: #b8860b;
+  font-weight: 700;
+}
+
+.product-inv-critical {
+  background-color: #f8d7da;
+  border-color: #f1aeb5;
+  color: #dc3545;
+  font-weight: 700;
+}
+
+.product-stock-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 700;
+}
+
+.product-stock-alert .bi {
+  font-size: 1.25rem;
+}
+
+.product-stock-alert-low {
+  background-color: #fff8e1;
+  border-left: 4px solid #b8860b;
+  color: #b8860b;
+}
+
+.product-stock-alert-critical {
+  background-color: #fdecea;
+  border-left: 4px solid #dc3545;
+  color: #dc3545;
+}
+
 .product-page .table,
 .product-page .table th,
 .product-page .table td {
