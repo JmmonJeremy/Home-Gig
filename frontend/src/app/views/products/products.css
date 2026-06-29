@@ -89,15 +89,12 @@ td {
   background-color: #dc3545;
 }
 
-.product-stock-flag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 auto;
+.product-inv-cell {
+  justify-content: space-between;
   font-size: 0.85rem;
 }
 
-.product-stock-flag .bi {
+.product-inv-cell .bi {
   font-size: 1.1rem;
 }
 

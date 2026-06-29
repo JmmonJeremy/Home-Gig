@@ -54,16 +54,12 @@
                       <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
                     } @else if (product.inventoryQuantity >= 4) {
                       <span class="fw-bold product-stock-low">{{ product.inventoryQuantity }}</span>
-                      <span class="product-stock-flag product-stock-low">
-                        <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
-                        <span class="fw-bold">LOW STOCK</span>
-                      </span>
+                      <i class="bi bi-exclamation-triangle-fill product-stock-low" aria-hidden="true"></i>
+                      <span class="fw-bold product-stock-low">LOW STOCK</span>
                     } @else {
                       <span class="fw-bold text-danger">{{ product.inventoryQuantity }}</span>
-                      <span class="product-stock-flag text-danger">
-                        <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
-                        <span class="fw-bold">CRITICAL LEVEL</span>
-                      </span>
+                      <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"></i>
+                      <span class="fw-bold text-danger">CRITICAL LEVEL</span>
                     }
                   </div>
                 </td>
