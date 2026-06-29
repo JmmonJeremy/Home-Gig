@@ -62,8 +62,8 @@ export class Products implements OnInit, OnDestroy {
     this.selectedProduct = {
       name: '',
       description: '',
-      price: 0,
-      inventoryQuantity: 0,
+      price: null,
+      inventoryQuantity: null,
       inventoryStatus: 'In Stock'
     };
   }
@@ -78,6 +78,9 @@ export class Products implements OnInit, OnDestroy {
 
   saveProduct(): void {
     this.errorMessage = '';
+
+    this.selectedProduct.inventoryQuantity = this.selectedProduct.inventoryQuantity ?? 0;
+    this.selectedProduct.price = this.selectedProduct.price ?? 0;
 
     if (this.selectedProduct._id) {
       this.productService.updateProduct(this.selectedProduct._id, this.selectedProduct).subscribe({
