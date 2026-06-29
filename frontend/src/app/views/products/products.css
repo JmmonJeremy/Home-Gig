@@ -52,6 +52,30 @@ td {
   background-color: #f8d7da;
 }
 
+.product-page .table tr.low-stock td:first-child {
+  border-left: 5px solid #b8860b;
+}
+
+.product-page .table tr.critical-stock td:first-child {
+  border-left: 5px solid #dc3545;
+}
+
+.product-inv-cell {
+  gap: 0.5rem;
+}
+
+.product-stock-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  font-size: 0.85rem;
+}
+
+.product-stock-flag .bi {
+  font-size: 1.1rem;
+}
+
 .product-stock-low {
   color: #b8860b;
 }
