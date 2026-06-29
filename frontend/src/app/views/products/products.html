@@ -49,7 +49,7 @@
               >
                 <td>{{ product.name }}</td>
                 <td>
-                  <div class="product-inv-cell d-flex align-items-center">
+                  <div class="product-inv-cell">
                     @if (product.inventoryQuantity >= 10) {
                       <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
                     } @else if (product.inventoryQuantity >= 4) {

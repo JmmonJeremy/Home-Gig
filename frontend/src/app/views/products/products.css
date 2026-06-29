@@ -89,8 +89,14 @@ td {
   background-color: #dc3545;
 }
 
+/* Fixed sub-columns so the inventory number never moves, and the warning symbol
+   and wording each have their own evenly spaced column when present. */
 .product-inv-cell {
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 3rem 1.5rem auto;
+  align-items: center;
+  column-gap: 1.5rem;
+  justify-content: start;
   font-size: 0.85rem;
 }
 
