@@ -50,12 +50,12 @@
   </div>
 
   @if (product.inventoryQuantity != null && product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
-    <div class="product-stock-alert product-stock-alert-low d-md-none">
+    <div class="product-stock-alert product-stock-alert-low">
       <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
       <span>LOW STOCK</span>
     </div>
   } @else if (product.inventoryQuantity != null && product.inventoryQuantity <= 3) {
-    <div class="product-stock-alert product-stock-alert-critical d-md-none">
+    <div class="product-stock-alert product-stock-alert-critical">
       <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
       <span>CRITICAL LEVEL</span>
     </div>
