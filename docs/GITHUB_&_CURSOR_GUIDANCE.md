@@ -286,7 +286,7 @@ Make the existing top-header search bar functional across the app.
 5. Return the pull request URL when finished.
 
 ## <span style="color: #ffff00;">Copy & Paste Styling Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template</span> for <span style="color: #70bcf2;">Cursor or Codex</span> :
-Home Gig - Mobile Products View
+Home Gig - Mobile Product Form View
 Important Guidelines
 1. Do not perform refactoring, formatting-only changes, dependency updates, or cleanup outside the files required for this task.
 2. If the wireframe or requirements are ambiguous, stop and ask for clarification instead of making assumptions.
@@ -295,12 +295,12 @@ Important Guidelines
 Git Setup
 1. Start from the local master branch.
 2. Pull the latest changes from origin/master.
-3. Create and switch to a new branch named: cursor/mobileProducts-view
-4. Confirm the current Git branch is: cursor/mobileProducts-view
+3. Create and switch to a new branch named: cursor/mobileProductForm-view
+4. Confirm the current Git branch is: cursor/mobileProductForm-view
 
 Before Making Any Changes
 1. Inspect the following files before editing anything:
-docs/wireframes/3.1_Product_&_Inventory_Management_Mobile_Wireframe.png
+docs/wireframes/3.2_Product_&_Inventory_Form_Mobile_Wireframe.png
 docs/Home_Gig_Requirements_Specification.docx
 2. If docs/Home_Gig_Requirements_Specification.docx is too large or difficult to parse, use the wireframe as the primary visual source and Product what parts of the requirements file could not be read.
 Here are the specifications I decided on and want you to use for the alert colors shown:
@@ -308,8 +308,8 @@ Inventory Level	Color
 10+	Green
 4–9	Yellow
 0–3	Red
-3. Then inspect the current Products implementation and identify every file that would need to change.
-4. If any file other than products.css and products.html needs to be modified:
+3. Then inspect the current Product Form implementation and identify every file that would need to change.
+4. If any file other than products.css and products.html needs to be modified (You will also need to modify the sidebar and header for this to match the header in the wireframe for this view):
     Stop.
     1. List every file you believe needs to change.
     2. Explain why each file needs to change.
@@ -317,7 +317,7 @@ Inventory Level	Color
     4. Do not begin editing until I explicitly tell you to continue.
 
 Goal
-Update only the mobile view of the Products page so that it matches the supplied mobile wireframe as closely as practical. The desktop Products view must remain visually and functionally unchanged.
+Update only the mobile view of the Product Form page so that it matches the supplied mobile wireframe as closely as practical. The desktop Product Form view must remain visually and functionally unchanged. The main things that are currently not in line are the header and the lack of low stock and critical level warnings shown on the page. (The CRICITICAL LEVEL warning should follow the same pattern as what is show for the LOW STOCK warning - except using the associated colors for critical level)
 
 Design Requirements
 1. Follow the supplied wireframe.
@@ -332,7 +332,7 @@ Design Requirements
 Functional Requirements
 1. The page should function exactly as it currently does.
 2. Do not: change routing, change navigation behavior, change authentication, change business logic, change API calls, change backend code
-3. Only adjust the responsive presentation of the Products page.
+3. Only adjust the responsive presentation of the Product Form page.
 
 Code Requirements
 1. Follow the existing Angular project conventions.
@@ -347,8 +347,8 @@ Validation
 After implementation:
 1. Run the appropriate Angular build.
 2. Verify there are no build errors.
-3. Verify the desktop Products page still appears unchanged.
-4. Verify the mobile Products page matches the supplied wireframe as closely as practical.
+3. Verify the desktop Product Form page still appears unchanged.
+4. Verify the mobile Product Form page matches the supplied wireframe as closely as practical.
 
 Deliverables
 Provide:
@@ -360,7 +360,7 @@ Provide:
 
 Git
 1. Commit the completed work using a descriptive commit message.
-2. Push the branch: cursor/mobileProducts-view
+2. Push the branch: cursor/mobileProductForm-view
 
 GitHub Authentication
 1. Before creating the pull request, run the command, .\start-cursor-gh.ps1, in the same PowerShell session before using any gh command.
@@ -372,7 +372,7 @@ GitHub Authentication
 
 Pull Request
 1. Do not run gh pr create unless the immediately previous command in the same terminal session was gh auth status showing jeremy-ai-work.
-2. Run gh pr create in the same PowerShell session where .\start-cursor-gh.ps1 and gh auth status were executed to create a pull request from: cursor/mobileProducts-view into: master
+2. Run gh pr create in the same PowerShell session where .\start-cursor-gh.ps1 and gh auth status were executed to create a pull request from: cursor/mobileProductForm-view into: master
 3. Do not merge the pull request.
 4. Do not bypass any repository rules.
 5. Return the pull request URL when finished.
