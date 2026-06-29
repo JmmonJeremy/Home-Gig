@@ -48,6 +48,21 @@ export class ProductForm implements OnInit {
   onSubmit(): void {
     this.errorMessage = '';
 
+    if (!this.product.name.trim()) {
+      this.errorMessage = 'Please enter a product name.';
+      return;
+    }
+
+    if (this.product.inventoryQuantity == null || this.product.price == null) {
+      this.errorMessage = 'Please enter both an inventory quantity and a price.';
+      return;
+    }
+
+    if (this.product.inventoryQuantity < 0 || this.product.price < 0) {
+      this.errorMessage = 'Inventory and price cannot be negative.';
+      return;
+    }
+
     const productPayload = {
       name: this.product.name,
       description: '',
