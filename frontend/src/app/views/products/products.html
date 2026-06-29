@@ -35,7 +35,7 @@
           <thead>
             <tr>
               <th>Product</th>
-              <th class="inv-col">Inventory</th>
+              <th>Inventory</th>
               <th>Price</th>
               <th>Actions</th>
             </tr>
@@ -48,7 +48,7 @@
                 [class.critical-stock]="product.inventoryQuantity <= 3"
               >
                 <td>{{ product.name }}</td>
-                <td class="inv-col">
+                <td>
                   <div class="product-inv-cell d-flex align-items-center">
                     @if (product.inventoryQuantity >= 10) {
                       <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>

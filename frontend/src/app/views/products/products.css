@@ -89,16 +89,8 @@ td {
   background-color: #dc3545;
 }
 
-/* Shrink the Inventory column to its content so the number stays left and the
-   number / symbol / wording sit with even gaps, with breathing room before Price. */
-.product-page .table th.inv-col,
-.product-page .table td.inv-col {
-  width: 1%;
-  white-space: nowrap;
-}
-
 .product-inv-cell {
-  gap: 1.75rem;
+  justify-content: space-evenly;
   font-size: 0.85rem;
 }
 
