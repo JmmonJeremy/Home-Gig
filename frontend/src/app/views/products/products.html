@@ -34,7 +34,7 @@
         <table class="table mb-0">
           <thead>
             <tr>
-              <th class="product-name-col">Product</th>
+              <th>Product</th>
               <th>Inventory</th>
               <th class="product-stock-symbol-col"></th>
               <th class="product-stock-word-col"></th>
@@ -49,7 +49,7 @@
                 [class.low-stock]="product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9"
                 [class.critical-stock]="product.inventoryQuantity <= 3"
               >
-                <td class="product-name-col">{{ product.name }}</td>
+                <td>{{ product.name }}</td>
                 <td>
                   @if (product.inventoryQuantity >= 10) {
                     <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>

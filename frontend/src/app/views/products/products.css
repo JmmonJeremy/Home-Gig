@@ -91,16 +91,8 @@ td {
 
 /* Dedicated (heading-less) columns for the warning symbol and wording.
    They only render content on warning rows. */
-.product-name-col {
-  width: 16rem;
-}
-
-.product-stock-symbol-col,
-.product-stock-word-col {
-  width: 9rem;
-}
-
 .product-stock-symbol-col {
+  width: 1.5rem;
   text-align: center;
 }
 
