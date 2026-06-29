@@ -13,10 +13,10 @@ export class ProductForm implements OnInit {
   isEditMode = false;
   errorMessage = '';
 
-  product = {
+  product: { name: string; inventoryQuantity: number | null; price: number | null } = {
     name: '',
-    inventoryQuantity: 0,
-    price: 0
+    inventoryQuantity: null,
+    price: null
   };
 
   constructor(
@@ -51,9 +51,9 @@ export class ProductForm implements OnInit {
     const productPayload = {
       name: this.product.name,
       description: '',
-      inventoryQuantity: this.product.inventoryQuantity,
-      price: this.product.price,
-      inventoryStatus: this.getInventoryStatus(this.product.inventoryQuantity)
+      inventoryQuantity: this.product.inventoryQuantity ?? 0,
+      price: this.product.price ?? 0,
+      inventoryStatus: this.getInventoryStatus(this.product.inventoryQuantity ?? 0)
     };
 
     if (this.isEditMode && this.productId) {
