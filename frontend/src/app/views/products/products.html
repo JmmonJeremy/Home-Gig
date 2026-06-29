@@ -1,5 +1,8 @@
 <div class="product-page container-fluid ps-5">
   <h1 class="h3 fw-bold mb-3 d-none d-md-block">PRODUCT & INVENTORY MANAGEMENT</h1>
+  <h1 class="mobile-product-title fw-bold mb-3 d-md-none">
+    PRODUCT & INVENTORY MANAGEMENT
+  </h1>
 
   <div class="d-flex justify-content-between mb-3">
     <button type="button" class="btn hg-product-add d-none d-md-inline-block" (click)="addProductInline()">
@@ -10,7 +13,7 @@
       Add Product
     </button>
 
-    <button type="button" class="btn hg-export" (click)="goToReports()">
+    <button type="button" class="btn hg-export d-none d-md-inline-block" (click)="goToReports()">
       Export Spreadsheet
     </button>
   </div>
@@ -46,10 +49,39 @@
                 [class.low-stock]="product.inventoryQuantity <= 10"
                 [class.critical-stock]="product.inventoryQuantity <= 3"
               >
-                <td>{{ product.name }}</td>
-                <td>{{ product.inventoryQuantity }}</td>
-                <td>{{ product.price | currency }}</td>
-                <td>
+                <td class="product-name-cell">
+                  {{ product.name }}
+                </td>
+                <td class="product-inventory-cell">
+                  <span class="d-md-none">Inventory:</span>
+                  <span
+                    class="product-inventory-value"
+                    [class.mobile-inventory-good]="product.inventoryQuantity >= 10"
+                    [class.mobile-inventory-low]="product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9"
+                    [class.mobile-inventory-critical]="product.inventoryQuantity <= 3"
+                  >
+                    {{ product.inventoryQuantity }}
+                  </span>
+
+                  @if (product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
+                    <span class="product-inventory-alert mobile-inventory-low d-md-none">
+                      <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                      <span>LOW STOCK</span>
+                    </span>
+                  }
+
+                  @if (product.inventoryQuantity <= 3) {
+                    <span class="product-inventory-alert mobile-inventory-critical d-md-none">
+                      <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                      <span>CRITICAL LEVEL</span>
+                    </span>
+                  }
+                </td>
+                <td class="product-price-cell">
+                  <span class="d-md-none">Price:</span>
+                  <span>{{ product.price | currency }}</span>
+                </td>
+                <td class="product-actions-cell">
                   <button type="button" class="btn btn-link p-0 d-none d-md-inline-block" (click)="selectProduct(product)">
                     Edit
                   </button>
