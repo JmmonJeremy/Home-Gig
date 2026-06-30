@@ -70,6 +70,7 @@
 
 .customer-mobile-label {
   text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .customer-mobile-item a {
