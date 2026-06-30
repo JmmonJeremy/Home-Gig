@@ -32,23 +32,23 @@ table {
 }
 
 .product-page .table .col-product {
-  width: 35%;
-}
-
-.product-page .table .col-inventory {
-  width: 10%;
-}
-
-.product-page .table .col-symbol {
-  width: 10%;
-}
-
-.product-page .table .col-word {
   width: 25%;
 }
 
+.product-page .table .col-inventory {
+  width: 15%;
+}
+
+.product-page .table .col-symbol {
+  width: 20%;
+}
+
+.product-page .table .col-word {
+  width: 15%;
+}
+
 .product-page .table .col-price {
-  width: 10%;
+  width: 15%;
 }
 
 .product-page .table .col-actions {
