@@ -85,7 +85,6 @@
 .order-mobile-card a {
   display: inline-block;
   margin-top: 0.25rem;
-  text-decoration: none;
 }
 
 @media (max-width: 767.98px) {
