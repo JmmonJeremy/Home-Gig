@@ -36,7 +36,7 @@ table {
 }
 
 .product-page .table .col-inventory {
-  width: 15%;
+  width: 10%;
 }
 
 .product-page .table .col-symbol {
@@ -44,7 +44,7 @@ table {
 }
 
 .product-page .table .col-word {
-  width: 15%;
+  width: 20%;
 }
 
 .product-page .table .col-price {
@@ -117,7 +117,7 @@ td {
 /* Dedicated (heading-less) columns for the warning symbol and wording.
    They only render content on warning rows. */
 .product-stock-symbol-col {
-  text-align: center;
+  text-align: left;
 }
 
 .product-stock-symbol-col .bi {
