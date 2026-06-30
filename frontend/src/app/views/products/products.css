@@ -320,7 +320,7 @@ td {
 
   .product-mobile-inventory-row {
     display: grid !important;
-    grid-template-columns: minmax(4.75rem, 1fr) 2rem clamp(2.75rem, 10vw, 4rem) clamp(5.75rem, 18vw, 6.75rem);
+    grid-template-columns: minmax(5.5rem, 1fr) 2.5rem 4rem 6.75rem;
     column-gap: 0.5rem;
   }
 
@@ -348,5 +348,11 @@ td {
 
   .product-mobile-item .btn.product-mobile-edit {
     margin: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .product-mobile-inventory-row {
+    grid-template-columns: minmax(4.75rem, 1fr) 2rem clamp(2.75rem, 10vw, 4rem) clamp(5.75rem, 18vw, 6.75rem);
   }
 }
