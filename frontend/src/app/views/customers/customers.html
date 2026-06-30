@@ -156,23 +156,34 @@
               <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
             }
 
-            <button type="submit" class="btn hg-save me-2">
-              Save Customer
-            </button>
+            <div class="d-flex justify-content-between align-items-start gap-3">
+              <div>
+                <button type="submit" class="btn hg-save me-2">
+                  Save Customer
+                </button>
 
-            @if (selectedCustomer._id) {
-              <button
-                type="button"
-                class="btn hg-delete me-2"
-                (click)="deleteCustomer(selectedCustomer._id)"
+                @if (selectedCustomer._id) {
+                  <button
+                    type="button"
+                    class="btn hg-delete me-2"
+                    (click)="deleteCustomer(selectedCustomer._id)"
+                  >
+                    Delete Customer
+                  </button>
+                }
+
+                <button type="button" class="btn hg-cancel" (click)="clearSelectedCustomer()">
+                  Cancel
+                </button>
+              </div>
+
+              <a
+                class="btn hg-add-customer"
+                [routerLink]="selectedCustomer._id ? ['/customers', selectedCustomer._id, 'edit'] : ['/customers/new']"
               >
-                Delete Customer
-              </button>
-            }
-
-            <button type="button" class="btn hg-cancel" (click)="clearSelectedCustomer()">
-              Cancel
-            </button>
+                {{ selectedCustomer._id ? 'Edit on Form Page' : 'Add on Form Page' }}
+              </a>
+            </div>
           </form>
         </div>
       </div>
