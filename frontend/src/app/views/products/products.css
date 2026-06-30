@@ -36,7 +36,7 @@ table {
 }
 
 .product-page .table .col-inventory {
-  width: 15%;
+  width: 10%;
 }
 
 .product-page .table .col-symbol {
@@ -44,11 +44,11 @@ table {
 }
 
 .product-page .table .col-word {
-  width: 20%;
+  width: 15%;
 }
 
 .product-page .table .col-price {
-  width: 15%;
+  width: 25%;
 }
 
 .product-page .table .col-actions {
