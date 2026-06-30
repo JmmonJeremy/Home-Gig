@@ -286,7 +286,7 @@ Make the existing top-header search bar functional across the app.
 5. Return the pull request URL when finished.
 
 ## <span style="color: #ffff00;">Copy & Paste Styling Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template</span> for <span style="color: #70bcf2;">Cursor or Codex</span> :
-Home Gig - Mobile Customer View
+Home Gig - Desktop Product & Form Views
 Important Guidelines
 1. Do not perform refactoring, formatting-only changes, dependency updates, or cleanup outside the files required for this task.
 2. If the wireframe or requirements are ambiguous, stop and ask for clarification instead of making assumptions.
@@ -295,16 +295,16 @@ Important Guidelines
 Git Setup
 1. Start from the local master branch.
 2. Pull the latest changes from origin/master.
-3. Create and switch to a new branch named: codex/mobileCustomer-view
-4. Confirm the current Git branch is: codex/mobileCustomer-view
+3. Create and switch to a new branch named: codex/desktopProductForm-link&view
+4. Confirm the current Git branch is: codex/mobileCustomerForm-view
 
 Before Making Any Changes
 1. Inspect the following files before editing anything:
-docs/wireframes/4.1_Customer_Management_Mobile_Wireframe.png
+docs/wireframes/4.2_Customer_Form_Mobile_Wireframe.png
 docs/Home_Gig_Requirements_Specification.docx
-2. If docs/Home_Gig_Requirements_Specification.docx is too large or difficult to parse, use the wireframe as the primary visual source and Product what parts of the requirements file could not be read.
-3. Then inspect the current Customer implementation and identify every file that would need to change.
-4. If any file other than customers.css and customers.html needs to be modified:
+2. If docs/Home_Gig_Requirements_Specification.docx is too large or difficult to parse, use the wireframe as the primary visual source and report what parts of the requirements file could not be read.
+3. Then inspect the current Customer Form implementation and identify every file that would need to change.
+4. If any file other than customer-form.css and customer-form.html needs to be modified (You will also have to modify the sidebar and header views to make it match the wireframe):
     Stop.
     1. List every file you believe needs to change.
     2. Explain why each file needs to change.
@@ -312,7 +312,7 @@ docs/Home_Gig_Requirements_Specification.docx
     4. Do not begin editing until I explicitly tell you to continue.
 
 Goal
-Update the mobile view so that the title & Add button follows the style on the Products and Reports page. Add a line over the top customer matching the line below that customer's information. Leave the added Notes row that is not shown in the wireframe. Underline the Phone, Email, and Notes labels.
+For the Product page's Product Detail  same page add or edit form please add the link to the desktop dedicated Product Form page, following the same pattern that was used on the Customer page. Also, change the desktop Product Form page to use all capitals in the title and replace the Search bar with the Product List back link following the same pattern the Customer Form desktop view used.
 
 Design Requirements
 1. Follow the supplied wireframe.
@@ -327,7 +327,7 @@ Design Requirements
 Functional Requirements
 1. The page should function exactly as it currently does.
 2. Do not: change routing, change navigation behavior, change authentication, change business logic, change API calls, change backend code
-3. Only adjust the responsive presentation of the Customer page.
+3. Only adjust the responsive presentation of the Customer Form page.
 
 Code Requirements
 1. Follow the existing Angular project conventions.
@@ -342,8 +342,8 @@ Validation
 After implementation:
 1. Run the appropriate Angular build.
 2. Verify there are no build errors.
-3. Verify the desktop Customer page still appears unchanged.
-4. Verify the mobile Customer page matches the supplied wireframe as closely as described in the Goal.
+3. Verify the desktop Customer Form page still appears unchanged, except for replacing the search bar with the back button (the HomeGig title & icon should remain).
+4. Verify the mobile Customer Form page matches the supplied wireframe as closely as described in the Goal.
 
 Deliverables
 Provide:
@@ -355,7 +355,7 @@ Provide:
 
 Git
 1. Commit the completed work using a descriptive commit message.
-2. Push the branch: codex/mobileCustomer-view
+2. Push the branch: codex/desktopProductForm-link&view
 
 GitHub Authentication
 1. Before creating the pull request, run the command, .\start-codex-gh.ps1, in the same PowerShell session before using any gh command.
@@ -367,7 +367,8 @@ GitHub Authentication
 
 Pull Request
 1. Do not run gh pr create unless the immediately previous command in the same terminal session was gh auth status showing jeremy-ai-work.
-2. Run gh pr create in the same PowerShell session where .\start-codex-gh.ps1 and gh auth status were executed to create a pull request from: codex/mobileCustomer-view into: master
+2. Run gh pr create in the same PowerShell session where .\start-codex-gh.ps1 and gh auth status were executed to create a pull request from: codex/desktopProductForm-link&view into: master
 3. Do not merge the pull request.
 4. Do not bypass any repository rules.
 5. Return the pull request URL when finished.
+6. List the branch name in the summary at the end.
