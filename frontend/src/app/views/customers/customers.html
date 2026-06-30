@@ -152,6 +152,10 @@
               ></textarea>
             </div>
 
+            @if (formErrorMessage) {
+              <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
+            }
+
             <button type="submit" class="btn hg-save me-2">
               Save Customer
             </button>
