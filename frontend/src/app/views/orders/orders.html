@@ -1,5 +1,6 @@
-<div class="order-page container-fluid ps-5">
-  <h1 class="h3 fw-bold mb-3 d-none d-md-block">ORDER & PAYMENT MANAGEMENT</h1>
+<div class="order-page container-fluid ps-0 ps-md-5">
+  <h1 class="h3 fw-bold mb-3 d-none d-md-block">ORDER &amp; PAYMENT MANAGEMENT</h1>
+  <h1 class="h5 fw-bold mb-3 d-md-none">Order &amp; Payment Management</h1>
 
   <div class="d-flex justify-content-between align-items-center mb-3">
     <button
@@ -18,7 +19,7 @@
       Add Order
     </button>
 
-    <button type="button" class="btn hg-export"  (click)="goToReports()">
+    <button type="button" class="btn hg-export d-none d-md-inline-block"  (click)="goToReports()">
       Export Spreadsheet
     </button>
   </div>
@@ -31,7 +32,7 @@
     <p class="text-danger">{{ errorMessage }}</p>
   }
 
-  <div class="card mb-4">
+  <div class="card order-list-card mb-4 d-none d-md-block">
     <div class="card-body p-0">
       @if (!isLoading && filteredOrders.length === 0) {
         <p class="p-3">No orders found.</p>
@@ -99,6 +100,45 @@
         </table>
       }
     </div>
+  </div>
+
+  <div class="order-mobile-list d-md-none">
+    @if (!isLoading && filteredOrders.length === 0) {
+      <p>No orders found.</p>
+    }
+
+    @if (filteredOrders.length > 0) {
+      @for (order of filteredOrders; track order._id) {
+        <article class="order-mobile-card">
+          <h2>{{ order.customerId?.name }}</h2>
+
+          <p><span class="order-mobile-label">Order #:</span> {{ order.orderNumber }}</p>
+          <p><span class="order-mobile-label">Order Date:</span> {{ order.orderDate | date:'shortDate' }}</p>
+          <p><span class="order-mobile-label">Order Summary:</span> {{ getOrderSummary(order) }}</p>
+          <p><span class="order-mobile-label">Total:</span> {{ order.orderTotal | currency }}</p>
+          <p>
+            <span class="order-mobile-label">Payment Status:</span>
+            <span
+              class="fw-bold"
+              [class.text-success]="order.paymentStatus === 'Paid'"
+              [class.text-danger]="order.paymentStatus === 'Unpaid'"
+            >
+              {{ order.paymentStatus | uppercase }}
+            </span>
+          </p>
+          <p>
+            <span class="order-mobile-label">Payment Date:</span>
+            @if (order.paymentDate) {
+              {{ order.paymentDate | date:'shortDate' }}
+            } @else {
+              &mdash;
+            }
+          </p>
+
+          <a [routerLink]="['/orders', order._id, 'edit']">Edit</a>
+        </article>
+      }
+    }
   </div>
 
   @if (selectedOrder) {
