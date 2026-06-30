@@ -222,6 +222,55 @@ td {
   }
 }
 
+@media (max-width: 1349.98px) and (min-width: 768px) {
+  .product-page .product-list-card .card-body {
+    overflow-x: auto;
+  }
+
+  .product-page .product-list-card .table {
+    min-width: 760px;
+  }
+
+  .product-page .product-list-card .table .col-product {
+    width: 26%;
+  }
+
+  .product-page .product-list-card .table .col-inventory {
+    width: 12%;
+  }
+
+  .product-page .product-list-card .table .col-symbol {
+    width: 7%;
+  }
+
+  .product-page .product-list-card .table .col-word {
+    width: 17%;
+  }
+
+  .product-page .product-list-card .table .col-price {
+    width: 21%;
+  }
+
+  .product-page .product-list-card .table .col-actions {
+    width: 17%;
+  }
+
+  .product-page .product-list-card .table th,
+  .product-page .product-list-card .table td {
+    padding: 0.8rem;
+  }
+
+  .product-page .product-list-card .table th:first-child,
+  .product-page .product-list-card .table td:first-child {
+    padding-left: 1rem;
+  }
+
+  .product-page .product-list-card .table th:last-child,
+  .product-page .product-list-card .table td:last-child {
+    padding-right: 1rem;
+  }
+}
+
 @media (max-width: 767.98px) {
   table {
     font-size: 0.9rem;
