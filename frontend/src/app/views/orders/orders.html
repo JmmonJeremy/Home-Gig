@@ -112,12 +112,12 @@
         <article class="order-mobile-card">
           <h2>{{ order.customerId?.name }}</h2>
 
-          <p class="order-mobile-row"><span class="order-mobile-label">Order #:</span> <span class="order-mobile-value">{{ order.orderNumber }}</span></p>
-          <p class="order-mobile-row"><span class="order-mobile-label">Order Date:</span> <span class="order-mobile-value">{{ order.orderDate | date:'shortDate' }}</span></p>
-          <p class="order-mobile-row"><span class="order-mobile-label">Order Summary:</span> <span class="order-mobile-value">{{ getOrderSummary(order) }}</span></p>
-          <p class="order-mobile-row"><span class="order-mobile-label">Total:</span> <span class="order-mobile-value">{{ order.orderTotal | currency }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order #:</span> <span class="order-mobile-value">{{ order.orderNumber }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order Date:</span> <span class="order-mobile-value">{{ order.orderDate | date:'shortDate' }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order Summary:</span> <span class="order-mobile-value">{{ getOrderSummary(order) }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Total:</span> <span class="order-mobile-value">{{ order.orderTotal | currency }}</span></p>
           <p class="order-mobile-row">
-            <span class="order-mobile-label">Payment Status:</span>
+            <span class="order-mobile-label text-muted">Payment Status:</span>
             <span
               class="fw-bold order-mobile-value"
               [class.text-success]="order.paymentStatus === 'Paid'"
@@ -127,7 +127,7 @@
             </span>
           </p>
           <p class="order-mobile-row">
-            <span class="order-mobile-label">Payment Date:</span>
+            <span class="order-mobile-label text-muted">Payment Date:</span>
             <span class="order-mobile-value">
               @if (order.paymentDate) {
                 {{ order.paymentDate | date:'shortDate' }}

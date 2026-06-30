@@ -52,12 +52,8 @@
 }
 
 .order-mobile-card {
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-  margin-bottom: 1rem;
-  padding: 1.25rem 1.25rem 1rem;
+  border-top: 1px solid #dee2e6;
+  padding: 1rem 0;
 }
 
 .order-mobile-card h2 {
@@ -80,8 +76,6 @@
 
 .order-mobile-label {
   flex: 0 0 auto;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
 }
 
 .order-mobile-value {
@@ -98,5 +92,9 @@
   .order-page > .d-flex {
     justify-content: flex-start !important;
     margin-bottom: 1.5rem !important;
+  }
+
+  .order-mobile-list {
+    border-bottom: 1px solid #dee2e6;
   }
 }
