@@ -112,19 +112,19 @@
       <div class="product-mobile-item">
         <h2 class="product-mobile-name h6 fw-bold mb-2">{{ product.name }}</h2>
 
-        <div class="product-mobile-row d-flex justify-content-between align-items-center mb-1">
-          <span>Inventory:</span>
+        <div class="product-mobile-row product-mobile-inventory-row d-flex justify-content-between align-items-center mb-1">
+          <span class="product-mobile-field-label">Inventory:</span>
 
           @if (product.inventoryQuantity >= 10) {
-            <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
+            <span class="fw-bold text-success product-mobile-inventory-value product-mobile-inventory-value-healthy">{{ product.inventoryQuantity }}</span>
           } @else if (product.inventoryQuantity >= 4) {
-            <span class="fw-bold product-stock-low">{{ product.inventoryQuantity }}</span>
-            <i class="bi bi-exclamation-triangle-fill product-stock-low" aria-hidden="true"></i>
-            <span class="fw-bold product-stock-low">LOW STOCK</span>
+            <span class="fw-bold product-stock-low product-mobile-inventory-value">{{ product.inventoryQuantity }}</span>
+            <i class="bi bi-exclamation-triangle-fill product-stock-low product-mobile-warning-icon" aria-hidden="true"></i>
+            <span class="fw-bold product-stock-low product-mobile-warning-text">LOW STOCK</span>
           } @else {
-            <span class="fw-bold text-danger">{{ product.inventoryQuantity }}</span>
-            <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"></i>
-            <span class="fw-bold text-danger">CRITICAL LEVEL</span>
+            <span class="fw-bold text-danger product-mobile-inventory-value">{{ product.inventoryQuantity }}</span>
+            <i class="bi bi-exclamation-triangle-fill text-danger product-mobile-warning-icon" aria-hidden="true"></i>
+            <span class="fw-bold text-danger product-mobile-warning-text">CRITICAL LEVEL</span>
           }
         </div>
 

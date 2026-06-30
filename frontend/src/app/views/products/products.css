@@ -318,6 +318,34 @@ td {
     padding: 1rem 0;
   }
 
+  .product-mobile-inventory-row {
+    display: grid !important;
+    grid-template-columns: minmax(5.5rem, 1fr) 2.5rem 2rem 6.75rem;
+    column-gap: 0.5rem;
+  }
+
+  .product-mobile-inventory-value {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .product-mobile-inventory-value-healthy {
+    grid-column: 4;
+    justify-self: end;
+  }
+
+  .product-mobile-warning-icon {
+    grid-column: 3;
+    justify-self: center;
+  }
+
+  .product-mobile-warning-text {
+    grid-column: 4;
+    justify-self: end;
+    text-align: right;
+    white-space: nowrap;
+  }
+
   .product-mobile-item .btn.product-mobile-edit {
     margin: 0;
   }
