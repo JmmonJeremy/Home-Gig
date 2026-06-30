@@ -178,10 +178,11 @@
               </div>
 
               <a
-                class="btn hg-add-customer"
+                class="d-inline-flex align-items-center gap-1 fw-semibold text-decoration-none"
                 [routerLink]="selectedCustomer._id ? ['/customers', selectedCustomer._id, 'edit'] : ['/customers/new']"
               >
-                {{ selectedCustomer._id ? 'Edit on Form Page' : 'Add on Form Page' }}
+                Use Dedicated Form Page
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
               </a>
             </div>
           </form>
