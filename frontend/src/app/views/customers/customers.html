@@ -152,23 +152,39 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="btn hg-save me-2">
-              Save Customer
-            </button>
-
-            @if (selectedCustomer._id) {
-              <button
-                type="button"
-                class="btn hg-delete me-2"
-                (click)="deleteCustomer(selectedCustomer._id)"
-              >
-                Delete Customer
-              </button>
+            @if (formErrorMessage) {
+              <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
             }
 
-            <button type="button" class="btn hg-cancel" (click)="clearSelectedCustomer()">
-              Cancel
-            </button>
+            <div class="d-flex justify-content-between align-items-end gap-3">
+              <div>
+                <button type="submit" class="btn hg-save me-2">
+                  Save Customer
+                </button>
+
+                @if (selectedCustomer._id) {
+                  <button
+                    type="button"
+                    class="btn hg-delete me-2"
+                    (click)="deleteCustomer(selectedCustomer._id)"
+                  >
+                    Delete Customer
+                  </button>
+                }
+
+                <button type="button" class="btn hg-cancel" (click)="clearSelectedCustomer()">
+                  Cancel
+                </button>
+              </div>
+
+              <a
+                class="d-inline-flex align-items-center gap-1 fw-semibold text-decoration-none"
+                [routerLink]="selectedCustomer._id ? ['/customers', selectedCustomer._id, 'edit'] : ['/customers/new']"
+              >
+                Use Dedicated Form Page
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
           </form>
         </div>
       </div>

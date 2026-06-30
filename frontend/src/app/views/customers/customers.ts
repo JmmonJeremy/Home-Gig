@@ -16,6 +16,7 @@ export class Customers implements OnInit, OnDestroy {
   filteredCustomers: any[] = [];
   selectedCustomer: any = null;
   errorMessage = '';
+  formErrorMessage = '';
   isLoading = false;
   searchQuery = '';
   private readonly subscriptions = new Subscription();
@@ -59,6 +60,7 @@ export class Customers implements OnInit, OnDestroy {
   }
 
   addCustomerInline(): void {
+    this.formErrorMessage = '';
     this.selectedCustomer = {
       name: '',
       phone: '',
@@ -68,18 +70,26 @@ export class Customers implements OnInit, OnDestroy {
   }
 
   selectCustomer(customer: any): void {
+    this.formErrorMessage = '';
     this.selectedCustomer = { ...customer };
   }
 
   clearSelectedCustomer(): void {
     this.selectedCustomer = null;
+    this.formErrorMessage = '';
   }
 
   saveCustomer(): void {
     this.errorMessage = '';
+    this.formErrorMessage = '';
 
     if (!this.selectedCustomer.name.trim()) {
-      this.errorMessage = 'Please enter a customer name.';
+      this.formErrorMessage = 'Please enter a customer name.';
+      return;
+    }
+
+    if (!this.selectedCustomer.phone.trim() && !this.selectedCustomer.email.trim()) {
+      this.formErrorMessage = 'Please enter a phone number or an email address.';
       return;
     }
 

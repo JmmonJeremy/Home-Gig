@@ -55,6 +55,11 @@ export class CustomerForm implements OnInit {
       return;
     }
 
+    if (!this.customer.phone.trim() && !this.customer.email.trim()) {
+      this.errorMessage = 'Please enter a phone number or an email address.';
+      return;
+    }
+
     if (this.isEditMode && this.customerId) {
       this.customerService.updateCustomer(this.customerId, this.customer).subscribe({
         next: () => this.router.navigate(['/customers']),
