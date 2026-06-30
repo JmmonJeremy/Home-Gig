@@ -242,21 +242,21 @@ td {
   }
 
   .product-page .product-list-card .table .col-product {
-    width: 36%;
+    width: 40%;
   }
 
-  .product-page .product-list-card .table .col-inventory {
-    width: 14%;
-  }
-
-  .product-page .product-list-card .table .col-symbol,
+  .product-page .product-list-card .table .col-inventory,
   .product-page .product-list-card .table .col-price,
   .product-page .product-list-card .table .col-actions {
     width: 1%;
   }
 
+  .product-page .product-list-card .table .col-symbol {
+    width: 12%;
+  }
+
   .product-page .product-list-card .table .col-word {
-    width: 24%;
+    width: 26%;
   }
 
   .product-page .product-list-card .table th,
