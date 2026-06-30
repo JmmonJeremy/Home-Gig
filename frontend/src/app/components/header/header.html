@@ -30,7 +30,14 @@
     }
   </div>
 
-  <div class="header-search-section" [class.d-none]="isProductFormPage" [class.d-md-block]="isProductFormPage">
+  @if (isCustomerFormPage) {
+    <a class="header-form-back-link d-none d-md-flex" routerLink="/customers">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+      <span>Customers List</span>
+    </a>
+  }
+
+  <div class="header-search-section" [class.d-none]="isProductFormPage || isCustomerFormPage" [class.d-md-block]="isProductFormPage">
     <div class="search-box">
       <i class="bi bi-search search-icon"></i>
       <input

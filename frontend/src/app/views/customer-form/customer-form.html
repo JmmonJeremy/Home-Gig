@@ -1,5 +1,6 @@
 <div class="customer-form-page">
-  <h1>{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h1>
+  <h1 class="customer-form-title d-none d-md-block">{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h1>
+  <h1 class="customer-form-title customer-form-title-mobile d-md-none">{{ isEditMode ? 'Edit Customer' : 'Add Customer' }}</h1>
 
   @if (errorMessage) {
     <p class="text-danger">{{ errorMessage }}</p>

@@ -32,6 +32,19 @@
   flex: 0 1 auto;
 }
 
+.header-form-back-link {
+  align-items: center;
+  gap: 0.5rem;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.header-form-back-link .bi {
+  font-size: 1.35rem;
+}
+
 .profile-menu {
   position: relative;
   flex: 0 0 auto;

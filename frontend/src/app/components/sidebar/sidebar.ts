@@ -60,6 +60,11 @@ export class Sidebar implements OnInit, OnDestroy {
     return url === '/products/new' || /^\/products\/[^/]+\/edit$/.test(url);
   }
 
+  get isCustomerFormPage(): boolean {
+    const url = this.router.url.split('?')[0];
+    return url === '/customers/new' || /^\/customers\/[^/]+\/edit$/.test(url);
+  }
+
   logout(event: MouseEvent): void {
     event.preventDefault();
     this.closeMobileMenus();
