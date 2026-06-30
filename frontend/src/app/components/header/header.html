@@ -30,10 +30,10 @@
     }
   </div>
 
-  @if (isCustomerFormPage) {
-    <a class="header-form-back-link d-none d-md-flex" routerLink="/customers">
+  @if (isProductFormPage || isCustomerFormPage) {
+    <a class="header-form-back-link d-none d-md-flex" [routerLink]="isProductFormPage ? '/products' : '/customers'">
       <i class="bi bi-arrow-left" aria-hidden="true"></i>
-      <span>Customers List</span>
+      <span>{{ isProductFormPage ? 'Products List' : 'Customers List' }}</span>
     </a>
   }
 

@@ -195,17 +195,29 @@
               <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
             }
 
-            <button type="submit" class="btn hg-save me-2">Save Product</button>
+            <div class="d-flex justify-content-between align-items-end gap-3">
+              <div>
+                <button type="submit" class="btn hg-save me-2">Save Product</button>
 
-            @if (selectedProduct._id) {
-              <button type="button" class="btn hg-delete me-2" (click)="deleteProduct(selectedProduct._id)">
-                Delete Product
-              </button>
-            }
+                @if (selectedProduct._id) {
+                  <button type="button" class="btn hg-delete me-2" (click)="deleteProduct(selectedProduct._id)">
+                    Delete Product
+                  </button>
+                }
 
-            <button type="button" class="btn hg-cancel" (click)="clearSelectedProduct()">
-              Cancel
-            </button>
+                <button type="button" class="btn hg-cancel" (click)="clearSelectedProduct()">
+                  Cancel
+                </button>
+              </div>
+
+              <a
+                class="d-inline-flex align-items-center gap-1 fw-semibold text-decoration-none"
+                [routerLink]="selectedProduct._id ? ['/products', selectedProduct._id, 'edit'] : ['/products/new']"
+              >
+                Use Dedicated Form Page
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
           </form>
         </div>
       </div>
