@@ -69,9 +69,13 @@ td {
   background-color: #f8f9fa;
 }
 
-/* Warning row highlight: a 3/4-height, vertically centered band across the row.
-   Painted on the cells (not the <tr>) because Bootstrap sets the cell background. */
-.product-page .table tr.low-stock > td {
+/* Warning row highlight: 3/4-height band extended to the card edges.
+   Negative margins on first/last cells bleed into the card padding. */
+.product-page .product-list-card {
+  overflow: hidden;
+}
+
+.product-page .product-list-card .table tr.low-stock > td {
   background: linear-gradient(
     to bottom,
     transparent 0 12.5%,
@@ -80,7 +84,7 @@ td {
   );
 }
 
-.product-page .table tr.critical-stock > td {
+.product-page .product-list-card .table tr.critical-stock > td {
   background: linear-gradient(
     to bottom,
     transparent 0 12.5%,
@@ -89,14 +93,21 @@ td {
   );
 }
 
-/* 3/4-height, vertically centered accent bar at the start of the row */
-.product-page .table tr.low-stock > td:first-child,
-.product-page .table tr.critical-stock > td:first-child {
+.product-page .product-list-card .table tr.low-stock > td:first-child,
+.product-page .product-list-card .table tr.critical-stock > td:first-child {
   position: relative;
+  margin-left: -1rem;
+  padding-left: calc(1rem + 1rem);
 }
 
-.product-page .table tr.low-stock > td:first-child::before,
-.product-page .table tr.critical-stock > td:first-child::before {
+.product-page .product-list-card .table tr.low-stock > td:last-child,
+.product-page .product-list-card .table tr.critical-stock > td:last-child {
+  margin-right: -1rem;
+  padding-right: calc(1rem + 1rem);
+}
+
+.product-page .product-list-card .table tr.low-stock > td:first-child::before,
+.product-page .product-list-card .table tr.critical-stock > td:first-child::before {
   content: "";
   position: absolute;
   left: 0;
@@ -106,11 +117,11 @@ td {
   border-radius: 2px;
 }
 
-.product-page .table tr.low-stock > td:first-child::before {
+.product-page .product-list-card .table tr.low-stock > td:first-child::before {
   background-color: #b8860b;
 }
 
-.product-page .table tr.critical-stock > td:first-child::before {
+.product-page .product-list-card .table tr.critical-stock > td:first-child::before {
   background-color: #dc3545;
 }
 
