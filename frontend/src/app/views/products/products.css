@@ -70,11 +70,7 @@ td {
 }
 
 /* Warning row highlight: 3/4-height band across the row.
-   Product list card has no padding so cell backgrounds reach the card edges. */
-.product-page .product-list-card {
-  overflow: hidden;
-}
-
+   Card uses vertical padding only; table spans full width so backgrounds reach the sides. */
 .product-page .product-list-card .table tr.low-stock > td {
   background: linear-gradient(
     to bottom,
@@ -188,12 +184,24 @@ td {
 }
 
 .product-page .card.product-list-card {
-  padding: 0;
+  padding: 1rem 0;
+  overflow: hidden;
 }
 
 .product-page .table th,
 .product-page .table td {
   padding: 1rem;
+}
+
+/* Match former 1rem card side padding using extra first/last cell padding. */
+.product-page .product-list-card .table th:first-child,
+.product-page .product-list-card .table td:first-child {
+  padding-left: 2rem;
+}
+
+.product-page .product-list-card .table th:last-child,
+.product-page .product-list-card .table td:last-child {
+  padding-right: 2rem;
 }
 
 @media (max-width: 767.98px) {
