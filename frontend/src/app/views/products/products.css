@@ -69,8 +69,8 @@ td {
   background-color: #f8f9fa;
 }
 
-/* Warning row highlight: 3/4-height band extended to the card edges.
-   Negative margins on first/last cells bleed into the card padding. */
+/* Warning row highlight: 3/4-height band across the row.
+   Product list card has no padding so cell backgrounds reach the card edges. */
 .product-page .product-list-card {
   overflow: hidden;
 }
@@ -96,14 +96,6 @@ td {
 .product-page .product-list-card .table tr.low-stock > td:first-child,
 .product-page .product-list-card .table tr.critical-stock > td:first-child {
   position: relative;
-  margin-left: -1rem;
-  padding-left: calc(1rem + 1rem);
-}
-
-.product-page .product-list-card .table tr.low-stock > td:last-child,
-.product-page .product-list-card .table tr.critical-stock > td:last-child {
-  margin-right: -1rem;
-  padding-right: calc(1rem + 1rem);
 }
 
 .product-page .product-list-card .table tr.low-stock > td:first-child::before,
@@ -193,6 +185,10 @@ td {
 .product-page .card {  
   border-radius: 12px;  
   padding: 1rem;
+}
+
+.product-page .card.product-list-card {
+  padding: 0;
 }
 
 .product-page .table th,
