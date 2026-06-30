@@ -38,6 +38,10 @@
   color: #dc3545;
 }
 
+.product-form-title {
+  text-transform: uppercase;
+}
+
 @media (max-width: 767.98px) {
   .product-form-title {
     margin-top: 1rem;
