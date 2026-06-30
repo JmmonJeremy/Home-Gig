@@ -72,9 +72,20 @@
   margin: 0 0 0.5rem;
 }
 
+.order-mobile-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .order-mobile-label {
+  flex: 0 0 auto;
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+.order-mobile-value {
+  text-align: right;
 }
 
 .order-mobile-card a {

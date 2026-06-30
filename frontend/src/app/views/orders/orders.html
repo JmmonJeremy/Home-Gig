@@ -112,27 +112,29 @@
         <article class="order-mobile-card">
           <h2>{{ order.customerId?.name }}</h2>
 
-          <p><span class="order-mobile-label">Order #:</span> {{ order.orderNumber }}</p>
-          <p><span class="order-mobile-label">Order Date:</span> {{ order.orderDate | date:'shortDate' }}</p>
-          <p><span class="order-mobile-label">Order Summary:</span> {{ getOrderSummary(order) }}</p>
-          <p><span class="order-mobile-label">Total:</span> {{ order.orderTotal | currency }}</p>
-          <p>
+          <p class="order-mobile-row"><span class="order-mobile-label">Order #:</span> <span class="order-mobile-value">{{ order.orderNumber }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label">Order Date:</span> <span class="order-mobile-value">{{ order.orderDate | date:'shortDate' }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label">Order Summary:</span> <span class="order-mobile-value">{{ getOrderSummary(order) }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label">Total:</span> <span class="order-mobile-value">{{ order.orderTotal | currency }}</span></p>
+          <p class="order-mobile-row">
             <span class="order-mobile-label">Payment Status:</span>
             <span
-              class="fw-bold"
+              class="fw-bold order-mobile-value"
               [class.text-success]="order.paymentStatus === 'Paid'"
               [class.text-danger]="order.paymentStatus === 'Unpaid'"
             >
               {{ order.paymentStatus | uppercase }}
             </span>
           </p>
-          <p>
+          <p class="order-mobile-row">
             <span class="order-mobile-label">Payment Date:</span>
-            @if (order.paymentDate) {
-              {{ order.paymentDate | date:'shortDate' }}
-            } @else {
-              &mdash;
-            }
+            <span class="order-mobile-value">
+              @if (order.paymentDate) {
+                {{ order.paymentDate | date:'shortDate' }}
+              } @else {
+                &mdash;
+              }
+            </span>
           </p>
 
           <a [routerLink]="['/orders', order._id, 'edit']">Edit</a>
