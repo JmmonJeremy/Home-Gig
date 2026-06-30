@@ -28,6 +28,31 @@ button {
 table {
   width: 100%;
   margin-top: 1rem;
+  table-layout: fixed;
+}
+
+.product-page .table .col-product {
+  width: 35%;
+}
+
+.product-page .table .col-inventory {
+  width: 10%;
+}
+
+.product-page .table .col-symbol {
+  width: 10%;
+}
+
+.product-page .table .col-word {
+  width: 25%;
+}
+
+.product-page .table .col-price {
+  width: 10%;
+}
+
+.product-page .table .col-actions {
+  width: 10%;
 }
 
 th,
@@ -92,7 +117,6 @@ td {
 /* Dedicated (heading-less) columns for the warning symbol and wording.
    They only render content on warning rows. */
 .product-stock-symbol-col {
-  width: 1.5rem;
   text-align: center;
 }
 
