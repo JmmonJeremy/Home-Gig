@@ -108,7 +108,7 @@
       <div class="card-body">
         <form (ngSubmit)="saveOrder()">
           <div class="mb-3">
-            <label class="form-label">Order #:</label>
+            <label class="form-label text-muted">Order #:</label>
             <input
               class="form-control"
               name="orderNumber"
@@ -118,7 +118,7 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Customer ID:</label>
+            <label class="form-label text-muted">Customer ID:</label>
             <input
               class="form-control"
               name="customerId"
@@ -128,7 +128,7 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Order Date:</label>
+            <label class="form-label text-muted">Order Date:</label>
             <input
               class="form-control"
               type="date"
@@ -138,16 +138,16 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Order Items:</label>
+            <label class="form-label text-muted">Order Items:</label>
 
             <div class="card order-items-card">
             <table class="table mb-2">
               <thead>
                 <tr>
-                  <th class="left-corner">Selected</th>
-                  <th>Product</th>
-                  <th>Unit Price</th>
-                  <th class="right-corner">Quantity</th>
+                  <th class="left-corner text-muted">Selected</th>
+                  <th class="text-muted">Product</th>
+                  <th class="text-muted">Unit Price</th>
+                  <th class="right-corner text-muted">Quantity</th>
                 </tr>
               </thead>
 
@@ -217,7 +217,7 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Total:</label>
+            <label class="form-label text-muted">Total:</label>
             <input
               class="form-control"
               type="number"
@@ -228,18 +228,20 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Payment Status:</label>
+            <label class="form-label text-muted">Payment Status:</label>
             <select
-              class="form-select"
+              class="form-select fw-bold text-uppercase"
+              [class.text-success]="selectedOrder.paymentStatus === 'Paid'"
+              [class.text-danger]="selectedOrder.paymentStatus === 'Unpaid'"
               name="paymentStatus"
               [(ngModel)]="selectedOrder.paymentStatus"
             >
-              <option>Unpaid</option>
-              <option>Paid</option>
+              <option class="fw-bold text-danger text-uppercase" value="Unpaid">Unpaid</option>
+              <option class="fw-bold text-success text-uppercase" value="Paid">Paid</option>
             </select>
           </div>
 
-          <div class="mt-4">
+          <div>
             <button type="submit" class="btn hg-save me-2">
               Save Order
             </button>
