@@ -28,6 +28,31 @@ button {
 table {
   width: 100%;
   margin-top: 1rem;
+  table-layout: fixed;
+}
+
+.product-page .table .col-product {
+  width: 30%;
+}
+
+.product-page .table .col-inventory {
+  width: 10%;
+}
+
+.product-page .table .col-symbol {
+  width: 10%;
+}
+
+.product-page .table .col-word {
+  width: 15%;
+}
+
+.product-page .table .col-price {
+  width: 25%;
+}
+
+.product-page .table .col-actions {
+  width: 10%;
 }
 
 th,
@@ -44,16 +69,107 @@ td {
   background-color: #f8f9fa;
 }
 
-.low-stock {
-  background-color: #fff3cd;
+/* Warning row highlight: 3/4-height band across the row.
+   Card uses vertical padding only; table spans full width so backgrounds reach the sides. */
+.product-page .product-list-card .table tr.low-stock > td {
+  background: linear-gradient(
+    to bottom,
+    transparent 0 12.5%,
+    #fff3cd 12.5% 87.5%,
+    transparent 87.5% 100%
+  );
 }
 
-.critical-stock {
-  background-color: #f8d7da;
+.product-page .product-list-card .table tr.critical-stock > td {
+  background: linear-gradient(
+    to bottom,
+    transparent 0 12.5%,
+    #f8d7da 12.5% 87.5%,
+    transparent 87.5% 100%
+  );
+}
+
+.product-page .product-list-card .table tr.low-stock > td:first-child,
+.product-page .product-list-card .table tr.critical-stock > td:first-child {
+  position: relative;
+}
+
+.product-page .product-list-card .table tr.low-stock > td:first-child::before,
+.product-page .product-list-card .table tr.critical-stock > td:first-child::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12.5%;
+  height: 75%;
+  width: 5px;
+  border-radius: 2px;
+}
+
+.product-page .product-list-card .table tr.low-stock > td:first-child::before {
+  background-color: #b8860b;
+}
+
+.product-page .product-list-card .table tr.critical-stock > td:first-child::before {
+  background-color: #dc3545;
+}
+
+/* Dedicated (heading-less) columns for the warning symbol and wording.
+   They only render content on warning rows. */
+.product-stock-symbol-col {
+  text-align: left;
+}
+
+.product-stock-symbol-col .bi {
+  font-size: 1.1rem;
+}
+
+.product-stock-word-col {
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .product-stock-low {
   color: #b8860b;
+}
+
+.product-inv-low {
+  background-color: #fff3cd;
+  border-color: #b8860b;
+  color: #b8860b;
+  font-weight: 700;
+}
+
+.product-inv-critical {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #dc3545;
+  font-weight: 700;
+}
+
+.product-stock-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 700;
+}
+
+.product-stock-alert .bi {
+  font-size: 1.25rem;
+}
+
+.product-stock-alert-low {
+  background-color: #fff8e1;
+  border-left: 4px solid #b8860b;
+  color: #b8860b;
+}
+
+.product-stock-alert-critical {
+  background-color: #fdecea;
+  border-left: 4px solid #dc3545;
+  color: #dc3545;
 }
 
 .product-page .table,
@@ -67,9 +183,43 @@ td {
   padding: 1rem;
 }
 
+.product-page .card.product-list-card {
+  padding: 1rem 0;
+  overflow: hidden;
+}
+
 .product-page .table th,
 .product-page .table td {
   padding: 1rem;
+}
+
+/* Match former 1rem card side padding using extra first/last cell padding. */
+.product-page .product-list-card .table th:first-child,
+.product-page .product-list-card .table td:first-child {
+  padding-left: 2rem;
+}
+
+.product-page .product-list-card .table th:last-child,
+.product-page .product-list-card .table td:last-child {
+  padding-right: 2rem;
+}
+
+/* Below 1472px: evenly spaced columns until mobile view. */
+@media (max-width: 1472px) and (min-width: 768px) {
+  .product-page .product-list-card .table .col-product,
+  .product-page .product-list-card .table .col-inventory,
+  .product-page .product-list-card .table .col-symbol,
+  .product-page .product-list-card .table .col-word,
+  .product-page .product-list-card .table .col-price,
+  .product-page .product-list-card .table .col-actions {
+    width: 16.666%;
+  }
+
+  .product-page .product-list-card .table td:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 767.98px) {

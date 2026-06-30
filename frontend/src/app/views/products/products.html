@@ -32,10 +32,20 @@
 
       @if (filteredProducts.length > 0) {
         <table class="table mb-0">
+          <colgroup>
+            <col class="col-product" />
+            <col class="col-inventory" />
+            <col class="col-symbol" />
+            <col class="col-word" />
+            <col class="col-price" />
+            <col class="col-actions" />
+          </colgroup>
           <thead>
             <tr>
               <th>Product</th>
               <th>Inventory</th>
+              <th class="product-stock-symbol-col"></th>
+              <th class="product-stock-word-col"></th>
               <th>Price</th>
               <th>Actions</th>
             </tr>
@@ -44,11 +54,33 @@
           <tbody>
             @for (product of filteredProducts; track product._id) {
               <tr
-                [class.low-stock]="product.inventoryQuantity <= 10"
+                [class.low-stock]="product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9"
                 [class.critical-stock]="product.inventoryQuantity <= 3"
               >
                 <td>{{ product.name }}</td>
-                <td>{{ product.inventoryQuantity }}</td>
+                <td>
+                  @if (product.inventoryQuantity >= 10) {
+                    <span class="fw-bold text-success">{{ product.inventoryQuantity }}</span>
+                  } @else if (product.inventoryQuantity >= 4) {
+                    <span class="fw-bold product-stock-low">{{ product.inventoryQuantity }}</span>
+                  } @else {
+                    <span class="fw-bold text-danger">{{ product.inventoryQuantity }}</span>
+                  }
+                </td>
+                <td class="product-stock-symbol-col">
+                  @if (product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
+                    <i class="bi bi-exclamation-triangle-fill product-stock-low" aria-hidden="true"></i>
+                  } @else if (product.inventoryQuantity <= 3) {
+                    <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"></i>
+                  }
+                </td>
+                <td class="product-stock-word-col">
+                  @if (product.inventoryQuantity >= 4 && product.inventoryQuantity <= 9) {
+                    <span class="fw-bold product-stock-low">LOW STOCK</span>
+                  } @else if (product.inventoryQuantity <= 3) {
+                    <span class="fw-bold text-danger">CRITICAL LEVEL</span>
+                  }
+                </td>
                 <td>{{ product.price | currency }}</td>
                 <td>
                   <button type="button" class="btn btn-link p-0" (click)="selectProduct(product)">
@@ -127,6 +159,8 @@
                 id="inventoryQuantity"
                 name="inventoryQuantity"
                 type="number"
+                [class.product-inv-low]="selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity >= 4 && selectedProduct.inventoryQuantity <= 9"
+                [class.product-inv-critical]="selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity <= 3"
                 [(ngModel)]="selectedProduct.inventoryQuantity"
                 required
               />
@@ -144,6 +178,22 @@
                 required
               />
             </div>
+
+            @if (showInlineFormAlert && selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity >= 4 && selectedProduct.inventoryQuantity <= 9) {
+              <div class="product-stock-alert product-stock-alert-low">
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                <span>LOW STOCK</span>
+              </div>
+            } @else if (showInlineFormAlert && selectedProduct.inventoryQuantity != null && selectedProduct.inventoryQuantity <= 3) {
+              <div class="product-stock-alert product-stock-alert-critical">
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                <span>CRITICAL LEVEL</span>
+              </div>
+            }
+
+            @if (formErrorMessage) {
+              <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
+            }
 
             <button type="submit" class="btn hg-save me-2">Save Product</button>
 

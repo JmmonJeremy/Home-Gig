@@ -15,10 +15,26 @@ export class Products implements OnInit, OnDestroy {
   products: any[] = [];
   filteredProducts: any[] = [];
   selectedProduct: any = null;
+  editOriginalInventory: number | null = null;
   errorMessage = '';
+  formErrorMessage = '';
   isLoading = false;
   searchQuery = '';
   private readonly subscriptions = new Subscription();
+
+  get showInlineFormAlert(): boolean {
+    if (!this.selectedProduct) {
+      return false;
+    }
+
+    // Add mode: always reflect the value being entered.
+    if (!this.selectedProduct._id) {
+      return true;
+    }
+
+    // Edit mode: only once the inventory number has actually been changed.
+    return this.selectedProduct.inventoryQuantity !== this.editOriginalInventory;
+  }
 
   constructor(
     private productService: ProductService,
@@ -59,25 +75,47 @@ export class Products implements OnInit, OnDestroy {
   }
 
   addProductInline(): void {
+    this.formErrorMessage = '';
+    this.editOriginalInventory = null;
     this.selectedProduct = {
       name: '',
       description: '',
-      price: 0,
-      inventoryQuantity: 0,
+      price: null,
+      inventoryQuantity: null,
       inventoryStatus: 'In Stock'
     };
   }
 
   selectProduct(product: any): void {
+    this.formErrorMessage = '';
+    this.editOriginalInventory = product.inventoryQuantity;
     this.selectedProduct = { ...product };
   }
 
   clearSelectedProduct(): void {
     this.selectedProduct = null;
+    this.editOriginalInventory = null;
+    this.formErrorMessage = '';
   }
 
   saveProduct(): void {
     this.errorMessage = '';
+    this.formErrorMessage = '';
+
+    if (!this.selectedProduct.name || !this.selectedProduct.name.trim()) {
+      this.formErrorMessage = 'Please enter a product name.';
+      return;
+    }
+
+    if (this.selectedProduct.inventoryQuantity == null || this.selectedProduct.price == null) {
+      this.formErrorMessage = 'Please enter both an inventory quantity and a price.';
+      return;
+    }
+
+    if (this.selectedProduct.inventoryQuantity < 0 || this.selectedProduct.price < 0) {
+      this.formErrorMessage = 'Inventory and price cannot be negative.';
+      return;
+    }
 
     if (this.selectedProduct._id) {
       this.productService.updateProduct(this.selectedProduct._id, this.selectedProduct).subscribe({
