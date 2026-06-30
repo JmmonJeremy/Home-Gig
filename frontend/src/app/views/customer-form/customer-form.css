@@ -1,4 +1,4 @@
-.customer-form-page h1 {
+.customer-form-title {
   color: #1f2937;
   font-size: 1.5rem;
   font-weight: 700;
@@ -39,9 +39,10 @@
 }
 
 @media (max-width: 767.98px) {
-  .customer-form-page h1 {
+  .customer-form-title-mobile {
     font-size: 1.25rem;
     margin-top: 1rem;
+    text-transform: none;
   }
 
   .customer-form-page .btn {

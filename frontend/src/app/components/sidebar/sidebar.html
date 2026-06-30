@@ -3,10 +3,10 @@
     class="sidebar-mobile-top d-md-none"
     [class.active-header-mobile]="isDashboardPage"
   >
-    @if (isProductFormPage) {
-      <a class="sidebar-mobile-back" routerLink="/products">
+    @if (isProductFormPage || isCustomerFormPage) {
+      <a class="sidebar-mobile-back" [routerLink]="isProductFormPage ? '/products' : '/customers'">
         <i class="bi bi-arrow-left" aria-hidden="true"></i>
-        <span class="sidebar-back-label">Products List</span>
+        <span class="sidebar-back-label">{{ isProductFormPage ? 'Products List' : 'Customers List' }}</span>
       </a>
     } @else {
       <div class="dropdown sidebar-top-nav-dropdown">

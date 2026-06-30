@@ -112,6 +112,11 @@ export class Header implements OnInit, OnDestroy {
     return url === '/products/new' || /^\/products\/[^/]+\/edit$/.test(url);
   }
 
+  get isCustomerFormPage(): boolean {
+    const url = this.router.url.split('?')[0];
+    return url === '/customers/new' || /^\/customers\/[^/]+\/edit$/.test(url);
+  }
+
   onProfileOption(event: MouseEvent, optionName: string): void {
     event.preventDefault();
     event.stopPropagation();
