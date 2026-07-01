@@ -161,3 +161,10 @@
     width: 20%;
   }
 }
+
+@media (max-width: 340px) {
+  .order-items-table .form-control,
+  .order-items-table .form-select {
+    font-size: 0.9rem;
+  }
+}
