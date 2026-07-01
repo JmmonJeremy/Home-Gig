@@ -105,7 +105,7 @@ export class Customers implements OnInit, OnDestroy {
     }
 
     if (this.selectedCustomer.phone.trim() && this.hasInvalidPhoneCharacters(this.selectedCustomer.phone)) {
-      this.formErrorMessage = 'Phone numbers may not contain letters, only numbers and dashes are allowed.';
+      this.formErrorMessage = 'Phone numbers may only contain numbers and dashes.';
       return;
     }
 

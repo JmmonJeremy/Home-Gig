@@ -78,7 +78,7 @@ export class CustomerForm implements OnInit {
     }
 
     if (this.customer.phone.trim() && this.hasInvalidPhoneCharacters(this.customer.phone)) {
-      this.errorMessage = 'Phone numbers may not contain letters, only numbers and dashes are allowed.';
+      this.errorMessage = 'Phone numbers may only contain numbers and dashes.';
       return;
     }
 
