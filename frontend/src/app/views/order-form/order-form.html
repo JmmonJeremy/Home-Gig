@@ -1,165 +1,222 @@
-<h1>{{ isEditMode ? 'Edit Order' : 'Add Order' }}</h1>
+<div class="order-form-page">
+  <h1 class="order-form-title">{{ isEditMode ? 'Edit Order' : 'Add Order' }}</h1>
 
-@if (isLoading) {
-  <p>Loading order...</p>
-}
+  @if (isLoading) {
+    <p>Loading order...</p>
+  }
 
-@if (errorMessage) {
-  <p class="text-danger">{{ errorMessage }}</p>
-}
+  @if (errorMessage) {
+    <p class="text-danger fw-bold mb-3">{{ errorMessage }}</p>
+  }
 
-<form (ngSubmit)="onSubmit()">
-  <div class="card">
-    <div class="card-body">
+  <form (ngSubmit)="onSubmit()">
+    <div class="card order-form-card">
+      <div class="card-body">
+        <div class="mb-3 order-customer-lookup">
+          <label for="customerNameInput" class="form-label text-muted">Customer Name</label>
+          <input
+            id="customerNameInput"
+            name="customerNameInput"
+            class="form-control"
+            autocomplete="off"
+            [ngModel]="order.customerNameInput"
+            (ngModelChange)="onCustomerNameChange($event)"
+            (focus)="showCustomerDropdown()"
+            required
+          />
 
-      <div class="mb-3">
-        <label for="orderNumber" class="form-label">Order #</label>
-        <input
-          id="orderNumber"
-          name="orderNumber"
-          class="form-control"
-          [(ngModel)]="order.orderNumber"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="customerId" class="form-label">Customer</label>
-        <select
-          id="customerId"
-          name="customerId"
-          class="form-select"
-          [(ngModel)]="order.customerId"
-          required
-        >
-          <option value="">Select a customer</option>
-          @for (customer of customers; track customer._id) {
-            <option [value]="customer._id">{{ customer.name }}</option>
-          }
-        </select>
-      </div>
-
-      <div class="mb-3">
-        <label for="orderDate" class="form-label">Order Date</label>
-        <input
-          id="orderDate"
-          name="orderDate"
-          type="date"
-          class="form-control"
-          [(ngModel)]="order.orderDate"
-          required
-        />
-      </div>
-
-      <h2 class="mt-4">Order Items</h2>
-
-      @for (item of order.items; track $index; let itemIndex = $index) {
-        <div class="border rounded p-3 mb-3">
-          <h3 class="h6">Item {{ itemIndex + 1 }}</h3>
-
-          <div class="mb-3">
-            <label [for]="'productId-' + itemIndex" class="form-label">Product</label>
-            <select
-              [id]="'productId-' + itemIndex"
-              [name]="'productId-' + itemIndex"
-              class="form-select"
-              [(ngModel)]="item.productId"
-              (change)="onProductChange(itemIndex)"
-              required
-            >
-              <option value="">Select a product</option>
-              @for (product of products; track product._id) {
-                <option [value]="product._id">
-                  {{ product.name }} - {{ product.price | currency }}
-                </option>
+          @if (order.showCustomerDropdown && order.customerNameInput.trim()) {
+            <div class="dropdown-menu show order-customer-menu">
+              @for (customer of getCustomerMatches(order.customerNameInput); track customer._id) {
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  (click)="selectCustomer(customer)"
+                >
+                  {{ customer.name }}
+                </button>
               }
-            </select>
-          </div>
 
-          <div class="mb-3">
-            <label [for]="'quantity-' + itemIndex" class="form-label">Quantity</label>
-            <input
-              [id]="'quantity-' + itemIndex"
-              [name]="'quantity-' + itemIndex"
-              class="form-control"
-              type="number"
-              min="1"
-              [(ngModel)]="item.quantity"
-              (ngModelChange)="onQuantityChange(item)"
-              required
-            />
-          </div>
-
-          <p class="mb-2">Unit Price: {{ item.unitPrice | currency }}</p>
-          <p class="mb-3">Line Total: {{ item.lineTotal | currency }}</p>
-
-          <button
-            type="button"
-            class="btn btn-link text-danger p-0"
-            (click)="removeItem(itemIndex)"
-            [disabled]="order.items.length === 1"
-          >
-            Remove Item
-          </button>
-        </div>
-      }
-
-      <div class="d-flex justify-content-between mb-3">
-        <button type="button" class="btn btn-link p-0" (click)="addItem()">
-          <span class="fs-4 fw-bold text-dark">+</span>
-          Add Item
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-link text-danger p-0"
-          (click)="removeLastItem()"
-          [disabled]="order.items.length === 1"
-        >
-          <span class="fs-4 fw-bold text-dark">−</span>
-          Remove Item
-        </button>
-      </div>
-
-      <div class="mb-3">
-        <label for="paymentStatus" class="form-label">Payment Status</label>
-        <select
-          id="paymentStatus"
-          name="paymentStatus"
-          class="form-select"
-          [(ngModel)]="order.paymentStatus"
-        >
-          @for (paymentStatus of paymentStatuses; track paymentStatus) {
-            <option [value]="paymentStatus">{{ paymentStatus }}</option>
+              @if (!hasExactCustomerMatch(order.customerNameInput)) {
+                <a
+                  class="dropdown-item"
+                  routerLink="/customers/new"
+                  [queryParams]="{ name: order.customerNameInput }"
+                >
+                  Add "{{ order.customerNameInput }}" as a new customer
+                </a>
+              }
+            </div>
           }
-        </select>
-      </div>
+        </div>
 
-      @if (isEditMode && paymentDateDisplay) {
-        <p>
-          Payment Date:
-          <strong>{{ paymentDateDisplay | date:'shortDate' }}</strong>
-        </p>
+        <div class="mb-3">
+          <label for="orderDate" class="form-label text-muted">Order Date</label>
+          <input
+            id="orderDate"
+            name="orderDate"
+            type="date"
+            class="form-control"
+            [(ngModel)]="order.orderDate"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-muted">Order Items</label>
+
+          <div class="order-items-table">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>
+                    <span class="d-md-none">Qty</span>
+                    <span class="d-none d-md-inline">Quantity</span>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (item of order.items; track $index; let itemIndex = $index) {
+                  <tr class="order-unit-price-row">
+                    <td colspan="2">
+                      <span class="text-muted">Unit Price: </span>
+                      <span class="text-muted">{{ item.unitPrice | currency }}</span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <select
+                        class="form-select"
+                        [(ngModel)]="item.productId"
+                        [name]="'productId-' + itemIndex"
+                        (change)="onProductChange(itemIndex)"
+                        required
+                      >
+                        <option value="">Select a product</option>
+                        @for (product of products; track product._id) {
+                          <option [value]="product._id">
+                            {{ product.name }}
+                          </option>
+                        }
+                        <option value="" disabled>&nbsp;</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <input
+                        class="form-control text-start"
+                        type="number"
+                        min="1"
+                        [(ngModel)]="item.quantity"
+                        [name]="'quantity-' + itemIndex"
+                        (ngModelChange)="onQuantityChange(item)"
+                        required
+                      />
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <button type="button" class="btn btn-link p-0 item-action-link" (click)="addItem()">
+              <span class="item-symbol">+</span>
+              <span class="item-action-text">Add Item</span>
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-link text-danger p-0 item-action-link"
+              (click)="removeLastItem()"
+              [disabled]="order.items.length === 1"
+            >
+              <span class="item-symbol">-</span>
+              <span class="item-action-text">Remove Item</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="orderTotal" class="form-label text-muted">Total $</label>
+          <input
+            id="orderTotal"
+            name="orderTotal"
+            type="number"
+            class="form-control"
+            [(ngModel)]="order.orderTotal"
+            required
+          />
+
+          @if (errorMessage === 'Total must come from the sum of the order items.' && calculatedTotalSuggestion !== null) {
+            <div class="dropdown-menu show order-total-suggestion-menu">
+              <button
+                type="button"
+                class="dropdown-item"
+                (click)="applyCalculatedTotal()"
+              >
+                Calculated Total = {{ calculatedTotalSuggestion | currency }}
+              </button>
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="paymentStatus" class="form-label text-muted">Payment Status</label>
+          <select
+            id="paymentStatus"
+            name="paymentStatus"
+            class="form-select fw-bold text-uppercase"
+            [class.text-success]="order.paymentStatus === 'Paid'"
+            [class.text-danger]="order.paymentStatus === 'Unpaid'"
+            [(ngModel)]="order.paymentStatus"
+            (ngModelChange)="onPaymentStatusChange()"
+          >
+            @for (paymentStatus of paymentStatuses; track paymentStatus) {
+              <option
+                class="fw-bold text-uppercase"
+                [class.text-success]="paymentStatus === 'Paid'"
+                [class.text-danger]="paymentStatus === 'Unpaid'"
+                [value]="paymentStatus"
+              >
+                {{ paymentStatus }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-0">
+          <label for="paymentDate" class="form-label text-muted">Payment Date</label>
+          <input
+            id="paymentDate"
+            name="paymentDate"
+            type="date"
+            class="form-control"
+            [min]="order.orderDate"
+            [(ngModel)]="order.paymentDate"
+            [disabled]="order.paymentStatus !== 'Paid'"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 d-grid gap-2">
+      <button type="submit" class="btn hg-save" [disabled]="isSubmitting">
+        {{ isEditMode ? 'Save Order' : 'Create Order' }}
+      </button>
+
+      @if (isEditMode && orderId) {
+        <button type="button" class="btn hg-delete" (click)="deleteOrder()">
+          Delete Order
+        </button>
       }
 
-      <p class="fw-bold">Total: {{ orderTotal | currency }}</p>
-
-    </div>
-  </div>
-
-  <div class="mt-4 d-grid gap-2">
-    <button type="submit" class="btn hg-save" [disabled]="isSubmitting">
-      {{ isEditMode ? 'Save Order' : 'Create Order' }}
-    </button>
-
-    @if (isEditMode && orderId) {
-      <button type="button" class="btn hg-delete" (click)="deleteOrder()">
-        Delete Order
+      <button type="button" class="btn hg-cancel" (click)="cancel()">
+        Cancel
       </button>
-    }
-
-    <button type="button" class="btn hg-cancel" (click)="cancel()">
-      Cancel
-    </button>
-  </div>
-</form>
+    </div>
+  </form>
+</div>
