@@ -5,6 +5,10 @@
     <p>Loading order...</p>
   }
 
+  @if (errorMessage) {
+    <p class="text-danger fw-bold mb-3">{{ errorMessage }}</p>
+  }
+
   <form (ngSubmit)="onSubmit()">
     <div class="card order-form-card">
       <div class="card-body">
@@ -66,12 +70,19 @@
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>Quantity</th>
+                  <th class="text-end">Qty</th>
                 </tr>
               </thead>
 
               <tbody>
                 @for (item of order.items; track $index; let itemIndex = $index) {
+                  <tr class="order-unit-price-row">
+                    <td colspan="2">
+                      <span class="text-muted">Unit Price:</span>
+                      <span class="fw-semibold">{{ item.unitPrice | currency }}</span>
+                    </td>
+                  </tr>
+
                   <tr>
                     <td>
                       <select
@@ -187,10 +198,6 @@
         </div>
       </div>
     </div>
-
-    @if (errorMessage) {
-      <p class="text-danger fw-bold mt-3 mb-0">{{ errorMessage }}</p>
-    }
 
     <div class="mt-4 d-grid gap-2">
       <button type="submit" class="btn hg-save" [disabled]="isSubmitting">

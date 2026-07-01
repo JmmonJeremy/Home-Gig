@@ -48,7 +48,7 @@
 .order-items-table .table th,
 .order-items-table .table td {
   border-color: #dee2e6;
-  padding: 0.55rem 1rem;
+  padding: 0.45rem 0.5rem;
   vertical-align: middle;
 }
 
@@ -60,8 +60,9 @@
 
 .order-items-table .table th:last-child,
 .order-items-table .table td:last-child {
-  text-align: center;
-  width: 7rem;
+  text-align: right;
+  width: 3rem;
+  white-space: nowrap;
 }
 
 .order-items-table .form-control,
@@ -69,6 +70,26 @@
   border: 0;
   min-height: 34px;
   padding: 0;
+}
+
+.order-items-table .form-select {
+  width: 100%;
+}
+
+.order-items-table .form-control {
+  width: 3rem;
+}
+
+.order-unit-price-row td {
+  background-color: #ffffff;
+  border-bottom: 0;
+  font-size: 0.9rem;
+  padding-bottom: 0.1rem;
+}
+
+.order-unit-price-row + tr td {
+  border-top: 0;
+  padding-top: 0.1rem;
 }
 
 .order-items-table .form-control:focus,
@@ -113,8 +134,9 @@
 @media (max-width: 767.98px) {
   .order-form-title {
     font-size: 1.25rem;
-    margin-top: 1rem;
-    text-transform: uppercase;
+    margin-top: 0.75rem;
+    margin-bottom: 0.375rem;
+    text-transform: none;
   }
 
   .order-form-page .btn {
