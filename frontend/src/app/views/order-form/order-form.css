@@ -180,3 +180,20 @@
     margin: 0;
   }
 }
+
+@media (max-width: 380px) {
+  .order-items-table .table th:first-child,
+  .order-items-table .table td:first-child {
+    width: auto;
+  }
+
+  .order-items-table .table th:last-child,
+  .order-items-table .table td:last-child {
+    width: 2.5rem;
+    white-space: nowrap;
+  }
+
+  .order-items-table .form-control {
+    width: 2.5rem;
+  }
+}
