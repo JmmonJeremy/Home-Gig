@@ -283,28 +283,38 @@
             </select>
           </div>
 
-          <div>
-            <button type="submit" class="btn hg-save me-2">
-              Save Order
-            </button>
+          <div class="d-flex justify-content-between align-items-end gap-3">
+            <div>
+              <button type="submit" class="btn hg-save me-2">
+                Save Order
+              </button>
 
-            @if (selectedOrder._id) {
+              @if (selectedOrder._id) {
+                <button
+                  type="button"
+                  class="btn hg-delete me-2"
+                  (click)="deleteOrder(selectedOrder._id)"
+                >
+                  Delete Order
+                </button>
+              }
+
               <button
                 type="button"
-                class="btn hg-delete me-2"
-                (click)="deleteOrder(selectedOrder._id)"
+                class="btn hg-cancel"
+                (click)="clearSelectedOrder()"
               >
-                Delete Order
+                Cancel
               </button>
-            }
+            </div>
 
-            <button
-              type="button"
-              class="btn hg-cancel"
-              (click)="clearSelectedOrder()"
+            <a
+              class="d-inline-flex align-items-center gap-1 fw-semibold text-decoration-none"
+              [routerLink]="selectedOrder._id ? ['/orders', selectedOrder._id, 'edit'] : ['/orders/new']"
             >
-              Cancel
-            </button>
+              Use Dedicated Form Page
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
           </div>
         </form>
       </div>
