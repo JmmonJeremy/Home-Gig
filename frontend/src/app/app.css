@@ -29,7 +29,8 @@
   }
 
   .main-content:has(app-product-form),
-  .main-content:has(app-customer-form) {
+  .main-content:has(app-customer-form),
+  .main-content:has(app-order-form) {
     padding-top: 64px;
   }
 

@@ -95,7 +95,7 @@ export class Sidebar implements OnInit, OnDestroy {
       return 'Customers List';
     }
 
-    return 'Order Details';
+    return 'Orders List';
   }
 
   logout(event: MouseEvent): void {

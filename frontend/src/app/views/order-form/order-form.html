@@ -63,7 +63,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label text-muted">Order Items:</label>
+          <label class="form-label text-muted">Order Items</label>
 
           <div class="order-items-table">
             <table class="table mb-0">
@@ -78,8 +78,8 @@
                 @for (item of order.items; track $index; let itemIndex = $index) {
                   <tr class="order-unit-price-row">
                     <td colspan="2">
-                      <span class="text-muted">Unit Price:</span>
-                      <span class="fw-semibold">{{ item.unitPrice | currency }}</span>
+                      <span class="text-muted">Unit Price: </span>
+                      <span>{{ item.unitPrice | currency }}</span>
                     </td>
                   </tr>
 
@@ -103,7 +103,7 @@
 
                     <td>
                       <input
-                        class="form-control text-end"
+                        class="form-control text-center"
                         type="number"
                         min="1"
                         [(ngModel)]="item.quantity"
@@ -137,7 +137,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="orderTotal" class="form-label text-muted">Total</label>
+          <label for="orderTotal" class="form-label text-muted">Total $</label>
           <input
             id="orderTotal"
             name="orderTotal"
