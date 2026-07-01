@@ -70,3 +70,7 @@
   background-color: #5d4037;
   color: white;
 }
+
+.btn-link { 
+  text-underline-offset: 0.2em;
+}

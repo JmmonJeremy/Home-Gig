@@ -62,15 +62,24 @@
   margin: 0 0 0.5rem;
 }
 
+.customer-mobile-row {
+  display: flex;
+  gap: 1rem;
+}
+
 .customer-mobile-label {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  flex: 0 0 40%
+}
+
+.customer-mobile-value {
+  flex: 0 0 60%;
+  overflow-wrap: anywhere;
 }
 
 .customer-mobile-item a {
   display: inline-block;
   margin-top: 0.25rem;
-  text-decoration: none;
+  text-underline-offset: 0.2em;
 }
 
 @media (max-width: 767.98px) {
