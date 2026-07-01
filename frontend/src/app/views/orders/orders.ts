@@ -261,6 +261,11 @@ export class Orders implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.hasInvalidCustomerNameCharacters(this.selectedOrder.customerNameInput)) {
+      this.formErrorMessage = 'Numbers are not acceptable characters for a customer name. Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
+      return;
+    }
+
     const matchingCustomer = this.findCustomerByName(this.selectedOrder.customerNameInput);
 
     if (!matchingCustomer) {
@@ -439,5 +444,9 @@ export class Orders implements OnInit, OnDestroy {
 
   private roundCurrency(value: number): number {
     return Math.round(value * 100) / 100;
+  }
+
+  private hasInvalidCustomerNameCharacters(value: string): boolean {
+    return !/^[\p{L} .'-]+$/u.test(value.trim());
   }
 }

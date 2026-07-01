@@ -62,6 +62,11 @@ export class CustomerForm implements OnInit {
       return;
     }
 
+    if (this.hasInvalidCustomerNameCharacters(this.customer.name)) {
+      this.errorMessage = 'Numbers are not acceptable characters for a customer name. Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
+      return;
+    }
+
     if (!this.customer.phone.trim() && !this.customer.email.trim()) {
       this.errorMessage = 'Please enter a phone number or an email address.';
       return;
@@ -137,5 +142,9 @@ export class CustomerForm implements OnInit {
 
   private hasInvalidPhoneCharacters(value: string): boolean {
     return /[^0-9-]/.test(value);
+  }
+
+  private hasInvalidCustomerNameCharacters(value: string): boolean {
+    return !/^[\p{L} .'-]+$/u.test(value.trim());
   }
 }
