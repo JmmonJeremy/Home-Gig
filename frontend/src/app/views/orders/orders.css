@@ -1,3 +1,8 @@
+button {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .order-page .table,
 .order-page .table th,
 .order-page .table td {
@@ -108,6 +113,79 @@
   margin-top: 0.25rem;
   text-underline-offset: 0.2em;
 }
+
+@media (max-width: 1180px) and (min-width: 768px) {
+  .order-page {
+    padding-left: clamp(0.75rem, 2vw, 3rem) !important;
+    padding-right: clamp(0.75rem, 2vw, 3rem);
+  }
+
+  .order-page .card {
+    padding: clamp(0.45rem, 1vw, 1rem);
+  }
+
+  .order-page .table th,
+  .order-page .table td {
+    padding: clamp(0.45rem, 1vw, 1rem);
+    font-size: clamp(0.78rem, 1.1vw, 1rem);
+  }
+
+  .order-page .order-list-card .table th:nth-child(1),
+  .order-page .order-list-card .table td:nth-child(1),
+  .order-page .order-list-card .table th:nth-child(3),
+  .order-page .order-list-card .table th:nth-child(5),
+  .order-page .order-list-card .table td:nth-child(5),
+  .order-page .order-list-card .table td:nth-child(6),
+  .order-page .order-list-card .table td:nth-child(7),
+  .order-page .order-list-card .table th:nth-child(8),
+  .order-page .order-list-card .table td:nth-child(8) {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  .order-page .order-list-card .table td:nth-child(2),
+  .order-page .order-list-card .table td:nth-child(4) {
+    overflow-wrap: anywhere;
+  }
+
+  .order-page .order-list-card .table th:nth-child(3),
+  .order-page .order-list-card .table th:nth-child(4),
+  .order-page .order-list-card .table th:nth-child(6),
+  .order-page .order-list-card .table th:nth-child(7) {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 1060px) and (min-width: 768px) {
+  .order-page {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem;
+  }
+
+  .order-page .table th,
+  .order-page .table td {
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 768px) {
+  .order-page {
+    margin-left: -0.5rem;
+    margin-right: -1.5rem;
+    padding-left: 0.2rem !important;
+    padding-right: 0rem;
+  }
+
+  .order-page .order-list-card {
+    margin-left: -0.5rem;
+    margin-right: -1.5rem;
+    padding-right: 0.15rem;
+    padding-left: 0.15rem;
+  }
+}
+
+
 
 @media (max-width: 767.98px) {
   .order-page > .d-flex {

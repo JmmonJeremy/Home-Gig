@@ -286,7 +286,7 @@ Make the existing top-header search bar functional across the app.
 5. Return the pull request URL when finished.
 
 ## <span style="color: #ffff00;">Copy & Paste Styling Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template</span> for <span style="color: #70bcf2;">Cursor or Codex</span> :
-Home Gig - Mobile Order View
+Home Gig - Desktop Customer & Order View Responsiveness
 Important Guidelines
 1. Do not perform refactoring, formatting-only changes, dependency updates, or cleanup outside the files required for this task.
 2. If the wireframe or requirements are ambiguous, stop and ask for clarification instead of making assumptions.
@@ -295,16 +295,16 @@ Important Guidelines
 Git Setup
 1. Start from the local master branch.
 2. Pull the latest changes from origin/master.
-3. Create and switch to a new branch named: codex/mobileOrder-view
-4. Confirm the current Git branch is: codex/mobileOrder-view
+3. Create and switch to a new branch named: cursor/desktop-customer-order-responsiveness
+4. Confirm the current Git branch is: cursor/desktop-customer-order-responsiveness
 
 Before Making Any Changes
 1. Inspect the following files before editing anything:
-docs/wireframes/5.1_Order_&_Payment_Management_Mobile_Wireframe.png
+docs/wireframes/5.2_Order_&_Payment_Form_Mobile_Wireframe.png
 docs/Home_Gig_Requirements_Specification.docx
-2. If docs/Home_Gig_Requirements_Specification.docx is too large or difficult to parse, use the wireframe as the primary visual source and report what parts of the requirements file could not be read.
-3. Then inspect the current Order implementation and identify every file that would need to change.
-4. If any file other than orders.css and orders.html needs to be modified:
+2. If docs/Home_Gig_Requirements_Specification.docx is too large or difficult to parse, use the wireframe as the primary visual source and report what parts of the requirements file could not be read. Also, inspect the current desktop Order in page form implementation in the desktop view to see what inputs are required.
+3. Then inspect the current mobile Order Form implementation and identify every file that would need to change.
+4. If any file other than order-form.css and order-form.html needs to be modified (you will also need to modify the sidebar and header files):
     Stop.
     1. List every file you believe needs to change.
     2. Explain why each file needs to change.
@@ -312,10 +312,10 @@ docs/Home_Gig_Requirements_Specification.docx
     4. Do not begin editing until I explicitly tell you to continue.
 
 Goal
-Pattern the Order page's moblile header, Order Management title (Which needs to vary from the wirefram to read Order & Payment Management), and Add Order button - including the background for those things after the mobing header, title, button, and their background for the Customers and Reports pages. Make the order cards match the wireframe, but adding in the additional columns that are found in the desktop page as well, with the Customer name at the top as the wireframe shows and then the Order # going under the Customer name next, and then all the other categories following in the same order the desktop view has them in. For the formatting of the labels and inputs following the Customer name use the same format used for the mobile Customer Management page labels and inputs under the Customer name. The difference will be that the order information will go on white cards as shown in the Order Management wireframe.
+Change the desktop Order & Customer pages to match the responsiveness of the desktop Products page. Look at the stylig used to make that page fit on the screen as the width of the screen is reduced.
 
 Design Requirements
-1. Follow the supplied wireframe with all the changes discussed in the Goal.
+1. Follow the existing styling pattern as you implement the changes discussed in the Goal.
 2. Preserve the existing visual style.
 3. Do not redesign the application.
 4. Reuse the existing colors, typography, spacing, icons, and components whenever possible.
@@ -326,8 +326,8 @@ Design Requirements
 
 Functional Requirements
 1. The page should function exactly as it currently does.
-2. Do not: change routing, change navigation behavior, change authentication, change business logic, change API calls, change backend code
-3. Only adjust the responsive presentation of the Order page.
+2. Do not: change routing, change navigation behavior, change authentication, change business logic, change API calls, change backend code.
+3. Only adjust the desktop Order & Customer pages with what is necessary to meet the goal described.
 
 Code Requirements
 1. Follow the existing Angular project conventions.
@@ -342,33 +342,33 @@ Validation
 After implementation:
 1. Run the appropriate Angular build.
 2. Verify there are no build errors.
-3. Verify the desktop Order page still appears unchanged.
-4. Verify the mobile Order page matches the supplied wireframe as closely as described in the Goal.
+3. Verify the mobile views still appear unchanged.
+4. Verify the desktop Orders & Customers page matches the description written in the Goal.
 
 Deliverables
 Provide:
 1. a summary of every changed file
 2. a summary of the changes made
 3. any assumptions or compromises that were necessary
-4. confirmation that the desktop layout was preserved
+4. confirmation that the mobile layouts were preserved
 5. confirmation that the application builds successfully 
 
 Git
 1. Commit the completed work using a descriptive commit message.
-2. Push the branch: codex/mobileOrder-view
+2. Push the branch: cursor/desktop-customer-order-responsiveness
 
 GitHub Authentication
-1. Before creating the pull request, run the command, .\start-codex-gh.ps1, in the same PowerShell session before using any gh command.
+1. Before creating the pull request, run the command, .\start-cursor-gh.ps1, in the same PowerShell session before using any gh command.
 2. Then verify that gh auth status shows the active GitHub account is: jeremy-ai-work
 3. If the active account is not jeremy-ai-work, stop immediately and report the problem.
-4. Do not open a new PowerShell session after running .\start-codex-gh.ps1.
-4. Make sure you run any commands to create a PR in the same PowerShell session as where you ran .\start-codex-gh.ps1. Do not split them into separate terminal sessions!
+4. Do not open a new PowerShell session after running .\start-cursor-gh.ps1.
+4. Make sure you run any commands to create a PR in the same PowerShell session as where you ran .\start-cursor-gh.ps1. Do not split them into separate terminal sessions!
 5. Only create the PR if gh auth status shows jeremy-ai-work in that same session.
 
 Pull Request
 1. Do not run gh pr create unless the immediately previous command in the same terminal session was gh auth status showing jeremy-ai-work.
-2. Run gh pr create in the same PowerShell session where .\start-codex-gh.ps1 and gh auth status were executed to create a pull request from: codex/mobileOrder-view into: master
+2. Run gh pr create in the same PowerShell session where .\start-cursor-gh.ps1 and gh auth status were executed to create a pull request from: cursor/desktop-customer-order-responsiveness into: master
 3. Do not merge the pull request.
 4. Do not bypass any repository rules.
 5. Return the pull request URL when finished.
-6. List the branch name in the summary at the end.
+6. List the branch name as your very last response at the end.

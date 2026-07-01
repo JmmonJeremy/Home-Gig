@@ -49,4 +49,8 @@
     font-size: 1.5rem;
     font-weight: 700;
   }
+
+  .product-form-title {
+  text-transform: none;
+}
 }
