@@ -80,7 +80,12 @@
 }
 
 .order-items-table .form-select {
+  padding-left: 0.5rem;
   width: 100%;
+}
+
+.order-items-table .table td:first-child {
+  padding-left: 0;
 }
 
 .order-items-table .form-control {
