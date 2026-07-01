@@ -78,6 +78,11 @@
   .order-items-table .col-qty {
     width: 33.333%;
   }
+
+  .order-items-table .order-qty-col,
+  .order-qty-input {
+    text-align: right;
+  }
 }
 
 .order-items-table th,
@@ -92,7 +97,7 @@
 }
 
 .order-items-table .order-qty-col {
-  text-align: right;
+  text-align: left;
   white-space: nowrap;
 }
 
@@ -128,7 +133,7 @@
 
 .order-qty-input {
   min-height: 44px;
-  text-align: right;
+  text-align: left;
   appearance: auto;
   -moz-appearance: auto;
 }
@@ -192,11 +197,22 @@
     min-height: 48px;
   }
 
-  .order-items-table .col-qty {
-    width: 4.25rem;
+  .order-items-table .col-product {
+    width: 75%;
   }
 
-  .order-qty-input {
-    padding-right: 0.25rem;
+  .order-items-table .col-qty {
+    width: 25%;
+  }
+
+  .order-items-table th,
+  .order-items-table td,
+  .order-form-card .order-product-select,
+  .order-form-card .order-qty-input {
+    font-size: 1.125rem;
+  }
+
+  .order-item-unit-price-row td {
+    font-size: 1rem;
   }
 }
