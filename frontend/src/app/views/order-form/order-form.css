@@ -151,18 +151,4 @@
     min-height: 48px;
   }
 
-  .order-items-table .table th:first-child,
-  .order-items-table .table td:first-child {
-    width: auto;
-  }
-
-  .order-items-table .table th:last-child,
-  .order-items-table .table td:last-child {
-    width: 2.67rem;
-    white-space: nowrap;
-  }
-
-  .order-items-table .form-control {
-    width: 2.67rem;
-  }
 }
