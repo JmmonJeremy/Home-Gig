@@ -151,4 +151,13 @@
     min-height: 48px;
   }
 
+  .order-items-table .table th:first-child,
+  .order-items-table .table td:first-child {
+    width: 75%;
+  }
+
+  .order-items-table .table th:last-child,
+  .order-items-table .table td:last-child {
+    width: 25%;
+  }
 }
