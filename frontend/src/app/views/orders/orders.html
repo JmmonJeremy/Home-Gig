@@ -144,29 +144,46 @@
   </div>
 
   @if (selectedOrder) {
-    <h2 class="h4 fw-bold mb-3">ORDER DETAILS</h2>
+    <h2 class="h4 fw-bold mb-3 d-none d-md-block">ORDER DETAILS</h2>
 
     <div class="card order-details-card d-none d-md-block">
       <div class="card-body">
         <form (ngSubmit)="saveOrder()">
-          <div class="mb-3">
-            <label class="form-label text-muted">Order #:</label>
+          <div class="mb-3 order-customer-lookup">
+            <label class="form-label text-muted">Customer:</label>
             <input
               class="form-control"
-              name="orderNumber"
-              [(ngModel)]="selectedOrder.orderNumber"
+              name="customerNameInput"
+              autocomplete="off"
+              [ngModel]="selectedOrder.customerNameInput"
+              (ngModelChange)="onSelectedOrderCustomerNameChange($event)"
+              (focus)="showSelectedOrderCustomerDropdown()"
               required
             />
-          </div>
 
-          <div class="mb-3">
-            <label class="form-label text-muted">Customer ID:</label>
-            <input
-              class="form-control"
-              name="customerId"
-              [(ngModel)]="selectedOrder.customerId"
-              required
-            />
+            @if (selectedOrder.showCustomerDropdown && selectedOrder.customerNameInput.trim()) {
+              <div class="dropdown-menu show order-customer-menu">
+                @for (customer of getCustomerMatches(selectedOrder.customerNameInput); track customer._id) {
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    (click)="selectCustomerForSelectedOrder(customer)"
+                  >
+                    {{ customer.name }}
+                  </button>
+                }
+
+                @if (!hasExactCustomerMatch(selectedOrder.customerNameInput)) {
+                  <a
+                    class="dropdown-item"
+                    routerLink="/customers/new"
+                    [queryParams]="{ name: selectedOrder.customerNameInput }"
+                  >
+                    Add "{{ selectedOrder.customerNameInput }}" as a new customer
+                  </a>
+                }
+              </div>
+            }
           </div>
 
           <div class="mb-3">
@@ -176,6 +193,7 @@
               type="date"
               name="orderDate"
               [(ngModel)]="selectedOrder.orderDateInput"
+              required
             />
           </div>
 
@@ -267,6 +285,18 @@
               [(ngModel)]="selectedOrder.orderTotal"
               required
             />
+
+            @if (formErrorMessage === 'Total must come from the sum of the order items.' && calculatedTotalSuggestion !== null) {
+              <div class="dropdown-menu show order-total-suggestion-menu">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  (click)="applyCalculatedTotal()"
+                >
+                  Calculated Total = {{ calculatedTotalSuggestion | currency }}
+                </button>
+              </div>
+            }
           </div>
 
           <div class="mb-3">
@@ -277,11 +307,28 @@
               [class.text-danger]="selectedOrder.paymentStatus === 'Unpaid'"
               name="paymentStatus"
               [(ngModel)]="selectedOrder.paymentStatus"
+              (ngModelChange)="onSelectedOrderPaymentStatusChange()"
             >
               <option class="fw-bold text-danger text-uppercase" value="Unpaid">Unpaid</option>
               <option class="fw-bold text-success text-uppercase" value="Paid">Paid</option>
             </select>
           </div>
+
+          <div class="mb-3">
+            <label class="form-label text-muted">Payment Date:</label>
+            <input
+              class="form-control"
+              type="date"
+              name="paymentDate"
+              [min]="selectedOrder.orderDateInput"
+              [(ngModel)]="selectedOrder.paymentDateInput"
+              [disabled]="selectedOrder.paymentStatus !== 'Paid'"
+            />
+          </div>
+
+          @if (formErrorMessage) {
+            <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
+          }
 
           <div class="d-flex justify-content-between align-items-end gap-3">
             <div>

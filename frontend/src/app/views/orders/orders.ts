@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CustomerService } from '../../services/customer.service';
 import { OrderService } from '../../services/order.service';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
@@ -15,14 +16,18 @@ import { matchesSearchQuery } from '../../utils/search.util';
 export class Orders implements OnInit, OnDestroy {
   orders: any[] = [];
   filteredOrders: any[] = [];
+  customers: any[] = [];
   products: any[] = [];
   selectedOrder: any = null;
   errorMessage = '';
+  formErrorMessage = '';
+  calculatedTotalSuggestion: number | null = null;
   isLoading = false;
   searchQuery = '';
   private readonly subscriptions = new Subscription();
 
   constructor(
+    private customerService: CustomerService,
     private orderService: OrderService,
     private productService: ProductService,
     private router: Router,
@@ -38,6 +43,7 @@ export class Orders implements OnInit, OnDestroy {
     );
 
     this.loadOrders();
+    this.loadCustomers();
     this.loadProducts();
   }
 
@@ -73,6 +79,17 @@ export class Orders implements OnInit, OnDestroy {
     });
   }
 
+  loadCustomers(): void {
+    this.customerService.getCustomers().subscribe({
+      next: (customers) => {
+        this.customers = customers;
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load customers.';
+      }
+    });
+  }
+
   getOrderSummary(order: any): string {
     if (!order.items || order.items.length === 0) {
       return '';
@@ -84,10 +101,15 @@ export class Orders implements OnInit, OnDestroy {
   }
 
   addOrderInline(): void {
+    this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
     this.selectedOrder = {
       orderNumber: '',
       customerId: '',
+      customerNameInput: '',
+      showCustomerDropdown: false,
       orderDateInput: new Date().toISOString().split('T')[0],
+      paymentDateInput: '',
       items: [
         {
           productId: '',
@@ -104,11 +126,18 @@ export class Orders implements OnInit, OnDestroy {
   }
 
   selectOrder(order: any): void {
+    this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
     this.selectedOrder = {
       ...order,
       customerId: order.customerId?._id || order.customerId,
+      customerNameInput: order.customerId?.name || '',
+      showCustomerDropdown: false,
       orderDateInput: order.orderDate
         ? new Date(order.orderDate).toISOString().split('T')[0]
+        : '',
+      paymentDateInput: order.paymentDate
+        ? new Date(order.paymentDate).toISOString().split('T')[0]
         : '',
       items: order.items.map((item: any) => ({
         ...item,
@@ -119,6 +148,8 @@ export class Orders implements OnInit, OnDestroy {
 
   clearSelectedOrder(): void {
     this.selectedOrder = null;
+    this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
   }
 
   addItemToSelectedOrder(): void {
@@ -136,12 +167,63 @@ export class Orders implements OnInit, OnDestroy {
     const remainingItems = this.selectedOrder.items.filter((item: any) => !item.selected);
 
     if (remainingItems.length === 0) {
-      this.errorMessage = 'An order must contain at least one item.';
+      this.formErrorMessage = 'An order must contain at least one item.';
       return;
     }
 
     this.selectedOrder.items = remainingItems;
-    this.errorMessage = '';
+    this.formErrorMessage = '';
+  }
+
+  onSelectedOrderCustomerNameChange(value: string): void {
+    this.selectedOrder.customerNameInput = value;
+    this.selectedOrder.showCustomerDropdown = true;
+    const matchingCustomer = this.findCustomerByName(value);
+    this.selectedOrder.customerId = matchingCustomer?._id || '';
+  }
+
+  selectCustomerForSelectedOrder(customer: any): void {
+    this.selectedOrder.customerNameInput = customer.name;
+    this.selectedOrder.customerId = customer._id;
+    this.selectedOrder.showCustomerDropdown = false;
+    this.formErrorMessage = '';
+  }
+
+  showSelectedOrderCustomerDropdown(): void {
+    this.selectedOrder.showCustomerDropdown = true;
+  }
+
+  onSelectedOrderPaymentStatusChange(): void {
+    if (this.selectedOrder.paymentStatus === 'Paid' && !this.selectedOrder.paymentDateInput) {
+      this.selectedOrder.paymentDateInput = new Date().toISOString().split('T')[0];
+
+      if (
+        this.selectedOrder.orderDateInput &&
+        this.selectedOrder.paymentDateInput < this.selectedOrder.orderDateInput
+      ) {
+        this.selectedOrder.paymentDateInput = this.selectedOrder.orderDateInput;
+      }
+    }
+
+    if (this.selectedOrder.paymentStatus === 'Unpaid') {
+      this.selectedOrder.paymentDateInput = '';
+    }
+  }
+
+  getCustomerMatches(query: string): any[] {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return [];
+    }
+
+    return this.customers
+      .filter((customer) => customer.name.toLowerCase().includes(normalizedQuery))
+      .slice(0, 5);
+  }
+
+  hasExactCustomerMatch(query: string): boolean {
+    return !!this.findCustomerByName(query);
   }
 
   onSelectedOrderProductChange(index: number): void {
@@ -176,28 +258,96 @@ export class Orders implements OnInit, OnDestroy {
 
   saveOrder(): void {
     this.errorMessage = '';
+    this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
 
-    if (!this.selectedOrder.orderNumber.trim()) {
-      this.errorMessage = 'Please enter an order number.';
+    if (!this.selectedOrder.customerNameInput.trim()) {
+      this.formErrorMessage = 'A customer name is required.';
       return;
     }
 
-    if (!this.selectedOrder.customerId) {
-      this.errorMessage = 'Please enter a customer ID.';
+    if (this.hasInvalidCustomerNameCharacters(this.selectedOrder.customerNameInput)) {
+      this.formErrorMessage = 'Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
       return;
     }
 
-    if (
-      !this.selectedOrder.items ||
-      this.selectedOrder.items.length === 0 ||
-      this.selectedOrder.items.some((item: any) => !item.productId || item.quantity < 1)
-    ) {
-      this.errorMessage = 'Please select a product and quantity for each item.';
+    const matchingCustomer = this.findCustomerByName(this.selectedOrder.customerNameInput);
+
+    if (!matchingCustomer) {
+      this.formErrorMessage = 'Customer name must match an existing customer.';
+      return;
+    }
+
+    this.selectedOrder.customerId = matchingCustomer._id;
+
+    if (!this.selectedOrder.orderDateInput) {
+      this.formErrorMessage = 'An order date is required.';
+      return;
+    }
+
+    if (!this.isValidDateInput(this.selectedOrder.orderDateInput)) {
+      this.formErrorMessage = 'Order date must be a valid date.';
+      return;
+    }
+
+    if (!this.selectedOrder.items || this.selectedOrder.items.length === 0) {
+      this.formErrorMessage = 'Selecting a product is required for an order.';
+      return;
+    }
+
+    if (this.selectedOrder.items.some((item: any) => !item.productId)) {
+      this.formErrorMessage = 'Selecting a product is required for an order.';
+      return;
+    }
+
+    if (this.selectedOrder.items.some((item: any) => Number(item.quantity) < 1)) {
+      this.formErrorMessage = 'Quantity must be 1 or greater.';
+      return;
+    }
+
+    if (this.selectedOrder.items.some((item: any) => !Number.isInteger(Number(item.quantity)))) {
+      this.formErrorMessage = 'Quantity must be a whole number.';
+      return;
+    }
+
+    const calculatedOrderTotal = this.calculateSelectedOrderTotal();
+
+    if (this.roundCurrency(Number(this.selectedOrder.orderTotal)) !== calculatedOrderTotal) {
+      this.formErrorMessage = 'Total must come from the sum of the order items.';
+      this.calculatedTotalSuggestion = calculatedOrderTotal;
+      return;
+    }
+
+    if (this.selectedOrder.paymentDateInput) {
+      if (!this.isValidDateInput(this.selectedOrder.paymentDateInput)) {
+        this.formErrorMessage = 'Payment date must be a valid date.';
+        return;
+      }
+
+      if (this.selectedOrder.paymentDateInput < this.selectedOrder.orderDateInput) {
+        this.formErrorMessage = 'Payment date must be on or after the order date.';
+        return;
+      }
+    }
+
+    if (this.selectedOrder.paymentStatus === 'Paid' && !this.selectedOrder.paymentDateInput) {
+      this.selectedOrder.paymentDateInput = new Date().toISOString().split('T')[0];
+
+      if (this.selectedOrder.paymentDateInput < this.selectedOrder.orderDateInput) {
+        this.selectedOrder.paymentDateInput = this.selectedOrder.orderDateInput;
+      }
+    }
+
+    if (this.selectedOrder.paymentStatus === 'Unpaid') {
+      this.selectedOrder.paymentDateInput = '';
+    }
+
+    if (this.selectedOrder.paymentDateInput && this.selectedOrder.paymentDateInput < this.selectedOrder.orderDateInput) {
+      this.formErrorMessage = 'Payment date must be on or after the order date.';
       return;
     }
 
     const orderToSave = {
-      orderNumber: this.selectedOrder.orderNumber,
       customerId: this.selectedOrder.customerId,
       orderDate: this.selectedOrder.orderDateInput,
       items: this.selectedOrder.items.map((item: any) => ({
@@ -211,7 +361,8 @@ export class Orders implements OnInit, OnDestroy {
         (total: number, item: any) => total + item.quantity * item.unitPrice,
         0
       ),
-      paymentStatus: this.selectedOrder.paymentStatus
+      paymentStatus: this.selectedOrder.paymentStatus,
+      paymentDate: this.selectedOrder.paymentDateInput || null
     };
 
     if (this.selectedOrder._id) {
@@ -231,6 +382,12 @@ export class Orders implements OnInit, OnDestroy {
         error: () => this.errorMessage = 'Failed to create order.'
       });
     }
+  }
+
+  applyCalculatedTotal(): void {
+    this.selectedOrder.orderTotal = this.calculateSelectedOrderTotal();
+    this.calculatedTotalSuggestion = null;
+    this.formErrorMessage = '';
   }
 
   deleteOrder(id: string): void {
@@ -268,5 +425,40 @@ export class Orders implements OnInit, OnDestroy {
         order.paymentDate
       )
     );
+  }
+
+  private calculateSelectedOrderTotal(): number {
+    return this.roundCurrency(this.selectedOrder.items.reduce(
+      (total: number, item: any) => total + Number(item.quantity) * Number(item.unitPrice),
+      0
+    ));
+  }
+
+  private findCustomerByName(name: string): any | undefined {
+    const normalizedName = name.trim().toLowerCase();
+
+    if (!normalizedName) {
+      return undefined;
+    }
+
+    return this.customers.find((customer) => customer.name.toLowerCase() === normalizedName);
+  }
+
+  private isValidDateInput(value: string): boolean {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      return false;
+    }
+
+    const date = new Date(`${value}T00:00:00`);
+
+    return !Number.isNaN(date.getTime());
+  }
+
+  private roundCurrency(value: number): number {
+    return Math.round(value * 100) / 100;
+  }
+
+  private hasInvalidCustomerNameCharacters(value: string): boolean {
+    return !/^[\p{L} .'-]+$/u.test(value.trim());
   }
 }

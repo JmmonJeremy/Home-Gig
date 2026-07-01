@@ -87,4 +87,6 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+orderSchema.index({ ownerId: 1, orderNumber: 1 }, { unique: true });
+
 module.exports = mongoose.model("Order", orderSchema);

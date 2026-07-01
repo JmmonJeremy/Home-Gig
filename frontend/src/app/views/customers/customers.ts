@@ -82,14 +82,35 @@ export class Customers implements OnInit, OnDestroy {
   saveCustomer(): void {
     this.errorMessage = '';
     this.formErrorMessage = '';
+    this.selectedCustomer.phone = this.formatPhoneNumber(this.selectedCustomer.phone || '');
 
     if (!this.selectedCustomer.name.trim()) {
       this.formErrorMessage = 'Please enter a customer name.';
       return;
     }
 
+    if (this.hasInvalidCustomerNameCharacters(this.selectedCustomer.name)) {
+      this.formErrorMessage = 'Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
+      return;
+    }
+
     if (!this.selectedCustomer.phone.trim() && !this.selectedCustomer.email.trim()) {
       this.formErrorMessage = 'Please enter a phone number or an email address.';
+      return;
+    }
+
+    if (this.selectedCustomer.email.trim() && !this.hasValidEmail(this.selectedCustomer.email)) {
+      this.formErrorMessage = 'Please enter a valid email address.';
+      return;
+    }
+
+    if (this.selectedCustomer.phone.trim() && this.hasInvalidPhoneCharacters(this.selectedCustomer.phone)) {
+      this.formErrorMessage = 'Phone numbers may only contain numbers and dashes.';
+      return;
+    }
+
+    if (this.selectedCustomer.phone.trim() && !this.hasValidPhoneNumber(this.selectedCustomer.phone)) {
+      this.formErrorMessage = 'Phone numbers must contain only 10 numbers.';
       return;
     }
 
@@ -130,6 +151,10 @@ export class Customers implements OnInit, OnDestroy {
     this.router.navigate(['/reports']);
   }
 
+  onSelectedCustomerPhoneInput(value: string): void {
+    this.selectedCustomer.phone = this.formatPhoneNumber(value);
+  }
+
   private applySearch(): void {
     if (!this.searchQuery.trim()) {
       this.filteredCustomers = [...this.customers];
@@ -145,5 +170,39 @@ export class Customers implements OnInit, OnDestroy {
         customer.notes
       )
     );
+  }
+
+  private formatPhoneNumber(value: string): string {
+    if (/[^0-9-]/.test(value)) {
+      return value;
+    }
+
+    const digits = value.replace(/\D/g, '');
+
+    if (digits.length <= 3) {
+      return digits;
+    }
+
+    if (digits.length <= 6) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+
+  private hasValidPhoneNumber(value: string): boolean {
+    return value.replace(/\D/g, '').length === 10;
+  }
+
+  private hasInvalidPhoneCharacters(value: string): boolean {
+    return /[^0-9-]/.test(value);
+  }
+
+  private hasInvalidCustomerNameCharacters(value: string): boolean {
+    return !/^[\p{L} .'-]+$/u.test(value.trim());
+  }
+
+  private hasValidEmail(value: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   }
 }
