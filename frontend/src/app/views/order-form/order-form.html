@@ -70,7 +70,10 @@
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th class="text-end">Qty</th>
+                  <th>
+                    <span class="d-md-none">Qty</span>
+                    <span class="d-none d-md-inline">Quantity</span>
+                  </th>
                 </tr>
               </thead>
 
@@ -103,7 +106,7 @@
 
                     <td>
                       <input
-                        class="form-control text-center"
+                        class="form-control text-start"
                         type="number"
                         min="1"
                         [(ngModel)]="item.quantity"
