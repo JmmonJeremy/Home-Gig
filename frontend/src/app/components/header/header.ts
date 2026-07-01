@@ -143,7 +143,7 @@ export class Header implements OnInit, OnDestroy {
       return 'Customers List';
     }
 
-    return 'Order Details';
+    return 'Orders List';
   }
 
   onProfileOption(event: MouseEvent, optionName: string): void {
