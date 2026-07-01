@@ -51,6 +51,15 @@
   border-radius: 12px 0 0 0;
 }
 
+.order-customer-lookup {
+  position: relative;
+}
+
+.order-customer-menu {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
 .order-mobile-card {
   border-top: 1px solid #dee2e6;
   padding: 1rem 0;

@@ -44,6 +44,12 @@ export class CustomerForm implements OnInit {
           this.errorMessage = 'Failed to load customer.';
         }
       });
+    } else {
+      const customerName = this.route.snapshot.queryParamMap.get('name');
+
+      if (customerName) {
+        this.customer.name = customerName;
+      }
     }
   }
 

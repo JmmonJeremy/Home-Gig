@@ -1,5 +1,28 @@
 const Order = require("../models/Order");
 
+const getNextOrderNumber = async (ownerId) => {
+  const [result] = await Order.aggregate([
+    { $match: { ownerId } },
+    {
+      $group: {
+        _id: null,
+        maxOrderNumber: {
+          $max: {
+            $convert: {
+              input: "$orderNumber",
+              to: "int",
+              onError: 0,
+              onNull: 0
+            }
+          }
+        }
+      }
+    }
+  ]);
+
+  return String(Math.max(result?.maxOrderNumber || 1000, 1000) + 1);
+};
+
 const getOrders = async (req, res) => {
   try {
     const orders = await Order.find({
@@ -40,16 +63,17 @@ const getOrderById = async (req, res) => {
 const createOrder = async (req, res) => {
   try {
     const paymentStatus = req.body.paymentStatus || "Unpaid";
+    const orderNumber = await getNextOrderNumber(req.user._id);
 
     const order = await Order.create({
       ownerId: req.user._id,
-      orderNumber: req.body.orderNumber,
+      orderNumber,
       customerId: req.body.customerId,
       orderDate: req.body.orderDate,
       items: req.body.items,
       orderTotal: req.body.orderTotal,
       paymentStatus,
-      paymentDate: paymentStatus === "Paid" ? new Date() : null
+      paymentDate: paymentStatus === "Paid" ? req.body.paymentDate || new Date() : null
     });
 
     const populatedOrder = await Order.findById(order._id).populate(
@@ -69,7 +93,6 @@ const createOrder = async (req, res) => {
 const updateOrder = async (req, res) => {
   try {
     const updateData = {
-      orderNumber: req.body.orderNumber,
       customerId: req.body.customerId,
       orderDate: req.body.orderDate,
       items: req.body.items,
