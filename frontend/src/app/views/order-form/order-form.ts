@@ -27,13 +27,16 @@ export class OrderForm implements OnInit {
   customers: any[] = [];
   products: any[] = [];
   paymentStatuses = ['Unpaid', 'Paid'];
-  paymentDateDisplay: string | null = null;
+  calculatedTotalSuggestion: number | null = null;
 
   order = {
-    orderNumber: '',
     customerId: '',
+    customerNameInput: '',
+    showCustomerDropdown: false,
     orderDate: '',
     items: [] as OrderItemForm[],
+    orderTotal: 0,
+    paymentDate: '',
     paymentStatus: 'Unpaid'
   };
 
@@ -57,10 +60,6 @@ export class OrderForm implements OnInit {
     }
   }
 
-  get orderTotal(): number {
-    return this.order.items.reduce((total, item) => total + item.lineTotal, 0);
-  }
-
   loadFormOptions(): void {
     this.customerService.getCustomers().subscribe({
       next: (customers) => this.customers = customers,
@@ -80,8 +79,9 @@ export class OrderForm implements OnInit {
     this.orderService.getOrderById(id).subscribe({
       next: (order) => {
         this.order = {
-          orderNumber: order.orderNumber,
           customerId: this.getEntityId(order.customerId),
+          customerNameInput: order.customerId?.name || '',
+          showCustomerDropdown: false,
           orderDate: this.toDateInputValue(order.orderDate),
           items: order.items.map((item: any) => ({
             productId: this.getEntityId(item.productId),
@@ -90,10 +90,11 @@ export class OrderForm implements OnInit {
             unitPrice: item.unitPrice,
             lineTotal: item.lineTotal
           })),
+          orderTotal: order.orderTotal,
+          paymentDate: this.toDateInputValue(order.paymentDate),
           paymentStatus: order.paymentStatus
         };
 
-        this.paymentDateDisplay = order.paymentDate || null;
         this.isLoading = false;
       },
       error: () => {
@@ -119,6 +120,7 @@ export class OrderForm implements OnInit {
     }
 
     this.order.items.splice(index, 1);
+    this.updateOrderTotal();
   }
 
   onProductChange(index: number): void {
@@ -129,43 +131,178 @@ export class OrderForm implements OnInit {
       item.productName = '';
       item.unitPrice = 0;
       this.updateLineTotal(item);
+      this.updateOrderTotal();
       return;
     }
 
     item.productName = product.name;
     item.unitPrice = product.price;
     this.updateLineTotal(item);
+    this.updateOrderTotal();
   }
 
   onQuantityChange(item: OrderItemForm): void {
     this.updateLineTotal(item);
+    this.updateOrderTotal();
+  }
+
+  onCustomerNameChange(value: string): void {
+    this.order.customerNameInput = value;
+    this.order.showCustomerDropdown = true;
+    const matchingCustomer = this.findCustomerByName(value);
+    this.order.customerId = matchingCustomer?._id || '';
+  }
+
+  selectCustomer(customer: any): void {
+    this.order.customerNameInput = customer.name;
+    this.order.customerId = customer._id;
+    this.order.showCustomerDropdown = false;
+    this.errorMessage = '';
+  }
+
+  showCustomerDropdown(): void {
+    this.order.showCustomerDropdown = true;
+  }
+
+  getCustomerMatches(query: string): any[] {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return [];
+    }
+
+    return this.customers
+      .filter((customer) => customer.name.toLowerCase().includes(normalizedQuery))
+      .slice(0, 5);
+  }
+
+  hasExactCustomerMatch(query: string): boolean {
+    return !!this.findCustomerByName(query);
+  }
+
+  onPaymentStatusChange(): void {
+    if (this.order.paymentStatus === 'Paid' && !this.order.paymentDate) {
+      this.order.paymentDate = this.getTodayInputValue();
+
+      if (this.order.orderDate && this.order.paymentDate < this.order.orderDate) {
+        this.order.paymentDate = this.order.orderDate;
+      }
+    }
+
+    if (this.order.paymentStatus === 'Unpaid') {
+      this.order.paymentDate = '';
+    }
+  }
+
+  applyCalculatedTotal(): void {
+    this.order.orderTotal = this.calculateOrderTotal();
+    this.calculatedTotalSuggestion = null;
+    this.errorMessage = '';
   }
 
   onSubmit(): void {
     this.errorMessage = '';
+    this.calculatedTotalSuggestion = null;
 
-    if (!this.order.orderNumber.trim()) {
-      this.errorMessage = 'Please enter an order number.';
+    if (!this.order.customerNameInput.trim()) {
+      this.errorMessage = 'A customer name is required.';
       return;
     }
 
-    if (!this.order.customerId) {
-      this.errorMessage = 'Please select a customer.';
+    if (this.hasInvalidCustomerNameCharacters(this.order.customerNameInput)) {
+      this.errorMessage = 'Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
       return;
     }
 
-    if (this.order.items.some((item) => !item.productId || item.quantity < 1)) {
-      this.errorMessage = 'Please select a product and quantity for each item.';
+    const matchingCustomer = this.findCustomerByName(this.order.customerNameInput);
+
+    if (!matchingCustomer) {
+      this.errorMessage = 'Customer name must match an existing customer.';
+      return;
+    }
+
+    this.order.customerId = matchingCustomer._id;
+
+    if (!this.order.orderDate) {
+      this.errorMessage = 'An order date is required.';
+      return;
+    }
+
+    if (!this.isValidDateInput(this.order.orderDate)) {
+      this.errorMessage = 'Order date must be a valid date.';
+      return;
+    }
+
+    if (!this.order.items || this.order.items.length === 0) {
+      this.errorMessage = 'Selecting a product is required for an order.';
+      return;
+    }
+
+    if (this.order.items.some((item) => !item.productId)) {
+      this.errorMessage = 'Selecting a product is required for an order.';
+      return;
+    }
+
+    if (this.order.items.some((item) => Number(item.quantity) < 1)) {
+      this.errorMessage = 'Quantity must be 1 or greater.';
+      return;
+    }
+
+    if (this.order.items.some((item) => !Number.isInteger(Number(item.quantity)))) {
+      this.errorMessage = 'Quantity must be a whole number.';
+      return;
+    }
+
+    const calculatedOrderTotal = this.calculateOrderTotal();
+
+    if (this.roundCurrency(Number(this.order.orderTotal)) !== calculatedOrderTotal) {
+      this.errorMessage = 'Total must come from the sum of the order items.';
+      this.calculatedTotalSuggestion = calculatedOrderTotal;
+      return;
+    }
+
+    if (this.order.paymentDate) {
+      if (!this.isValidDateInput(this.order.paymentDate)) {
+        this.errorMessage = 'Payment date must be a valid date.';
+        return;
+      }
+
+      if (this.order.paymentDate < this.order.orderDate) {
+        this.errorMessage = 'Payment date must be on or after the order date.';
+        return;
+      }
+    }
+
+    if (this.order.paymentStatus === 'Paid' && !this.order.paymentDate) {
+      this.order.paymentDate = this.getTodayInputValue();
+
+      if (this.order.paymentDate < this.order.orderDate) {
+        this.order.paymentDate = this.order.orderDate;
+      }
+    }
+
+    if (this.order.paymentStatus === 'Unpaid') {
+      this.order.paymentDate = '';
+    }
+
+    if (this.order.paymentDate && this.order.paymentDate < this.order.orderDate) {
+      this.errorMessage = 'Payment date must be on or after the order date.';
       return;
     }
 
     const orderPayload = {
-      orderNumber: this.order.orderNumber,
       customerId: this.order.customerId,
       orderDate: this.order.orderDate,
-      items: this.order.items,
-      orderTotal: this.orderTotal,
-      paymentStatus: this.order.paymentStatus
+      items: this.order.items.map((item) => ({
+        productId: item.productId,
+        productName: item.productName,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        lineTotal: item.quantity * item.unitPrice
+      })),
+      orderTotal: calculatedOrderTotal,
+      paymentStatus: this.order.paymentStatus,
+      paymentDate: this.order.paymentDate || null
     };
 
     this.isSubmitting = true;
@@ -195,6 +332,7 @@ export class OrderForm implements OnInit {
     }
 
     this.order.items.pop();
+    this.updateOrderTotal();
   }
 
   deleteOrder(): void {
@@ -220,6 +358,10 @@ export class OrderForm implements OnInit {
     item.lineTotal = item.quantity * item.unitPrice;
   }
 
+  private updateOrderTotal(): void {
+    this.order.orderTotal = this.calculateOrderTotal();
+  }
+
   private getEntityId(entity: any): string {
     return entity?._id || entity || '';
   }
@@ -230,5 +372,40 @@ export class OrderForm implements OnInit {
 
   private toDateInputValue(dateValue: string): string {
     return dateValue ? dateValue.slice(0, 10) : '';
+  }
+
+  private calculateOrderTotal(): number {
+    return this.roundCurrency(this.order.items.reduce(
+      (total, item) => total + Number(item.quantity) * Number(item.unitPrice),
+      0
+    ));
+  }
+
+  private findCustomerByName(name: string): any | undefined {
+    const normalizedName = name.trim().toLowerCase();
+
+    if (!normalizedName) {
+      return undefined;
+    }
+
+    return this.customers.find((customer) => customer.name.toLowerCase() === normalizedName);
+  }
+
+  private isValidDateInput(value: string): boolean {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      return false;
+    }
+
+    const date = new Date(`${value}T00:00:00`);
+
+    return !Number.isNaN(date.getTime());
+  }
+
+  private roundCurrency(value: number): number {
+    return Math.round(value * 100) / 100;
+  }
+
+  private hasInvalidCustomerNameCharacters(value: string): boolean {
+    return !/^[\p{L} .'-]+$/u.test(value.trim());
   }
 }

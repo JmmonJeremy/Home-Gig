@@ -65,6 +65,39 @@ export class Sidebar implements OnInit, OnDestroy {
     return url === '/customers/new' || /^\/customers\/[^/]+\/edit$/.test(url);
   }
 
+  get isOrderFormPage(): boolean {
+    const url = this.router.url.split('?')[0];
+    return url === '/orders/new' || /^\/orders\/[^/]+\/edit$/.test(url);
+  }
+
+  get isFormPage(): boolean {
+    return this.isProductFormPage || this.isCustomerFormPage || this.isOrderFormPage;
+  }
+
+  get formBackLink(): string {
+    if (this.isProductFormPage) {
+      return '/products';
+    }
+
+    if (this.isCustomerFormPage) {
+      return '/customers';
+    }
+
+    return '/orders';
+  }
+
+  get mobileFormBackLabel(): string {
+    if (this.isProductFormPage) {
+      return 'Products List';
+    }
+
+    if (this.isCustomerFormPage) {
+      return 'Customers List';
+    }
+
+    return 'Order Details';
+  }
+
   logout(event: MouseEvent): void {
     event.preventDefault();
     this.closeMobileMenus();

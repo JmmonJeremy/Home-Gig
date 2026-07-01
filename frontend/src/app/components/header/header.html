@@ -30,14 +30,14 @@
     }
   </div>
 
-  @if (isProductFormPage || isCustomerFormPage) {
-    <a class="header-form-back-link d-none d-md-flex" [routerLink]="isProductFormPage ? '/products' : '/customers'">
+  @if (isFormPage) {
+    <a class="header-form-back-link d-none d-md-flex" [routerLink]="formBackLink">
       <i class="bi bi-arrow-left" aria-hidden="true"></i>
-      <span>{{ isProductFormPage ? 'Products List' : 'Customers List' }}</span>
+      <span>{{ formBackLabel }}</span>
     </a>
   }
 
-  <div class="header-search-section" [class.d-none]="isProductFormPage || isCustomerFormPage">
+  <div class="header-search-section" [class.d-none]="isFormPage">
     <div class="search-box">
       <i class="bi bi-search search-icon"></i>
       <input
