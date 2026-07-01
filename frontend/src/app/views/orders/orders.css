@@ -167,21 +167,20 @@
 @media (max-width: 800px) and (min-width: 768px) {
   .order-page {
     margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-right: -1rem;
     padding-left: 0.2rem !important;
     padding-right: 0.2rem;
   }
 
   .order-page .order-list-card {
     margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-right: -1rem;
   }
 }
 
 @media (max-width: 785px) and (min-width: 768px) {
   .order-page,
   .order-page .order-list-card {
-    margin-left: -1rem;
     margin-right: -1rem;
   }
 }
