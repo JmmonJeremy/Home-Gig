@@ -31,9 +31,8 @@
 
 .notes-cell {
   max-width: 260px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .customer-details-card .form-label {
