@@ -10,6 +10,22 @@
     <p class="text-danger">{{ errorMessage }}</p>
   }
 
+  @if (formErrorMessage) {
+    <p class="text-danger fw-bold mb-2 d-md-none">{{ formErrorMessage }}</p>
+  }
+
+  @if (formErrorMessage === 'Total must come from the sum of the order items.' && calculatedTotalSuggestion !== null) {
+    <div class="order-form-alert order-form-alert-suggestion d-md-none mb-3">
+      <button
+        type="button"
+        class="order-form-alert-action"
+        (click)="applyCalculatedTotal()"
+      >
+        Calculated Total = {{ calculatedTotalSuggestion | currency }}
+      </button>
+    </div>
+  }
+
   <form class="d-md-none" (ngSubmit)="onMobileSubmit()">
     <div class="card order-form-card">
       <div class="card-body">
@@ -68,15 +84,22 @@
 
           <div class="card order-items-card">
             <table class="table mb-0 order-items-table">
+              <colgroup>
+                <col class="col-product" />
+                <col class="col-qty" />
+              </colgroup>
               <thead>
                 <tr>
                   <th class="text-muted">Product</th>
-                  <th class="text-muted">Quantity</th>
+                  <th class="text-muted order-qty-col">Qty</th>
                 </tr>
               </thead>
 
               <tbody>
                 @for (item of order.items; track $index; let itemIndex = $index) {
+                  <tr class="order-item-unit-price-row">
+                    <td colspan="2" class="text-muted">Unit Price: {{ item.unitPrice | currency }}</td>
+                  </tr>
                   <tr>
                     <td>
                       <select
@@ -93,9 +116,9 @@
                       </select>
                     </td>
 
-                    <td>
+                    <td class="order-qty-col">
                       <input
-                        class="form-control"
+                        class="form-control order-qty-input"
                         type="number"
                         min="1"
                         [(ngModel)]="item.quantity"
@@ -138,18 +161,6 @@
             [(ngModel)]="order.orderTotal"
             required
           />
-
-          @if (formErrorMessage === 'Total must come from the sum of the order items.' && calculatedTotalSuggestion !== null) {
-            <div class="dropdown-menu show order-total-suggestion-menu">
-              <button
-                type="button"
-                class="dropdown-item"
-                (click)="applyCalculatedTotal()"
-              >
-                Calculated Total = {{ calculatedTotalSuggestion | currency }}
-              </button>
-            </div>
-          }
         </div>
 
         <div class="mb-3">
@@ -182,10 +193,6 @@
         </div>
       </div>
     </div>
-
-    @if (formErrorMessage) {
-      <p class="text-danger fw-bold mb-3">{{ formErrorMessage }}</p>
-    }
 
     <div class="mt-4 d-grid gap-2">
       <button type="submit" class="btn hg-save" [disabled]="isSubmitting">
