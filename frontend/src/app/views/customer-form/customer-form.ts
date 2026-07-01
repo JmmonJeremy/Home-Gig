@@ -72,6 +72,11 @@ export class CustomerForm implements OnInit {
       return;
     }
 
+    if (this.customer.email.trim() && !this.hasValidEmail(this.customer.email)) {
+      this.errorMessage = 'Please enter a valid email address.';
+      return;
+    }
+
     if (this.customer.phone.trim() && this.hasInvalidPhoneCharacters(this.customer.phone)) {
       this.errorMessage = 'Phone numbers may not contain letters, only numbers and dashes are allowed.';
       return;
@@ -146,5 +151,9 @@ export class CustomerForm implements OnInit {
 
   private hasInvalidCustomerNameCharacters(value: string): boolean {
     return !/^[\p{L} .'-]+$/u.test(value.trim());
+  }
+
+  private hasValidEmail(value: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   }
 }

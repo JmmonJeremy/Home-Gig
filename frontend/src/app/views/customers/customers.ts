@@ -99,6 +99,11 @@ export class Customers implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.selectedCustomer.email.trim() && !this.hasValidEmail(this.selectedCustomer.email)) {
+      this.formErrorMessage = 'Please enter a valid email address.';
+      return;
+    }
+
     if (this.selectedCustomer.phone.trim() && this.hasInvalidPhoneCharacters(this.selectedCustomer.phone)) {
       this.formErrorMessage = 'Phone numbers may not contain letters, only numbers and dashes are allowed.';
       return;
@@ -195,5 +200,9 @@ export class Customers implements OnInit, OnDestroy {
 
   private hasInvalidCustomerNameCharacters(value: string): boolean {
     return !/^[\p{L} .'-]+$/u.test(value.trim());
+  }
+
+  private hasValidEmail(value: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   }
 }
