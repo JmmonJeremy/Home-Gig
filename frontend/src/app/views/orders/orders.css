@@ -1,3 +1,8 @@
+button {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .order-page .table,
 .order-page .table th,
 .order-page .table td {
@@ -167,23 +172,20 @@
 @media (max-width: 800px) and (min-width: 768px) {
   .order-page {
     margin-left: -0.5rem;
-    margin-right: -1rem;
+    margin-right: -1.5rem;
     padding-left: 0.2rem !important;
-    padding-right: 0.2rem;
+    padding-right: 0rem;
   }
 
   .order-page .order-list-card {
     margin-left: -0.5rem;
-    margin-right: -1rem;
+    margin-right: -1.5rem;
+    padding-right: 0.15rem;
+    padding-left: 0.15rem;
   }
 }
 
-@media (max-width: 785px) and (min-width: 768px) {
-  .order-page,
-  .order-page .order-list-card {
-    margin-right: -1rem;
-  }
-}
+
 
 @media (max-width: 767.98px) {
   .order-page > .d-flex {
