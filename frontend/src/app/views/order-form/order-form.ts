@@ -29,8 +29,6 @@ export class OrderForm implements OnInit {
   isSubmitting = false;
   customers: any[] = [];
   products: any[] = [];
-  paymentStatuses = ['Unpaid', 'Paid'];
-  paymentDateDisplay: string | null = null;
 
   order = {
     orderNumber: '',
@@ -104,7 +102,6 @@ export class OrderForm implements OnInit {
           paymentStatus: order.paymentStatus
         };
 
-        this.paymentDateDisplay = order.paymentDate || null;
         this.isLoading = false;
       },
       error: () => {
@@ -125,34 +122,12 @@ export class OrderForm implements OnInit {
     });
   }
 
-  removeItem(index: number): void {
-    if (this.order.items.length === 1) {
-      return;
-    }
-
-    this.order.items.splice(index, 1);
-    this.updateOrderTotal();
-  }
-
   removeLastItem(): void {
     if (this.order.items.length === 1) {
       return;
     }
 
     this.order.items.pop();
-    this.updateOrderTotal();
-    this.formErrorMessage = '';
-  }
-
-  removeSelectedItems(): void {
-    const remainingItems = this.order.items.filter((item) => !item.selected);
-
-    if (remainingItems.length === 0) {
-      this.formErrorMessage = 'An order must contain at least one item.';
-      return;
-    }
-
-    this.order.items = remainingItems;
     this.updateOrderTotal();
     this.formErrorMessage = '';
   }
@@ -232,36 +207,7 @@ export class OrderForm implements OnInit {
     this.formErrorMessage = '';
   }
 
-  onDesktopSubmit(): void {
-    this.errorMessage = '';
-    this.formErrorMessage = '';
-
-    if (!this.order.orderNumber.trim()) {
-      this.errorMessage = 'Please enter an order number.';
-      return;
-    }
-
-    if (!this.order.customerId) {
-      this.errorMessage = 'Please select a customer.';
-      return;
-    }
-
-    if (this.order.items.some((item) => !item.productId || item.quantity < 1)) {
-      this.errorMessage = 'Please select a product and quantity for each item.';
-      return;
-    }
-
-    this.submitOrder({
-      orderNumber: this.order.orderNumber,
-      customerId: this.order.customerId,
-      orderDate: this.order.orderDate,
-      items: this.order.items,
-      orderTotal: this.orderTotal,
-      paymentStatus: this.order.paymentStatus
-    });
-  }
-
-  onMobileSubmit(): void {
+  onSubmit(): void {
     this.errorMessage = '';
     this.formErrorMessage = '';
     this.calculatedTotalSuggestion = null;

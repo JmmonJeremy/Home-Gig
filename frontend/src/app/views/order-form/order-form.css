@@ -39,16 +39,22 @@
   margin-top: 0.25rem;
 }
 
+.order-items-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .order-items-card {
   padding: 0;
   border: 1px solid #dee2e6;
   border-radius: 0.5rem;
-  overflow: hidden;
+  min-width: 17.5rem;
 }
 
 .order-items-table {
   table-layout: fixed;
   width: 100%;
+  min-width: 17.5rem;
 }
 
 .order-items-table .col-product {
@@ -73,7 +79,17 @@
 .order-items-table .order-qty-col {
   text-align: right;
   white-space: nowrap;
-  padding: 0.375rem;
+}
+
+.order-product-col {
+  min-width: 0;
+}
+
+.order-product-select {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .order-item-unit-price-row td {
@@ -151,5 +167,12 @@
 
   .order-form-page .btn {
     min-height: 48px;
+  }
+
+  .order-items-table th,
+  .order-items-table td,
+  .order-form-card .order-product-select,
+  .order-form-card .order-qty-input {
+    font-size: clamp(0.75rem, 2.8vw, 1rem);
   }
 }
