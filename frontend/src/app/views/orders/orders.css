@@ -60,6 +60,18 @@
   margin-top: 0.25rem;
 }
 
+.order-total-suggestion-menu {
+  position: static;
+  display: block;
+  width: max-content;
+  min-width: 14rem;
+  margin-bottom: 1rem;
+}
+
+.order-total-suggestion-menu .dropdown-item {
+  cursor: pointer;
+}
+
 .order-mobile-card {
   border-top: 1px solid #dee2e6;
   padding: 1rem 0;

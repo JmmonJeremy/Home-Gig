@@ -21,6 +21,7 @@ export class Orders implements OnInit, OnDestroy {
   selectedOrder: any = null;
   errorMessage = '';
   formErrorMessage = '';
+  calculatedTotalSuggestion: number | null = null;
   isLoading = false;
   searchQuery = '';
   private readonly subscriptions = new Subscription();
@@ -101,6 +102,7 @@ export class Orders implements OnInit, OnDestroy {
 
   addOrderInline(): void {
     this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
     this.selectedOrder = {
       orderNumber: '',
       customerId: '',
@@ -125,6 +127,7 @@ export class Orders implements OnInit, OnDestroy {
 
   selectOrder(order: any): void {
     this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
     this.selectedOrder = {
       ...order,
       customerId: order.customerId?._id || order.customerId,
@@ -146,6 +149,7 @@ export class Orders implements OnInit, OnDestroy {
   clearSelectedOrder(): void {
     this.selectedOrder = null;
     this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
   }
 
   addItemToSelectedOrder(): void {
@@ -255,6 +259,7 @@ export class Orders implements OnInit, OnDestroy {
   saveOrder(): void {
     this.errorMessage = '';
     this.formErrorMessage = '';
+    this.calculatedTotalSuggestion = null;
 
     if (!this.selectedOrder.customerNameInput.trim()) {
       this.formErrorMessage = 'A customer name is required.';
@@ -309,6 +314,7 @@ export class Orders implements OnInit, OnDestroy {
 
     if (this.roundCurrency(Number(this.selectedOrder.orderTotal)) !== calculatedOrderTotal) {
       this.formErrorMessage = 'Total must come from the sum of the order items.';
+      this.calculatedTotalSuggestion = calculatedOrderTotal;
       return;
     }
 
@@ -376,6 +382,12 @@ export class Orders implements OnInit, OnDestroy {
         error: () => this.errorMessage = 'Failed to create order.'
       });
     }
+  }
+
+  applyCalculatedTotal(): void {
+    this.selectedOrder.orderTotal = this.calculateSelectedOrderTotal();
+    this.calculatedTotalSuggestion = null;
+    this.formErrorMessage = '';
   }
 
   deleteOrder(id: string): void {
