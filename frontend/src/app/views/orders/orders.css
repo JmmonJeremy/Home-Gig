@@ -14,63 +14,6 @@
   padding: 1rem;
 }
 
-.order-page .order-list-card {
-  overflow: hidden;
-}
-
-.order-page .order-list-card .table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-.order-page .order-list-card .col-order-number {
-  width: 10%;
-}
-
-.order-page .order-list-card .col-customer {
-  width: 15%;
-}
-
-.order-page .order-list-card .col-order-date,
-.order-page .order-list-card .col-total,
-.order-page .order-list-card .col-payment-date,
-.order-page .order-list-card .col-actions {
-  width: 10%;
-}
-
-.order-page .order-list-card .col-summary {
-  width: 25%;
-}
-
-.order-page .order-list-card .col-payment-status {
-  width: 10%;
-}
-
-.order-page .order-list-card td:nth-child(2),
-.order-page .order-list-card td:nth-child(4) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.order-page .order-items-card .table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-.order-page .order-items-card .col-selected {
-  width: 12%;
-}
-
-.order-page .order-items-card .col-product {
-  width: 48%;
-}
-
-.order-page .order-items-card .col-unit-price,
-.order-page .order-items-card .col-quantity {
-  width: 20%;
-}
-
 .item-action-link {
   text-decoration: none !important;
 }
@@ -164,62 +107,6 @@
   display: inline-block;
   margin-top: 0.25rem;
   text-underline-offset: 0.2em;
-}
-
-@media (max-width: 1349.98px) and (min-width: 768px) {
-  .order-page {
-    padding-left: clamp(0.75rem, 2vw, 3rem) !important;
-    padding-right: clamp(0.75rem, 2vw, 3rem);
-  }
-
-  .order-page .card {
-    padding: clamp(0.45rem, 1vw, 1rem);
-  }
-
-  .order-page .order-list-card .card-body,
-  .order-page .order-items-card {
-    overflow-x: auto;
-  }
-
-  .order-page .order-list-card .table {
-    table-layout: auto;
-  }
-
-  .order-page .order-list-card .col-order-number,
-  .order-page .order-list-card .col-order-date,
-  .order-page .order-list-card .col-total,
-  .order-page .order-list-card .col-payment-status,
-  .order-page .order-list-card .col-payment-date,
-  .order-page .order-list-card .col-actions {
-    width: 1%;
-  }
-
-  .order-page .order-list-card .col-customer {
-    width: 18%;
-  }
-
-  .order-page .order-list-card .col-summary {
-    width: auto;
-  }
-
-  .order-page .order-list-card .table th,
-  .order-page .order-list-card .table td,
-  .order-page .order-items-card .table th,
-  .order-page .order-items-card .table td {
-    padding: clamp(0.45rem, 1vw, 0.8rem);
-    font-size: clamp(0.78rem, 1.1vw, 1rem);
-    white-space: nowrap;
-  }
-
-  .order-page .order-items-card .col-selected,
-  .order-page .order-items-card .col-unit-price,
-  .order-page .order-items-card .col-quantity {
-    width: 1%;
-  }
-
-  .order-page .order-items-card .col-product {
-    width: auto;
-  }
 }
 
 @media (max-width: 767.98px) {
