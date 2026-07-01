@@ -168,3 +168,15 @@
     font-size: 0.9rem;
   }
 }
+
+@media (max-width: 455px) {
+  .order-items-table input[type="number"] {
+    appearance: textfield;
+  }
+
+  .order-items-table input[type="number"]::-webkit-outer-spin-button,
+  .order-items-table input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
