@@ -126,7 +126,8 @@
                 id="customerPhone"
                 name="customerPhone"
                 class="form-control"
-                [(ngModel)]="selectedCustomer.phone"
+                [ngModel]="selectedCustomer.phone"
+                (ngModelChange)="onSelectedCustomerPhoneInput($event)"
               />
             </div>
 

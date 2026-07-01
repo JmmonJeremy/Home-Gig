@@ -82,6 +82,7 @@ export class Customers implements OnInit, OnDestroy {
   saveCustomer(): void {
     this.errorMessage = '';
     this.formErrorMessage = '';
+    this.selectedCustomer.phone = this.formatPhoneNumber(this.selectedCustomer.phone || '');
 
     if (!this.selectedCustomer.name.trim()) {
       this.formErrorMessage = 'Please enter a customer name.';
@@ -90,6 +91,11 @@ export class Customers implements OnInit, OnDestroy {
 
     if (!this.selectedCustomer.phone.trim() && !this.selectedCustomer.email.trim()) {
       this.formErrorMessage = 'Please enter a phone number or an email address.';
+      return;
+    }
+
+    if (this.selectedCustomer.phone.trim() && !this.hasValidPhoneNumber(this.selectedCustomer.phone)) {
+      this.formErrorMessage = 'Please enter a valid 10-digit phone number.';
       return;
     }
 
@@ -130,6 +136,10 @@ export class Customers implements OnInit, OnDestroy {
     this.router.navigate(['/reports']);
   }
 
+  onSelectedCustomerPhoneInput(value: string): void {
+    this.selectedCustomer.phone = this.formatPhoneNumber(value);
+  }
+
   private applySearch(): void {
     if (!this.searchQuery.trim()) {
       this.filteredCustomers = [...this.customers];
@@ -145,5 +155,23 @@ export class Customers implements OnInit, OnDestroy {
         customer.notes
       )
     );
+  }
+
+  private formatPhoneNumber(value: string): string {
+    const digits = value.replace(/\D/g, '').slice(0, 10);
+
+    if (digits.length <= 3) {
+      return digits;
+    }
+
+    if (digits.length <= 6) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+
+  private hasValidPhoneNumber(value: string): boolean {
+    return value.replace(/\D/g, '').length === 10;
   }
 }

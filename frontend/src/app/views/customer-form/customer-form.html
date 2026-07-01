@@ -26,7 +26,8 @@
             id="phone"
             name="phone"
             class="form-control"
-            [(ngModel)]="customer.phone"
+            [ngModel]="customer.phone"
+            (ngModelChange)="onPhoneInput($event)"
           />
         </div>
 

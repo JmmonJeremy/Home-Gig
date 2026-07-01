@@ -55,6 +55,7 @@ export class CustomerForm implements OnInit {
 
   onSubmit(): void {
     this.errorMessage = '';
+    this.customer.phone = this.formatPhoneNumber(this.customer.phone);
 
     if (!this.customer.name.trim()) {
       this.errorMessage = 'Please enter a customer name.';
@@ -63,6 +64,11 @@ export class CustomerForm implements OnInit {
 
     if (!this.customer.phone.trim() && !this.customer.email.trim()) {
       this.errorMessage = 'Please enter a phone number or an email address.';
+      return;
+    }
+
+    if (this.customer.phone.trim() && !this.hasValidPhoneNumber(this.customer.phone)) {
+      this.errorMessage = 'Please enter a valid 10-digit phone number.';
       return;
     }
 
@@ -96,5 +102,27 @@ export class CustomerForm implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/customers']);
+  }
+
+  onPhoneInput(value: string): void {
+    this.customer.phone = this.formatPhoneNumber(value);
+  }
+
+  private formatPhoneNumber(value: string): string {
+    const digits = value.replace(/\D/g, '').slice(0, 10);
+
+    if (digits.length <= 3) {
+      return digits;
+    }
+
+    if (digits.length <= 6) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+
+  private hasValidPhoneNumber(value: string): boolean {
+    return value.replace(/\D/g, '').length === 10;
   }
 }
