@@ -189,11 +189,11 @@
 
   .order-items-table .table th:last-child,
   .order-items-table .table td:last-child {
-    width: 2.65rem;
+    width: 2.8rem;
     white-space: nowrap;
   }
 
   .order-items-table .form-control {
-    width: 2.65rem;
+    width: 2.8rem;
   }
 }
