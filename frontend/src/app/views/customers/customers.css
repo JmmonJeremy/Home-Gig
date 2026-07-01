@@ -4,9 +4,14 @@
 
 .customer-page .card {
   border: 1px solid #e5e7eb;
-  border-radius: 12px;  
+  border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.customer-page .card.customer-list-card {
+  padding: 1rem 0;
+  overflow: hidden;
 }
 
 .customer-page .table,
@@ -15,10 +20,45 @@
   border: none;
 }
 
+.customer-page .customer-list-card .table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.customer-page .customer-list-card .table .col-customer {
+  width: 20%;
+}
+
+.customer-page .customer-list-card .table .col-phone {
+  width: 15%;
+}
+
+.customer-page .customer-list-card .table .col-email {
+  width: 25%;
+}
+
+.customer-page .customer-list-card .table .col-notes {
+  width: 30%;
+}
+
+.customer-page .customer-list-card .table .col-actions {
+  width: 10%;
+}
+
 .customer-page .table th,
 .customer-page .table td {
   padding: 0.85rem 1.5rem;
   vertical-align: middle;
+}
+
+.customer-page .customer-list-card .table th:first-child,
+.customer-page .customer-list-card .table td:first-child {
+  padding-left: 2rem;
+}
+
+.customer-page .customer-list-card .table th:last-child,
+.customer-page .customer-list-card .table td:last-child {
+  padding-right: 2rem;
 }
 
 .customer-page .table td {
@@ -30,7 +70,6 @@
 }
 
 .notes-cell {
-  max-width: 260px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -80,6 +119,87 @@
   display: inline-block;
   margin-top: 0.25rem;
   text-underline-offset: 0.2em;
+}
+
+@media (max-width: 1472px) and (min-width: 768px) {
+  .customer-page .customer-list-card .table .col-customer,
+  .customer-page .customer-list-card .table .col-phone,
+  .customer-page .customer-list-card .table .col-email,
+  .customer-page .customer-list-card .table .col-notes,
+  .customer-page .customer-list-card .table .col-actions {
+    width: 20%;
+  }
+
+  .customer-page .customer-list-card .table td:first-child,
+  .customer-page .customer-list-card .table .notes-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1349.98px) and (min-width: 768px) {
+  .customer-page {
+    padding-left: clamp(0.75rem, 2vw, 3rem) !important;
+    padding-right: clamp(0.75rem, 2vw, 3rem);
+  }
+
+  .customer-page .card.customer-list-card {
+    padding-top: clamp(0.45rem, 1vw, 1rem);
+    padding-bottom: clamp(0.45rem, 1vw, 1rem);
+  }
+
+  .customer-page .customer-list-card .card-body {
+    overflow-x: auto;
+  }
+
+  .customer-page .customer-list-card .table {
+    table-layout: auto;
+  }
+
+  .customer-page .customer-list-card .table .col-customer {
+    width: 22%;
+  }
+
+  .customer-page .customer-list-card .table .col-notes {
+    width: 36%;
+  }
+
+  .customer-page .customer-list-card .table .col-phone,
+  .customer-page .customer-list-card .table .col-email,
+  .customer-page .customer-list-card .table .col-actions {
+    width: 1%;
+  }
+
+  .customer-page .customer-list-card .table th,
+  .customer-page .customer-list-card .table td {
+    padding: clamp(0.45rem, 1vw, 0.8rem);
+    font-size: clamp(0.78rem, 1.1vw, 1rem);
+    white-space: nowrap;
+  }
+
+  .customer-page .customer-list-card .table th:first-child,
+  .customer-page .customer-list-card .table td:first-child {
+    overflow: hidden;
+    padding-left: clamp(0.75rem, 1.25vw, 1rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .customer-page .customer-list-card .table th:last-child,
+  .customer-page .customer-list-card .table td:last-child {
+    padding-right: clamp(0.75rem, 1.25vw, 1rem);
+  }
+}
+
+@media (max-width: 950px) and (min-width: 768px) {
+  .customer-page .customer-list-card .table .col-customer {
+    width: auto;
+  }
+
+  .customer-page .customer-list-card .table .col-notes {
+    width: 1%;
+  }
 }
 
 @media (max-width: 767.98px) {

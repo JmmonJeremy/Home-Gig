@@ -4,14 +4,66 @@
   border: none;
 }
 
-.order-page .card {  
-  border-radius: 12px;  
+.order-page .card {
+  border-radius: 12px;
   padding: 1rem;
+}
+
+.order-page .card.order-list-card {
+  padding: 1rem 0;
+  overflow: hidden;
+}
+
+.order-page .order-list-card .table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.order-page .order-list-card .table .col-order-num {
+  width: 8%;
+}
+
+.order-page .order-list-card .table .col-customer {
+  width: 14%;
+}
+
+.order-page .order-list-card .table .col-order-date {
+  width: 10%;
+}
+
+.order-page .order-list-card .table .col-summary {
+  width: 28%;
+}
+
+.order-page .order-list-card .table .col-total {
+  width: 10%;
+}
+
+.order-page .order-list-card .table .col-payment-status {
+  width: 12%;
+}
+
+.order-page .order-list-card .table .col-payment-date {
+  width: 10%;
+}
+
+.order-page .order-list-card .table .col-actions {
+  width: 8%;
 }
 
 .order-page .table th,
 .order-page .table td {
   padding: 1rem;
+}
+
+.order-page .order-list-card .table th:first-child,
+.order-page .order-list-card .table td:first-child {
+  padding-left: 2rem;
+}
+
+.order-page .order-list-card .table th:last-child,
+.order-page .order-list-card .table td:last-child {
+  padding-right: 2rem;
 }
 
 .item-action-link {
@@ -107,6 +159,98 @@
   display: inline-block;
   margin-top: 0.25rem;
   text-underline-offset: 0.2em;
+}
+
+@media (max-width: 1472px) and (min-width: 768px) {
+  .order-page .order-list-card .table .col-order-num,
+  .order-page .order-list-card .table .col-customer,
+  .order-page .order-list-card .table .col-order-date,
+  .order-page .order-list-card .table .col-summary,
+  .order-page .order-list-card .table .col-total,
+  .order-page .order-list-card .table .col-payment-status,
+  .order-page .order-list-card .table .col-payment-date,
+  .order-page .order-list-card .table .col-actions {
+    width: 12.5%;
+  }
+
+  .order-page .order-list-card .table td:nth-child(4) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1349.98px) and (min-width: 768px) {
+  .order-page {
+    padding-left: clamp(0.75rem, 2vw, 3rem) !important;
+    padding-right: clamp(0.75rem, 2vw, 3rem);
+  }
+
+  .order-page .card.order-list-card {
+    padding-top: clamp(0.45rem, 1vw, 1rem);
+    padding-bottom: clamp(0.45rem, 1vw, 1rem);
+  }
+
+  .order-page .order-list-card .card-body {
+    overflow-x: auto;
+  }
+
+  .order-page .order-list-card .table {
+    table-layout: auto;
+  }
+
+  .order-page .order-list-card .table .col-summary {
+    width: 34%;
+  }
+
+  .order-page .order-list-card .table .col-customer {
+    width: 16%;
+  }
+
+  .order-page .order-list-card .table .col-payment-status {
+    width: 12%;
+  }
+
+  .order-page .order-list-card .table .col-order-num,
+  .order-page .order-list-card .table .col-order-date,
+  .order-page .order-list-card .table .col-total,
+  .order-page .order-list-card .table .col-payment-date,
+  .order-page .order-list-card .table .col-actions {
+    width: 1%;
+  }
+
+  .order-page .order-list-card .table th,
+  .order-page .order-list-card .table td {
+    padding: clamp(0.45rem, 1vw, 0.8rem);
+    font-size: clamp(0.78rem, 1.1vw, 1rem);
+    white-space: nowrap;
+  }
+
+  .order-page .order-list-card .table th:first-child,
+  .order-page .order-list-card .table td:first-child {
+    padding-left: clamp(0.75rem, 1.25vw, 1rem);
+  }
+
+  .order-page .order-list-card .table th:last-child,
+  .order-page .order-list-card .table td:last-child {
+    padding-right: clamp(0.75rem, 1.25vw, 1rem);
+  }
+
+  .order-page .order-list-card .table td:nth-child(4) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 950px) and (min-width: 768px) {
+  .order-page .order-list-card .table .col-summary {
+    width: auto;
+  }
+
+  .order-page .order-list-card .table .col-customer {
+    width: 1%;
+  }
 }
 
 @media (max-width: 767.98px) {
