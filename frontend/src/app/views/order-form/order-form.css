@@ -153,11 +153,11 @@
 
   .order-items-table .table th:first-child,
   .order-items-table .table td:first-child {
-    width: 75%;
+    width: 80%;
   }
 
   .order-items-table .table th:last-child,
   .order-items-table .table td:last-child {
-    width: 25%;
+    width: 20%;
   }
 }
