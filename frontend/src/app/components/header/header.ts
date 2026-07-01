@@ -117,6 +117,35 @@ export class Header implements OnInit, OnDestroy {
     return url === '/customers/new' || /^\/customers\/[^/]+\/edit$/.test(url);
   }
 
+  get isOrderFormPage(): boolean {
+    const url = this.router.url.split('?')[0];
+    return url === '/orders/new' || /^\/orders\/[^/]+\/edit$/.test(url);
+  }
+
+  get headerFormBackLink(): string {
+    if (this.isProductFormPage) {
+      return '/products';
+    }
+
+    if (this.isCustomerFormPage) {
+      return '/customers';
+    }
+
+    return '/orders';
+  }
+
+  get headerFormBackLabel(): string {
+    if (this.isProductFormPage) {
+      return 'Products List';
+    }
+
+    if (this.isCustomerFormPage) {
+      return 'Customers List';
+    }
+
+    return 'Order Details';
+  }
+
   onProfileOption(event: MouseEvent, optionName: string): void {
     event.preventDefault();
     event.stopPropagation();

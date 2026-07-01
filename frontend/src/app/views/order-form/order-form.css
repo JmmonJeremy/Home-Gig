@@ -1,0 +1,109 @@
+.order-form-title {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.order-form-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+}
+
+.order-form-card .card-body {
+  padding: 1.5rem;
+}
+
+.order-form-card .form-label {
+  color: #1f2937;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.order-form-card .form-control,
+.order-form-card .form-select {
+  border-color: #ced4da;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.order-customer-lookup {
+  position: relative;
+}
+
+.order-customer-menu {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.order-items-card {
+  padding: 0;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.order-items-table th,
+.order-items-table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.order-items-table thead th {
+  background-color: #f8f9fa;
+  font-weight: normal;
+}
+
+.order-items-table tbody tr {
+  border-bottom: 0.1rem solid #dee2e6;
+}
+
+.order-items-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.item-action-link {
+  text-decoration: none !important;
+}
+
+.item-action-text {
+  text-decoration: underline;
+}
+
+.item-symbol {
+  text-decoration: none !important;
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.order-total-suggestion-menu {
+  position: static;
+  display: block;
+  width: max-content;
+  min-width: 14rem;
+  margin-top: 0.5rem;
+}
+
+.order-total-suggestion-menu .dropdown-item {
+  cursor: pointer;
+}
+
+.order-form-page .btn {
+  min-height: 40px;
+}
+
+@media (max-width: 767.98px) {
+  .order-form-title-mobile {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+
+  .order-form-page .btn {
+    min-height: 48px;
+  }
+}
