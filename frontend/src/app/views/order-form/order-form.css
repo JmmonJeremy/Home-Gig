@@ -61,7 +61,7 @@
 .order-items-table .table th:last-child,
 .order-items-table .table td:last-child {
   text-align: right;
-  width: 3rem;
+  width: 2rem;
   white-space: nowrap;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .order-items-table .form-control {
-  width: 3rem;
+  width: 2rem;
 }
 
 .order-unit-price-row td {
@@ -136,7 +136,7 @@
   .order-form-title {
     font-size: 1.25rem;
     margin-top: 0.75rem;
-    margin-bottom: 0.375rem;
+    margin-bottom: 0.75rem;
     text-transform: none;
   }
 
