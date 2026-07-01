@@ -164,6 +164,13 @@
   }
 }
 
+@media (max-width: 800px) and (min-width: 768px) {
+  .order-page {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem;
+  }
+}
+
 @media (max-width: 767.98px) {
   .order-page > .d-flex {
     justify-content: flex-start !important;
