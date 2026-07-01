@@ -81,6 +81,36 @@
   text-underline-offset: 0.2em;
 }
 
+@media (max-width: 1300px) and (min-width: 768px) {
+  .customer-page {
+    padding-left: clamp(0.75rem, 2vw, 3rem) !important;
+    padding-right: clamp(0.75rem, 2vw, 3rem);
+  }
+
+  .customer-page .card {
+    padding: clamp(0.45rem, 1vw, 1rem);
+  }
+
+  .customer-page .table th,
+  .customer-page .table td {
+    padding: clamp(0.45rem, 1vw, 0.85rem);
+    font-size: clamp(0.78rem, 1.1vw, 1rem);
+  }
+
+  .customer-page .table th:nth-child(2),
+  .customer-page .table td:nth-child(2),
+  .customer-page .table th:nth-child(5),
+  .customer-page .table td:nth-child(5) {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  .customer-page .table td:nth-child(3),
+  .customer-page .notes-cell {
+    overflow-wrap: anywhere;
+  }
+}
+
 @media (max-width: 767.98px) {
   .customer-page > .d-flex {
     justify-content: flex-start !important;
