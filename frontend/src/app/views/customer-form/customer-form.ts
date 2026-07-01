@@ -63,7 +63,7 @@ export class CustomerForm implements OnInit {
     }
 
     if (this.hasInvalidCustomerNameCharacters(this.customer.name)) {
-      this.errorMessage = 'Numbers are not acceptable characters for a customer name. Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
+      this.errorMessage = 'Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
       return;
     }
 

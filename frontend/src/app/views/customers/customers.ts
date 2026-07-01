@@ -90,7 +90,7 @@ export class Customers implements OnInit, OnDestroy {
     }
 
     if (this.hasInvalidCustomerNameCharacters(this.selectedCustomer.name)) {
-      this.formErrorMessage = 'Numbers are not acceptable characters for a customer name. Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
+      this.formErrorMessage = 'Customer names may only contain letters, spaces, apostrophes, hyphens, and periods.';
       return;
     }
 
