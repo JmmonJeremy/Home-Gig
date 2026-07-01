@@ -95,7 +95,7 @@ export class Customers implements OnInit, OnDestroy {
     }
 
     if (this.selectedCustomer.phone.trim() && !this.hasValidPhoneNumber(this.selectedCustomer.phone)) {
-      this.formErrorMessage = 'Please enter a valid 10-digit phone number.';
+      this.formErrorMessage = 'Phone numbers must contain only 10 numbers.';
       return;
     }
 
@@ -158,7 +158,7 @@ export class Customers implements OnInit, OnDestroy {
   }
 
   private formatPhoneNumber(value: string): string {
-    const digits = value.replace(/\D/g, '').slice(0, 10);
+    const digits = value.replace(/\D/g, '');
 
     if (digits.length <= 3) {
       return digits;
