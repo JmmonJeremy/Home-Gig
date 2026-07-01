@@ -67,6 +67,11 @@ export class CustomerForm implements OnInit {
       return;
     }
 
+    if (this.customer.phone.trim() && this.hasInvalidPhoneCharacters(this.customer.phone)) {
+      this.errorMessage = 'Phone numbers may not contain letters, only numbers and dashes are allowed.';
+      return;
+    }
+
     if (this.customer.phone.trim() && !this.hasValidPhoneNumber(this.customer.phone)) {
       this.errorMessage = 'Phone numbers must contain only 10 numbers.';
       return;
@@ -109,6 +114,10 @@ export class CustomerForm implements OnInit {
   }
 
   private formatPhoneNumber(value: string): string {
+    if (/[^0-9-]/.test(value)) {
+      return value;
+    }
+
     const digits = value.replace(/\D/g, '');
 
     if (digits.length <= 3) {
@@ -124,5 +133,9 @@ export class CustomerForm implements OnInit {
 
   private hasValidPhoneNumber(value: string): boolean {
     return value.replace(/\D/g, '').length === 10;
+  }
+
+  private hasInvalidPhoneCharacters(value: string): boolean {
+    return /[^0-9-]/.test(value);
   }
 }
