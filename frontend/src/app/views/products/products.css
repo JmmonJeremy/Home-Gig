@@ -31,6 +31,10 @@ table {
   table-layout: fixed;
 }
 
+.product-mobile-name {
+  margin: 0 0 0.65rem;
+}
+
 .product-page .table .col-product {
   width: 30%;
 }
@@ -348,6 +352,7 @@ td {
 
   .product-mobile-item .btn.product-mobile-edit {
     margin: 0;
+    text-underline-offset: 0.2em;
   }
 }
 

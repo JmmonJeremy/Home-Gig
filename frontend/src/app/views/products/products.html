@@ -110,10 +110,10 @@
 
     @for (product of filteredProducts; track product._id) {
       <div class="product-mobile-item">
-        <h2 class="product-mobile-name h6 fw-bold mb-2">{{ product.name }}</h2>
+        <h2 class="product-mobile-name h6 fw-bold">{{ product.name }}</h2>
 
-        <div class="product-mobile-row product-mobile-inventory-row d-flex justify-content-between align-items-center mb-1">
-          <span class="product-mobile-field-label">Inventory:</span>
+        <div class="product-mobile-row product-mobile-inventory-row d-flex justify-content-between align-items-center mb-2">
+          <span class="product-mobile-field-label text-muted">Inventory:</span>
 
           @if (product.inventoryQuantity >= 10) {
             <span class="fw-bold text-success product-mobile-inventory-value product-mobile-inventory-value-healthy">{{ product.inventoryQuantity }}</span>
@@ -129,8 +129,8 @@
         </div>
 
         <div class="product-mobile-row d-flex justify-content-between align-items-center mb-2">
-          <span>Price:</span>
-          <span>{{ product.price | currency }}</span>
+          <span class="text-muted">Price:</span>
+          <span class="fw-semibold">{{ product.price | currency }}</span>
         </div>
 
         <button type="button" class="btn btn-link p-0 product-mobile-edit" [routerLink]="['/products', product._id, 'edit']">

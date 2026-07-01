@@ -112,10 +112,10 @@
         <article class="order-mobile-card">
           <h2>{{ order.customerId?.name }}</h2>
 
-          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order #:</span> <span class="order-mobile-value">{{ order.orderNumber }}</span></p>
-          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order Date:</span> <span class="order-mobile-value">{{ order.orderDate | date:'shortDate' }}</span></p>
-          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order Summary:</span> <span class="order-mobile-value">{{ getOrderSummary(order) }}</span></p>
-          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Total:</span> <span class="order-mobile-value">{{ order.orderTotal | currency }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order #:</span> <span class="order-mobile-value fw-semibold">{{ order.orderNumber }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order Date:</span> <span class="order-mobile-value fw-semibold">{{ order.orderDate | date:'shortDate' }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Order Summary:</span> <span class="order-mobile-value fw-semibold">{{ getOrderSummary(order) }}</span></p>
+          <p class="order-mobile-row"><span class="order-mobile-label text-muted">Total:</span> <span class="order-mobile-value fw-semibold">{{ order.orderTotal | currency }}</span></p>
           <p class="order-mobile-row">
             <span class="order-mobile-label text-muted">Payment Status:</span>
             <span
@@ -128,7 +128,7 @@
           </p>
           <p class="order-mobile-row">
             <span class="order-mobile-label text-muted">Payment Date:</span>
-            <span class="order-mobile-value">
+            <span class="order-mobile-value fw-semibold">
               @if (order.paymentDate) {
                 {{ order.paymentDate | date:'shortDate' }}
               } @else {

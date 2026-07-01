@@ -89,11 +89,11 @@
       @for (customer of filteredCustomers; track customer._id) {
         <article class="customer-mobile-item">
           <h2>{{ customer.name }}</h2>
-          <p><span class="customer-mobile-label text-muted">Phone:</span> {{ customer.phone }}</p>
-          <p><span class="customer-mobile-label text-muted">Email:</span> {{ customer.email }}</p>
+          <p class="customer-mobile-row"><span class="customer-mobile-label text-muted">Phone:</span> <span class="customer-mobile-value fw-semibold">{{ customer.phone }}</span></p>
+          <p class="customer-mobile-row"><span class="customer-mobile-label text-muted">Email:</span> <span class="customer-mobile-value fw-semibold">{{ customer.email }}</span></p>
 
           @if (customer.notes) {
-            <p><span class="customer-mobile-label text-muted">Notes:</span> {{ customer.notes }}</p>
+            <p class="customer-mobile-row"><span class="customer-mobile-label text-muted">Notes:</span> <span class="customer-mobile-value fw-semibold">{{ customer.notes }}</span></p>
           }
 
           <a [routerLink]="['/customers', customer._id, 'edit']">Edit</a>
