@@ -11,7 +11,10 @@
 ## Node.js
 - <span style="color: #cd70f2;">nodemon server.js</span>
 ## Go
-- <span style="color: #cd70f2;">go run main.go</span>
+- <span style="color: #cd70f2;">go run main.go</span> 
+
+Or to run all the files in the go-service folder
+- <span style="color: #cd70f2;">go run .</span> 
 
 # Checkup Commands
 ## GitHub
