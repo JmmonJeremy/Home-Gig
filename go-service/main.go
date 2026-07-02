@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -137,6 +138,11 @@ func main() {
 	http.HandleFunc("/status", statusHandler)
 	http.HandleFunc("/capabilities", capabilitiesHandler)
 
-	log.Println("Home Gig Go Service running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Println("Home Gig Go Service running on port " + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
