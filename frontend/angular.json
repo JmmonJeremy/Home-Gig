@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Home-Farm": {
+    "Home-Gig": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,10 +71,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Home-Farm:build:production"
+              "buildTarget": "Home-Gig:build:production"
             },
             "development": {
-              "buildTarget": "Home-Farm:build:development"
+              "buildTarget": "Home-Gig:build:development"
             }
           },
           "defaultConfiguration": "development"
