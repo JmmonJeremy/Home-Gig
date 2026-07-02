@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://home-gig.onrender.com/api'
+  apiUrl: 'https://home-gig-api.onrender.com/api'
 };
