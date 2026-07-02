@@ -14,6 +14,7 @@ export class Dashboard implements OnInit {
   showSystemServices = false;
   errorMessage = '';
   isLoading = false;
+  isUpdatingSystemStatus = false;
 
   stats = [
     { label: 'Orders', value: 0 },
@@ -115,6 +116,46 @@ export class Dashboard implements OnInit {
 
   goToReports(): void {
     this.router.navigate(['/reports']);
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  get isCheckingGoService(): boolean {
+  return this.goServiceStatus === 'Checking...';
+}
+
+  async updateSystemStatus(event: MouseEvent): Promise<void> {
+    event.preventDefault();
+
+    this.isUpdatingSystemStatus = true;
+    this.goServiceStatus = 'Checking...';    
+
+    const startTime = Date.now();
+
+    this.systemService.getSystemStatus().subscribe({
+      next: async (status) => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 2000 - elapsedTime);
+
+        await this.delay(remainingTime);
+
+        this.goServiceStatus = status.goService;
+        this.spreadsheetGenerator = status.spreadsheetGenerator;
+        this.isUpdatingSystemStatus = false;
+      },
+      error: async () => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 2000 - elapsedTime);
+
+        await this.delay(remainingTime);
+
+        this.goServiceStatus = 'Offline';
+        this.spreadsheetGenerator = 'Express';
+        this.isUpdatingSystemStatus = false;
+      }
+    });
   }
 
   toggleSystemServices(): void {

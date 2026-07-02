@@ -95,12 +95,22 @@
       <div class="card-body border-top">
         <div class="row">
           <div class="col-8 col-md-9">
-            <div>Go Service:</div>
+            <div>
+              Go Service
+              <span>( </span>
+              
+                <a href="#" class="dashboard-update-link fw-semibold text-decoration-none" (click)="updateSystemStatus($event)">
+                  <i class="dashboard-update-symbol bi-arrow-repeat" [class.spin]="isUpdatingSystemStatus"></i> Update Status
+                </a>
+              
+              <span> ) :</span>
+            </div>
+
             <div>Spreadsheet Generator:</div>
           </div>
 
           <div class="col-4 col-md-3 text-end">
-            <div>{{ goServiceStatus }}</div>
+            <div [class.dashboard-update-link]="isCheckingGoService">{{ goServiceStatus }}</div>
             <div>{{ spreadsheetGenerator }}</div>
           </div>
         </div>
