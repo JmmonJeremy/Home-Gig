@@ -1,9 +1,11 @@
 const getSystemStatus = async (req, res) => {
+  const goServiceUrl = process.env.GO_SERVICE_URL || "http://localhost:8080";
+
   let goService = "Offline";
   let spreadsheetGenerator = "Express";
 
   try {
-    const statusResponse = await fetch("http://localhost:8080/status");
+    const statusResponse = await fetch(`${goServiceUrl}/status`);
 
     if (statusResponse.ok) {
       const statusData = await statusResponse.json();
@@ -15,7 +17,7 @@ const getSystemStatus = async (req, res) => {
 
   if (goService === "Online") {
     try {
-      const capabilityResponse = await fetch("http://localhost:8080/capabilities");
+      const capabilityResponse = await fetch(`${goServiceUrl}/capabilities`);
 
       if (capabilityResponse.ok) {
         const capabilityData = await capabilityResponse.json();
