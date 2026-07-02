@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,19 @@ import { Router } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  constructor(private router: Router) {}
+  currentUrl = '';
+
+  constructor(private router: Router) {
+    this.currentUrl = this.router.url;
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.currentUrl = event.urlAfterRedirects;
+      });
+  }
 
   isLoginPage(): boolean {
-    return this.router.url === '/login';
+    return this.currentUrl === '/login' || this.currentUrl === '/';
   }
 }
