@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* To help things not be wider than the viewport */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 /* Repeating colored buttons: no text outline */
 .hg-export {
   background-color: #8b5a2b !important;

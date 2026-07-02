@@ -286,7 +286,7 @@ Make the existing top-header search bar functional across the app.
 5. Return the pull request URL when finished.
 
 ## <span style="color: #ffff00;">Copy & Paste Styling Directions</span> &nbsp; &nbsp; <span style="color: red;">⟹</span> &nbsp; &nbsp; <span style="color: #ffff00;">Template</span> for <span style="color: #70bcf2;">Cursor or Codex</span> :
-Home Gig - Desktop Customer & Order View Responsiveness
+Home Gig - Mobile Header Visibility
 Important Guidelines
 1. Do not perform refactoring, formatting-only changes, dependency updates, or cleanup outside the files required for this task.
 2. If the wireframe or requirements are ambiguous, stop and ask for clarification instead of making assumptions.
@@ -295,7 +295,7 @@ Important Guidelines
 Git Setup
 1. Start from the local master branch.
 2. Pull the latest changes from origin/master.
-3. Create and switch to a new branch named: cursor/desktop-customer-order-responsiveness
+3. Create and switch to a new branch named: cursor/mobile-header-spacing
 4. Confirm the current Git branch is: cursor/desktop-customer-order-responsiveness
 
 Before Making Any Changes
