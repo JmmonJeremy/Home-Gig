@@ -1,6 +1,13 @@
 # Start Commands
 ## Angular
-- <span style="color: #cd70f2;">ng serve</span>
+### Development Environment
+- <span style="color: #cd70f2;">ng serve</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or
+- <span style="color: #cd70f2;">npm start</span>
+### Production Environment
+- <span style="color: #cd70f2;">npm run build</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or
+- <span style="color: #cd70f2;">ng build</span>
 ## Node.js
 - <span style="color: #cd70f2;">nodemon server.js</span>
 ## Go
