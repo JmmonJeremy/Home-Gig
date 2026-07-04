@@ -25,7 +25,7 @@ export class Dashboard implements OnInit {
 
   recentOrders: any[] = [];
   goServiceStatus = 'Checking...';
-  spreadsheetGenerator = 'Checking...';
+  spreadsheetGenerator = 'Waking Up...';
 
   constructor(
     private orderService: OrderService,
@@ -130,28 +130,20 @@ export class Dashboard implements OnInit {
     event.preventDefault();
 
     this.isUpdatingSystemStatus = true;
-    this.goServiceStatus = 'Checking...';    
-
-    const startTime = Date.now();
+    this.goServiceStatus = 'Checking...'; 
 
     this.systemService.getSystemStatus().subscribe({
       next: async (status) => {
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, 2000 - elapsedTime);
-
-        await this.delay(remainingTime);
+        await this.delay(2000);
 
         this.goServiceStatus = status.goService;
         this.spreadsheetGenerator = status.spreadsheetGenerator;
         this.isUpdatingSystemStatus = false;
       },
       error: async () => {
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, 2000 - elapsedTime);
+        await this.delay(2000);
 
-        await this.delay(remainingTime);
-
-        this.goServiceStatus = 'Offline';
+        this.goServiceStatus = 'Unavailable';
         this.spreadsheetGenerator = 'Express';
         this.isUpdatingSystemStatus = false;
       }

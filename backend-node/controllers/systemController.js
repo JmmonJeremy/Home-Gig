@@ -1,6 +1,6 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function fetchWithTimeout(url, timeoutMs = 5000) {
+async function fetchWithTimeout(url, timeoutMs = 75000) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -12,40 +12,35 @@ async function fetchWithTimeout(url, timeoutMs = 5000) {
 }
 
 async function checkGoService(goServiceUrl) {
-  const maxWaitMs = 30000;
-  const retryDelayMs = 2000;
-  const requestTimeoutMs = 5000;
-  const startTime = Date.now();
+  try {
+    const response = await fetchWithTimeout(`${goServiceUrl}/status`, 75000);
 
-  while (Date.now() - startTime < maxWaitMs) {
-    try {
-      const response = await fetchWithTimeout(
-        `${goServiceUrl}/status`,
-        requestTimeoutMs
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-
-        return {
-          online: true,
-          status: data.status || "Online"
-        };
-      }
+    if (response.ok) {
+      const data = await response.json();
 
       return {
-        online: false,
-        status: "Offline"
+        online: true,
+        status: data.status || "Online"
       };
-    } catch (error) {
-      await sleep(retryDelayMs);
     }
-  }
 
-  return {
-    online: false,
-    status: "Waking Up..."
-  };
+    if ([502, 503, 504].includes(response.status)) {
+      return {
+        online: false,
+        status: "Waking Up..."
+      };
+    }
+
+    return {
+      online: false,
+      status: "Offline"
+    };
+  } catch (error) {
+    return {
+      online: false,
+      status: "Waking Up..."
+    };
+  }
 }
 
 const getSystemStatus = async (req, res) => {
