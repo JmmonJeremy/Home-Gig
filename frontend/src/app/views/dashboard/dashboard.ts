@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { CustomerService } from '../../services/customer.service';
 import { OrderService } from '../../services/order.service';
 import { SystemService } from '../../services/system.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +12,13 @@ import { SystemService } from '../../services/system.service';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, OnDestroy {
   showSystemServices = false;
   errorMessage = '';
   isLoading = false;
   isUpdatingSystemStatus = false;
+
+  private systemStatusRetryTimer: ReturnType<typeof setTimeout> | null = null;
 
   stats = [
     { label: 'Orders', value: 0 },
@@ -36,7 +40,15 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.loadDashboardData();
-    this.loadSystemStatus();
+    
+    this.refreshSystemStatus({
+      wakeGoFirst: true,
+      showCheckingDelay: false
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.clearSystemStatusRetry();
   }
 
   loadDashboardData(): void {
@@ -57,17 +69,77 @@ export class Dashboard implements OnInit {
   }
 
   loadSystemStatus(): void {
-  this.systemService.getSystemStatus().subscribe({
-    next: (status) => {
-      this.goServiceStatus = status.goService;
-      this.spreadsheetGenerator = status.spreadsheetGenerator;
-    },
-    error: () => {
-      this.goServiceStatus = 'Unavailable';
-      this.spreadsheetGenerator = 'Express';
+    this.refreshSystemStatus({
+      wakeGoFirst: true,
+      showCheckingDelay: false
+    });
+  }
+
+  // One shared method for initial load, refresh, and manual update.
+  private async refreshSystemStatus(options: {
+    wakeGoFirst: boolean;
+    showCheckingDelay: boolean;
+  }): Promise<void> {
+    this.clearSystemStatusRetry();
+
+    if (options.showCheckingDelay) {
+      this.isUpdatingSystemStatus = true;
+      this.goServiceStatus = 'Checking...';
     }
-  });
-}
+
+    if (options.wakeGoFirst) {
+      try {
+        await firstValueFrom(this.systemService.wakeGoService());
+      } catch {
+        // Ignore this error. The Node backend status check below decides what to show.
+      }
+    }
+
+    if (options.showCheckingDelay) {
+      await this.delay(2000);
+      this.isUpdatingSystemStatus = false;
+
+      if (this.goServiceStatus === 'Checking...') {
+        this.goServiceStatus = 'Waking Up...';
+      }
+    }
+
+    this.systemService.getSystemStatus().subscribe({
+      next: (status) => {
+        this.goServiceStatus = status.goService;
+        this.spreadsheetGenerator = status.spreadsheetGenerator;
+
+        if (status.goService === 'Waking Up...') {
+          this.scheduleSystemStatusRetry();
+        } else {
+          this.clearSystemStatusRetry();
+        }
+      },
+      error: () => {
+        this.goServiceStatus = 'Unavailable';
+        this.spreadsheetGenerator = 'Express';
+        this.clearSystemStatusRetry();
+      }
+    });
+  }
+
+  private scheduleSystemStatusRetry(): void {
+    this.clearSystemStatusRetry();
+
+    this.systemStatusRetryTimer = setTimeout(() => {
+      this.refreshSystemStatus({
+        wakeGoFirst: true,
+        showCheckingDelay: false
+      });
+    }, 5000);
+  }
+
+  private clearSystemStatusRetry(): void {
+    if (this.systemStatusRetryTimer) {
+      clearTimeout(this.systemStatusRetryTimer);
+      this.systemStatusRetryTimer = null;
+    }
+  }
 
   loadCustomerCount(): void {
     this.customerService.getCustomers().subscribe({
@@ -123,26 +195,16 @@ export class Dashboard implements OnInit {
   }
 
   get isCheckingGoService(): boolean {
-  return this.goServiceStatus === 'Checking...';
-}
+    return this.goServiceStatus === 'Checking...';
+  }
 
-  async updateSystemStatus(event: MouseEvent): Promise<void> {
+  // Uses the same shared refresh method as Dashboard load/retry.
+  updateSystemStatus(event: MouseEvent): void {
     event.preventDefault();
 
-    this.isUpdatingSystemStatus = true;
-    this.goServiceStatus = 'Checking...';
-
-    this.systemService.wakeGoService().subscribe({
-      next: async () => {
-        await this.delay(2000);
-        this.loadSystemStatus();
-        this.isUpdatingSystemStatus = false;
-      },
-      error: async () => {
-        await this.delay(2000);
-        this.loadSystemStatus();
-        this.isUpdatingSystemStatus = false;
-      }
+    this.refreshSystemStatus({
+      wakeGoFirst: true,
+      showCheckingDelay: true
     });
   }
 
