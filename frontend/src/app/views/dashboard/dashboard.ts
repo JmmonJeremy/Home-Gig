@@ -63,7 +63,7 @@ export class Dashboard implements OnInit {
       this.spreadsheetGenerator = status.spreadsheetGenerator;
     },
     error: () => {
-      this.goServiceStatus = 'Offline';
+      this.goServiceStatus = 'Unavailable';
       this.spreadsheetGenerator = 'Express';
     }
   });
@@ -130,21 +130,17 @@ export class Dashboard implements OnInit {
     event.preventDefault();
 
     this.isUpdatingSystemStatus = true;
-    this.goServiceStatus = 'Checking...'; 
+    this.goServiceStatus = 'Checking...';
 
-    this.systemService.getSystemStatus().subscribe({
-      next: async (status) => {
+    this.systemService.wakeGoService().subscribe({
+      next: async () => {
         await this.delay(2000);
-
-        this.goServiceStatus = status.goService;
-        this.spreadsheetGenerator = status.spreadsheetGenerator;
+        this.loadSystemStatus();
         this.isUpdatingSystemStatus = false;
       },
       error: async () => {
         await this.delay(2000);
-
-        this.goServiceStatus = 'Unavailable';
-        this.spreadsheetGenerator = 'Express';
+        this.loadSystemStatus();
         this.isUpdatingSystemStatus = false;
       }
     });

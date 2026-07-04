@@ -61,7 +61,18 @@
           <p class="text-info mb-3">{{ infoMessage }}</p>
         }
 
-        <button type="submit" class="login-btn btn w-100 mb-3">Login</button>
+        <button type="submit" class="login-btn btn w-100 mb-3" [disabled]="isLoggingIn">
+          @if (isLoggingIn) {
+            <span
+              class="spinner-border spinner-border-sm me-2"
+              aria-hidden="true">
+            </span>
+
+            Logging In...
+          } @else {
+            Login
+          }
+        </button>
 
         <div class="text-center mb-3">
           <a href="#" class="login-link" (click)="onForgotPassword($event)">Forgot Password?</a>

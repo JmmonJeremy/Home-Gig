@@ -14,6 +14,7 @@ export class Login implements OnInit {
   rememberMe = true;
   errorMessage = '';
   infoMessage = '';
+  isLoggingIn = false;
 
   private readonly rememberedEmailKey = 'homeGigRememberedEmail';
 
@@ -34,6 +35,9 @@ export class Login implements OnInit {
   onSubmit(): void {
     this.errorMessage = '';
     this.infoMessage = '';
+    this.isLoggingIn = true;
+
+    this.infoMessage = 'Logging in... Please wait.';
 
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
@@ -44,9 +48,13 @@ export class Login implements OnInit {
         }
 
         this.authService.saveToken(response.token);
+        this.isLoggingIn = false;
+        this.infoMessage = '';
         this.router.navigate(['/dashboard']);
       },
       error: () => {
+        this.isLoggingIn = false;
+        this.infoMessage = '';
         this.errorMessage = 'Invalid email or password';
       }
     });

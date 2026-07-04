@@ -9,10 +9,15 @@ import { environment } from '../../environments/environment';
 })
 export class SystemService {
   private apiUrl = environment.apiUrl + '/system';
+  private goServiceUrl = environment.goServiceUrl;
 
   constructor(private http: HttpClient) {}
 
   getSystemStatus(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/status`);
+  }
+
+  wakeGoService(): Observable<any> {
+    return this.http.get<any>(`${this.goServiceUrl}/status`);
   }
 }

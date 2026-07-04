@@ -11,9 +11,23 @@ import (
 	"time"
 )
 
-const goBaseURL = "http://localhost:8080"
+func getGoBaseURL() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	return "http://localhost:" + port
+}
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
+	enableCors(w)
+
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	response := map[string]interface{}{
 		"service":   "Home Gig Go Service",
 		"status":    "Online",
@@ -80,7 +94,7 @@ func runSpreadsheetCapabilityChecks() map[string]bool {
 
 	req, err := http.NewRequest(
 		"POST",
-		goBaseURL+"/reports/orders-payments",
+		getGoBaseURL()+"/reports/orders-payments",
 		bytes.NewBuffer(payloadBytes),
 	)
 	if err != nil {
@@ -132,6 +146,12 @@ func runSpreadsheetCapabilityChecks() map[string]bool {
 	}
 
 	return checks
+}
+
+func enableCors(w http.ResponseWriter) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 }
 
 func main() {
