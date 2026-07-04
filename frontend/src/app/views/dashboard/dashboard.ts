@@ -28,7 +28,7 @@ export class Dashboard implements OnInit, OnDestroy {
   ];
 
   recentOrders: any[] = [];
-  goServiceStatus = 'Checking...';
+  goServiceStatus = 'Waking Up...';
   spreadsheetGenerator = 'Waking Up...';
 
   constructor(
