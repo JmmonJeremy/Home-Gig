@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule, provideBrowserGlobalErrorListeners, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient, HTTP_INTERCEPTORS, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app-routes';
 import { Header } from './components/header/header';
 import { Sidebar } from './components/sidebar/sidebar';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,13 @@ import { Sidebar } from './components/sidebar/sidebar';
     BrowserModule,
     CommonModule,
     RouterModule.forRoot(routes),
-    FormsModule   
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })   
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
