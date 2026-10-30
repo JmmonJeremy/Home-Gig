@@ -52,10 +52,18 @@ export class Login implements OnInit {
         this.infoMessage = '';
         this.router.navigate(['/dashboard']);
       },
-      error: () => {
+      error: (error) => {
         this.isLoggingIn = false;
         this.infoMessage = '';
-        this.errorMessage = 'Invalid email or password';
+        if (error.status === 401) {
+          this.errorMessage = 'Invalid email or password';
+        } else if (error.status === 0) {
+          this.errorMessage =
+            'Unable to connect to the server. Please try again.';
+        } else {
+          this.errorMessage =
+            'The server is temporarily unavailable. Please try again.';
+        }
       }
     });
   }

@@ -60,7 +60,7 @@
 }
 
 .sidebar-header:hover .sidebar-home-icon {
-  content: url('/assets/images/home-gig-icon2.png');
+  content: url('/assets/images/home-gig-icon2dbl.png');
 }
 
 .sidebar-home-icon {
@@ -68,7 +68,7 @@
 }
 
 .sidebar-header:hover .sidebar-home-icon {
-  content: url('/assets/images/home-gig-icon2.png');
+  content: url('/assets/images/home-gig-icon2dbl.png');
   filter: drop-shadow(1px 0 black)
           drop-shadow(-1px 0 black)
           drop-shadow(0 1px black)
@@ -100,7 +100,7 @@
 
 .active-header .sidebar-home-icon {
   margin-right: -3px;
-  content: url('/assets/images/home-gig-icon3.png');
+  content: url('/assets/images/home-gig-icon3d.png');
   filter: drop-shadow(1px 0 #ffffff)
           drop-shadow(-1px 0 #ffffff)
           drop-shadow(0 1px #ffffff)
@@ -282,7 +282,7 @@
 
   .sidebar-mobile-top.active-header-mobile .sidebar-home-icon {
     margin-right: -3px;
-    content: url('/assets/images/home-gig-icon3.png');
+    content: url('/assets/images/home-gig-icon3d.png');
     filter: drop-shadow(1px 0 #ffffff)
             drop-shadow(-1px 0 #ffffff)
             drop-shadow(0 1px #ffffff)
