@@ -9,6 +9,7 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -23,7 +24,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     let requestToSend = req;
 
-    if (token) {
+    // Only attach the token to Home Gig's Node.js API.
+    const apiUrl = environment.apiUrl.replace(/\/$/, '');
+    const isHomeGigApi =
+      req.url === apiUrl ||
+      req.url.startsWith(`${apiUrl}/`);
+
+    if (token && isHomeGigApi) {
       requestToSend = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
