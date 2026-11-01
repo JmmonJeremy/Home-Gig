@@ -128,3 +128,40 @@
   }
 
 }
+
+/* Hide shortened label on larger screens */
+.dashboard-update-short {
+  display: none;
+}
+
+/* Keep Update Status link on one line */
+.dashboard-update-link {
+  white-space: nowrap;
+}
+
+/* Shorten label on smaller mobile screens */
+@media (max-width: 450px) {
+  .dashboard-update-full {
+    display: none;
+  }
+
+  .dashboard-update-short {
+    display: inline;
+  }
+}
+
+/* Smaller System Services text on narrow phone screens */
+@media (max-width: 365px) {
+  .system-services-card .card-body {
+    font-size: 0.75rem;
+  }
+  
+  .dashboard-update-link {
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .dashboard-update-symbol {
+    font-size: 0.65rem;
+  }
+}

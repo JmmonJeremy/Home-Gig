@@ -100,7 +100,9 @@
               <span>( </span>
               
                 <a href="#" class="dashboard-update-link fw-semibold text-decoration-none" (click)="updateSystemStatus($event)">
-                  <i class="dashboard-update-symbol bi-arrow-repeat" [class.spin]="isUpdatingSystemStatus"></i> Update Status
+                  <i class="dashboard-update-symbol bi bi-arrow-repeat" [class.spin]="isUpdatingSystemStatus"></i>
+                  <span class="dashboard-update-full"> Update Status</span>
+                  <span class="dashboard-update-short"> Update</span>
                 </a>
               
               <span> ) :</span>
